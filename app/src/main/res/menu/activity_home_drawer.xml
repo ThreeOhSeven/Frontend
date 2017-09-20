@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile_black_24dp"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_social_feed"
+            android:icon="@drawable/ic_news_feed_black_24dp"
+            android:title="News Feed" />
+        <item
+            android:id="@+id/nav_bets"
+            android:icon="@drawable/ic_money_black_24dp"
+            android:title="Bets" />
+        <item
+            android:id="@+id/nav_friends"
+            android:icon="@drawable/ic_friends_black_24dp"
+            android:title="Friends" />
+    </group>
+
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_gen_settings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:title="General" />
+            <item
+                android:id="@+id/nav_acct_mgmt"
+                android:icon="@drawable/ic_account_mgmt_black_24dp"
+                android:title="Account Management" />
+            <item
+                android:id="@+id/nav_bug_report"
+                android:icon="@drawable/ic_bug_report_black_24dp"
+                android:title="Report Bugs" />
+        </menu>
+    </item>
+
+</menu>
