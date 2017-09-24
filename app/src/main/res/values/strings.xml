@@ -8,6 +8,6 @@
 
 
     <!--TODO: App url when ready-->
-    <string name="app_url">APP_URL_GOES_HERE</string>
+    <string name="app_url">http://10.186.99.127:8000/</string>
 
 </resources>

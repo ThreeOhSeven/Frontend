@@ -12,7 +12,6 @@ import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.PublicFeedItem;
-import edu.purdue.a307.betcha.Models.TokenRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;

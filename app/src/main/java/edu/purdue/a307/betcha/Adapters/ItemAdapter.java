@@ -3,6 +3,7 @@ package edu.purdue.a307.betcha.Adapters;
 /**
  * Created by kyleohanian on 9/20/17.
  */
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,46 +27,38 @@ import edu.purdue.a307.betcha.R;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
 
-//    private List<ItemObject> items;
+//    private List<T> items;
+    private Context context;
+    private int layoutID;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView value;
-        public TextView label;
-        public ImageView imageView, heart;
 
+        // TODO:: Components
 
         public MyViewHolder(View view) {
             super(view);
-            imageView = (ImageView)view.findViewById(R.id.image);
-//            heart = (ImageView)view.findViewById(R.id.heart);
-//            value = (TextView) view.findViewById(R.id.value);
-//            label = (TextView) view.findViewById(R.id.label);
 
+            // TODO:: Fill in other parts of card view
         }
     }
 
 
-//    public ItemAdapter(final List<ProfileItem> items) {
-//        this.items = new ArrayList<ItemObject>();
-//        this.items.addAll(items);
-//    }
-//
-//    public ItemAdapter(final List<NewsFeedItem> items, int i) {
-//        this.items = new ArrayList<ItemObject>();
-//        this.items.addAll(items);
-//    }
+    public ItemAdapter(Context context, int layoutID/*,List<T> items*/) {
+        this.context = context;
+        this.layoutID = layoutID;
+//        this.items = items;
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View itemView = LayoutInflater.from(parent.getContext())
-//                .inflate(R.layout.user_attr_card, parent, false);
-//        return new MyViewHolder(itemView);
-        return null;
+        View itemView = LayoutInflater.from(parent.getContext())
+                .inflate(layoutID, parent, false);
+        return new MyViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-//        final ItemObject item = items.get(position);
+//        final RecyclerItem item = items.get(position);
     }
 
     @Override
