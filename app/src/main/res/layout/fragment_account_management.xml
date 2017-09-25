@@ -5,6 +5,7 @@
     tools:context="edu.purdue.a307.betcha.Fragments.AccountManagementFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

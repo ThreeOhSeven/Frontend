@@ -1,5 +1,6 @@
-package edu.purdue.a307.betcha;
+package edu.purdue.a307.betcha.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,11 +16,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+
+import edu.purdue.a307.betcha.R;
+
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
     ImageView splash;
+    GoogleApiClient apiClient;
 
 
     @Override
@@ -37,6 +47,11 @@ public class HomeActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
+
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(
+                GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        apiClient = new GoogleApiClient.Builder(this).addApi(
+                Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
     }
 
     @Override
@@ -47,6 +62,26 @@ public class HomeActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        apiClient.connect();
+    }
+
+    public void signOut() {
+        Auth.GoogleSignInApi.signOut(apiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+                        Intent myIntent = new Intent(
+                                HomeActivity.this, LoginActivity.class);
+                        startActivity(myIntent);
+                        finish();
+                    }
+                });
+
     }
 
     @Override
@@ -61,7 +96,11 @@ public class HomeActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        return false;
+        int id = item.getItemId();
+        if (id == R.id.nav_sign_out) {
+            signOut();
+        }
+        return true;
     }
 
     @Override

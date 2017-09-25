@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "944441731974",
+    "project_id": "betcha-180720"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944441731974:android:4b95cfbab36cc2d4",
+        "android_client_info": {
+          "package_name": "edu.purdue.a307.betcha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944441731974-arsmkg4bbnr8ajbo8ggmfea8ajgf4te6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.purdue.a307.betcha",
+            "certificate_hash": "35dfa4526ec92cafd5eccbf0d672f6ab3770f01c"
+          }
+        },
+        {
+          "client_id": "944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdotJmyYUgmEZ8uH1kRs6oRKw6-GKOUGw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
