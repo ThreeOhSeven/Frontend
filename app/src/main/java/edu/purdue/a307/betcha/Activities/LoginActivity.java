@@ -90,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(
-                GoogleSignInOptions.DEFAULT_SIGN_IN).requestScopes(
-                new Scope(GMAIL_SCOPE)).requestEmail().build();
+                GoogleSignInOptions.DEFAULT_SIGN_IN).
+                requestIdToken(getApplicationContext().getString(R.string.google_client_id)).build();
 
         apiClient = new GoogleApiClient.Builder(this).addApi(
                 Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
@@ -149,7 +149,8 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("TAG", "Result = " + res.isSuccess());
         if(res.isSuccess()) {
             GoogleSignInAccount account = res.getSignInAccount();
-            new TokenTask().execute(account.getAccount());
+            String token = account.getIdToken();
+            authWithServer(token);
         }
         else
             mAccount = null;
@@ -180,74 +181,43 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-    private class TokenTask extends AsyncTask<Account, Void, String> {
 
-        @Override
-        protected String doInBackground(Account... accts) {
-            try {
-                GoogleAccountCredential credential =
-                        GoogleAccountCredential.usingOAuth2(
-                                LoginActivity.this,
-                                Collections.singletonList(GMAIL_SCOPE)
-                        );
-                credential.setSelectedAccount(accts[0]);
-                String TOKEN = credential.getToken();
-                return TOKEN;
-            } catch (UserRecoverableAuthIOException ure) {
-                startActivityForResult(ure.getIntent(),RC_RECOVERABLE);
-                return null;
-            } catch (IOException e) {
-                return null;
-            } catch(GoogleAuthException ga) {
-                return null;
-            }
+    private void authWithServer(String TOKEN) {
+        if(TOKEN == null) {
+            return;
         }
-
-        @Override
-        protected void onCancelled() {
-        }
-
-        @Override
-        protected void onPostExecute(final String TOKEN) {
-            if(TOKEN == null) {
-                signOut();
-                return;
-            }
-            ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN)).enqueue(new Callback<BetchaResponse>() {
-                @Override
-                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response){
-                    if (response.code() != 200) {
-                        Log.d("Response Code",String.valueOf(response.code()));
-                        Log.d("Response Message",String.valueOf(response.message()));
-                        showErrorDialog();
-                        signOut();
-                    }
-                    else {
-                        Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-//                        SharedPrefsHelper.getSharedPrefs(
-//                                getApplicationContext()).edit().putString("authToken",response.body().getAuthToken());
-                        Log.d("Body Response", response.toString());
-                        Log.d("Callback Response", response.body().toString());
-                        Log.d("Message", response.message());
-                        if(response.body().getAuthToken() != null) {
-                            Log.d("Callback Token", response.body().getAuthToken());
-                        }
-                        Toast.makeText(getApplicationContext(), response.body().getAuthToken(), Toast.LENGTH_LONG).show();
-                        startActivity(myIntent);
-                        finish();
-                        signInButton.setVisibility(View.INVISIBLE);
-                        signOut.setVisibility(View.VISIBLE);
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BetchaResponse> call, Throwable t) {
+        ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN)).enqueue(new Callback<BetchaResponse>() {
+            @Override
+            public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response){
+                if (response.code() != 200) {
+                    Log.d("Response Code",String.valueOf(response.code()));
+                    Log.d("Response Message",String.valueOf(response.message()));
                     showErrorDialog();
                     signOut();
                 }
-            });
-            signInButton.setVisibility(View.INVISIBLE);
-            signOut.setVisibility(View.VISIBLE);
-        }
+                else {
+                    Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
+//                        SharedPrefsHelper.getSharedPrefs(
+//                                getApplicationContext()).edit().putString("authToken",response.body().getAuthToken());
+                    Log.d("Body Response", response.toString());
+                    Log.d("Callback Response", response.body().toString());
+                    Log.d("Message", response.message());
+                    if(response.body().getSelfToken() != null) {
+                        Log.d("Callback Token", response.body().getSelfToken());
+                    }
+                    Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
+                    startActivity(myIntent);
+                    finish();
+                    signInButton.setVisibility(View.INVISIBLE);
+                    signOut.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                showErrorDialog();
+                signOut();
+            }
+        });
     }
 }

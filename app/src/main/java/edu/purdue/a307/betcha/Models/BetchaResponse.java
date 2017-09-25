@@ -8,28 +8,32 @@ public class BetchaResponse {
 
     public boolean result;
     public String selfToken;
+    public String userID;
 
     public BetchaResponse() {}
 
-    public BetchaResponse(boolean result, String selfToken) {
-        this.result = result;
-        this.selfToken = selfToken;
-    }
-
-    public boolean isSuccess() {
+    public boolean isResult() {
         return result;
     }
 
-    public void setSuccess(boolean result) {
+    public void setResult(boolean result) {
         this.result = result;
     }
 
-    public String getAuthToken() {
+    public String getSelfToken() {
         return selfToken;
     }
 
-    public void setAuthToken(String selfToken) {
+    public void setSelfToken(String selfToken) {
         this.selfToken = selfToken;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     @Override

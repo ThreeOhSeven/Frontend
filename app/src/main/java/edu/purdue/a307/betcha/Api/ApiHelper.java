@@ -16,7 +16,7 @@ public class ApiHelper {
     public static BetchaApi getInstance(Context context) {
         if (betchaApi == null) {
             Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(/*context.getString(R.string.app_name)*/"http://10.186.99.127:8000/")
+                    .baseUrl(/*context.getString(R.string.app_name)*/"http://52.14.139.38:80")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
