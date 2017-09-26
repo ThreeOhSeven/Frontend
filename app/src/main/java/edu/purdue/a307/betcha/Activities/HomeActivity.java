@@ -24,106 +24,13 @@ import com.google.android.gms.common.api.Status;
 
 import edu.purdue.a307.betcha.R;
 
-public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-
-
-    ImageView splash;
-    GoogleApiClient apiClient;
+public class HomeActivity extends BetchaActivity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        splash = (ImageView)findViewById(R.id.splash);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.bringToFront();
-
-        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(
-                GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        apiClient = new GoogleApiClient.Builder(this).addApi(
-                Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
     }
 
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        apiClient.connect();
-    }
-
-    public void signOut() {
-        Auth.GoogleSignInApi.signOut(apiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(Status status) {
-                        Intent myIntent = new Intent(
-                                HomeActivity.this, LoginActivity.class);
-                        startActivity(myIntent);
-                        finish();
-                    }
-                });
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.nav_sign_out) {
-            signOut();
-        }
-        return true;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_profile) {
-
-        } else if (id == R.id.nav_social_feed) {
-
-        } else if (id == R.id.nav_bets) {
-
-        } else if (id == R.id.nav_friends) {
-
-        } else if (id == R.id.nav_gen_settings) {
-
-        } else if (id == R.id.nav_bug_report) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
+    protected int getLayoutResource() { return R.layout.activity_home; }
 }

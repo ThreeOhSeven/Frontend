@@ -21,10 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import edu.purdue.a307.betcha.R;
 
-/**
- * Created by kyleohanian on 9/13/17.
- */
-
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
 
 //    private List<T> items;
