@@ -3,6 +3,7 @@ package edu.purdue.a307.betcha.Activities;
 import android.accounts.Account;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -47,9 +48,7 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private SignInButton signInButton;
-    Button signOut;
     private GoogleApiClient apiClient;
-    private static final String GMAIL_SCOPE = "https://www.googleapis.com/auth/gmail.readonly";
 
     // Bundle key for account object
     private static final String KEY_ACCOUNT = "key_account";
@@ -59,28 +58,17 @@ public class LoginActivity extends AppCompatActivity {
     private static final int RC_RECOVERABLE = 9002;
     private Account mAccount;
 
-    /** Global instance of the HTTP transport. */
-    private static HttpTransport HTTP_TRANSPORT = AndroidHttp.newCompatibleTransport();
-    /** Global instance of the JSON factory. */
-    private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         signInButton = (SignInButton)findViewById(R.id.sign_in_button);
-        signOut = (Button)findViewById(R.id.sign_out_button);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = Auth.GoogleSignInApi.getSignInIntent(apiClient);
                 startActivityForResult(myIntent, RC_SIGN_IN);
-            }
-        });
-        signOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signOut();
             }
         });
         signInButton.setSize(SignInButton.SIZE_STANDARD);
@@ -161,10 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         Auth.GoogleSignInApi.signOut(apiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
-                    public void onResult(Status status) {
-                        signInButton.setVisibility(View.VISIBLE);
-                        signOut.setVisibility(View.INVISIBLE);
-                    }
+                    public void onResult(Status status) {}
                 });
     }
 
@@ -208,8 +193,6 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
                     startActivity(myIntent);
                     finish();
-                    signInButton.setVisibility(View.INVISIBLE);
-                    signOut.setVisibility(View.VISIBLE);
                 }
             }
 
