@@ -19,10 +19,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     private String[] dataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mTextView;
-        public ViewHolder(TextView v) {
+        public TextView mTextTitle;
+        public ViewHolder(View v) {
             super(v);
-            mTextView = v;
+            mTextTitle = (TextView) v.findViewById(R.id.textTitle);
         }
     }
 
@@ -48,7 +48,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(dataset[position]);
+        holder.mTextTitle.setText(dataset[position]);
     }
 
     @Override
