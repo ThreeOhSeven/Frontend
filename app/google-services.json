@@ -13,6 +13,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "944441731974-daftmf434i0tt4bp6fe2kfdt86elqoms.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.purdue.a307.betcha",
+            "certificate_hash": "8ff0c365f4e672fff48a892a12274a55678a1315"
+          }
+        },
+        {
           "client_id": "944441731974-arsmkg4bbnr8ajbo8ggmfea8ajgf4te6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
