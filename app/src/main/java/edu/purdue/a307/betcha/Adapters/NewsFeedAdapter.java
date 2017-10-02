@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import edu.purdue.a307.betcha.Models.Bet;
@@ -22,10 +24,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mBetTitle;
         public TextView mBetText;
-        public TextView mId;
+        public TextView mBetId;
         public ViewHolder(View v) {
             super(v);
-            mId = (TextView) v.findViewById(R.id.bet_id);
+            mBetId = (TextView) v.findViewById(R.id.bet_id);
             mBetTitle = (TextView) v.findViewById(R.id.bet_title);
             mBetText = (TextView) v.findViewById(R.id.bet_text);
         }
@@ -46,7 +48,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public NewsFeedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CardView v = (CardView) LayoutInflater.from(parent.getContext())
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_news_feed_bet, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -54,7 +56,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mBetTitle.setText(dataset[position]);
+        holder.mBetTitle.setText(dataset[position].title);
+        holder.mBetText.setText(dataset[position].text);
+        holder.mBetId.setText(String.format("%d", dataset[position].id));
     }
 
     @Override
