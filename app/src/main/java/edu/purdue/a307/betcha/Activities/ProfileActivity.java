@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,7 +16,8 @@ public class ProfileActivity extends BetchaActivity {
 
     protected int getLayoutResource() { return R.layout.activity_profile; }
 
-    public void updatePassword(View view) {
-        // Do nothing
+    public void launchPasswordUpdate(View view) {
+        Intent intent = new Intent(this, PasswordUpdateActivity.class);
+        startActivity(intent);
     }
 }
