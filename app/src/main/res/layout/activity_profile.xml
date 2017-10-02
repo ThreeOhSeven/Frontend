@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="edu.purdue.a307.betcha.Activities.ProfileActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password_update_button"
+        android:id="@+id/password_update_button"
+        android:onClick="updatePassword"/>
+
 </android.support.constraint.ConstraintLayout>
