@@ -16,7 +16,6 @@ public class NewsFeedActivity extends BetchaActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_feed);
         mRecyclerView = (RecyclerView) findViewById(R.id.news_feed_recycler_view);
 
         mRecyclerView.setHasFixedSize(true);

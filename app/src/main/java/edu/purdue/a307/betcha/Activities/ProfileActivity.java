@@ -15,9 +15,4 @@ public class ProfileActivity extends BetchaActivity {
     }
 
     protected int getLayoutResource() { return R.layout.activity_profile; }
-
-    public void launchPasswordUpdate(View view) {
-        Intent intent = new Intent(this, PasswordUpdateActivity.class);
-        startActivity(intent);
-    }
 }
