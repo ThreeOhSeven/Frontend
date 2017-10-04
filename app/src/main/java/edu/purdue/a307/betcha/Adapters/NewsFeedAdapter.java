@@ -9,6 +9,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.List;
+
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.R;
 
@@ -19,7 +21,7 @@ import edu.purdue.a307.betcha.R;
  */
 
 public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
-    private Bet[] dataset;
+    private List<Bet> dataset;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mBetTitle;
@@ -33,9 +35,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         }
     }
 
-    public NewsFeedAdapter() {
+    public NewsFeedAdapter(List<Bet> bets) {
         super();
         // TODO - Add live data
+        /*
         Bet[] testData = new Bet[3];
 
         testData[0] = new Bet(0, 5, "Test1", "I built this for testing", false);
@@ -43,6 +46,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         testData[2] = new Bet(2, 7, "Test3", "I built this for testing bro", false);
 
         dataset = testData;
+        */
+
+        dataset = bets;
     }
 
 
@@ -56,13 +62,13 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mBetTitle.setText(dataset[position].title);
-        holder.mBetText.setText(dataset[position].text);
-        holder.mBetId.setText(String.format("%d", dataset[position].id));
+        holder.mBetTitle.setText(dataset.get(position).title);
+        holder.mBetText.setText(dataset.get(position).text);
+        holder.mBetId.setText(String.format("%d", dataset.get(position).id));
     }
 
     @Override
     public int getItemCount() {
-        return dataset.length;
+        return dataset.size();
     }
 }
