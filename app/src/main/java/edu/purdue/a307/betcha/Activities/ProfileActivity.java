@@ -1,7 +1,9 @@
 package edu.purdue.a307.betcha.Activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import edu.purdue.a307.betcha.R;
 

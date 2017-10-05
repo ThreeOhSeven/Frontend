@@ -3,6 +3,7 @@ package edu.purdue.a307.betcha.Api;
 import java.util.List;
 
 import edu.purdue.a307.betcha.Models.AccountInformation;
+import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetLike;
@@ -12,8 +13,10 @@ import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.PublicFeedItem;
+import edu.purdue.a307.betcha.Models.PublicFeedResponse;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -39,8 +42,9 @@ public interface BetchaApi {
 
 
     // Social Feed
-    @POST("/publicfeed")
-    Call<List<PublicFeedItem>> getPublicFeed(@Query("authToken") String authToken);
+    // TODO - Refactor to be POST with authToken
+    @GET("/publicfeed")
+    Call<PublicFeedResponse> getPublicFeed(); //@Query("authToken") String authToken
 
 
     // Private Feed

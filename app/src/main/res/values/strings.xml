@@ -6,6 +6,14 @@
     <string name="action_settings">Settings</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!-- Profile Activity Strings -->
+    <string name="password_update_button">Change Password</string>
+
+
+    <!-- Password Update Activity Strings -->
+    <string name="password_text_prompt">New Password</string>
+    <string name="button_update_pass">Update</string>
+
 
     <!--TODO: App url when ready-->
     <string name="app_url">ec2-52-14-139-38.us-east-2.compute.amazonaws.com/</string>
