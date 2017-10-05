@@ -7,6 +7,10 @@
     <color name="colorSecondaryAccent">#D3E3D2</color>
     <color name="colorUpdate">#0000B2</color>
     <color name="colorDelete">#B20000</color>
+<<<<<<< HEAD
     <color name="colorButton">#FFFFFF</color>
+=======
+    <color name="colorIcon">#FFFFFF</color>
+>>>>>>> e69d76eb1d706336244ac47c6d43beab69a77015
     <color name="colorLock">#00701A</color>
 </resources>
