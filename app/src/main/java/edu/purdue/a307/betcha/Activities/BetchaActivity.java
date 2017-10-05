@@ -119,18 +119,22 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
             Intent myIntent = new Intent(BetchaActivity.this, NewsFeedActivity.class);
             startActivity(myIntent);
             overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
+        } else if (id == R.id.nav_bets) {
+            Intent myIntent = new Intent(BetchaActivity.this, BetsActivity.class);
+            startActivity(myIntent);
+            overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
+        } else if (id == R.id.nav_friends) {
+            Intent myIntent = new Intent(BetchaActivity.this, FriendsActivity.class);
+            startActivity(myIntent);
+            overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
         }
-
-//        } else if (id == R.id.nav_bets) {
-//
-//        } else if (id == R.id.nav_friends) {
 //
 //        } else if (id == R.id.nav_gen_settings) {
 //
 //        } else if (id == R.id.nav_bug_report) {
 //
 //        }
-          else {
+        else {
             return true;
         }
         finish();

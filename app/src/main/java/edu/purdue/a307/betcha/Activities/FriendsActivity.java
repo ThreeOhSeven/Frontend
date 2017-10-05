@@ -1,27 +1,18 @@
 package edu.purdue.a307.betcha.Activities;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import edu.purdue.a307.betcha.R;
 
 
-/*
+/**
  * Created by kushagra on 10/2/17.
  */
 
-public class ManageActivity extends BetchaActivity {
+public class FriendsActivity extends BetchaActivity {
     Button buttons[] = new Button[3];
 
     @Override
@@ -33,7 +24,7 @@ public class ManageActivity extends BetchaActivity {
     }
 
     protected int getLayoutResource() {
-        return R.layout.fragment_manage_activity;
+        return R.layout.friends_activity;
     }
 
     // Set Listeners
@@ -45,13 +36,13 @@ public class ManageActivity extends BetchaActivity {
                     "edu.purdue.a307.betcha");
             switch (i) {
                 case 0:
-                    buttons[i] = (Button) (findViewById(R.id.createBetBtn));
+                    buttons[i] = (Button) (findViewById(R.id.addFriendBtn));
                     break;
                 case 1:
-                    buttons[i] = (Button) (findViewById(R.id.manageBetsBtn));
+                    buttons[i] = (Button) (findViewById(R.id.manageFriendsBtn));
                     break;
                 case 2:
-                    buttons[i] = (Button) (findViewById(R.id.myScoreBtn));
+                    buttons[i] = (Button) (findViewById(R.id.removeFriendBtn));
                     break;
             }
             buttons[i].setOnClickListener(buttonClickListener);
@@ -63,11 +54,14 @@ public class ManageActivity extends BetchaActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.createBetBtn:
-                    Intent myIntent = new Intent(ManageActivity.this, CreateBetActivity.class);
+                case R.id.addFriendBtn:
+                    Intent myIntent = new Intent(FriendsActivity.this, AddFriendActivity.class);
                     startActivity(myIntent);
                     break;
                 case R.id.manageFriendsBtn:
+
+                    break;
+                case R.id.removeFriendBtn:
 
                     break;
             }
@@ -149,7 +143,7 @@ public class ManageActivity extends BetchaActivity {
         initViews();
         setListeners();*/
 
-        /*
+        /**
          * Call this function whenever you want to check user login
          * This will redirect user to LoginActivity is he is not
          * logged in
