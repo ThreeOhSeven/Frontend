@@ -1,7 +1,9 @@
 package edu.purdue.a307.betcha.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,13 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Peter on 9/28/17.
@@ -48,7 +55,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         dataset = testData;
         */
 
-        dataset = bets;
+
     }
 
 
