@@ -2,12 +2,13 @@ package edu.purdue.a307.betcha.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-<<<<<<< HEAD
+import android.util.Log;
 
+import java.io.IOException;
+
+import edu.purdue.a307.betcha.Models.PublicFeedResponse;
 import edu.purdue.a307.betcha.R;
-
-public class NewsFeedActivity extends BetchaActivity {
-=======
+import retrofit2.Call;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -27,17 +28,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
 public class NewsFeedActivity extends BetchaActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
->>>>>>> e69d76eb1d706336244ac47c6d43beab69a77015
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-<<<<<<< HEAD
-=======
+
         mRecyclerView = (RecyclerView) findViewById(R.id.news_feed_recycler_view);
 
         mRecyclerView.setHasFixedSize(true);
@@ -79,7 +79,6 @@ public class NewsFeedActivity extends BetchaActivity {
         });
 
 
->>>>>>> e69d76eb1d706336244ac47c6d43beab69a77015
     }
 
     protected int getLayoutResource() { return R.layout.activity_news_feed; }

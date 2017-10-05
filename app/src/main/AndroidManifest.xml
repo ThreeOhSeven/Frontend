@@ -23,23 +23,14 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< HEAD
-=======
-            android:name=".Activities.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
->>>>>>> e69d76eb1d706336244ac47c6d43beab69a77015
             android:name=".Activities.NewsFeedActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-<<<<<<< HEAD
         <activity
             android:name=".Activities.BetActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-=======
->>>>>>> e69d76eb1d706336244ac47c6d43beab69a77015
     </application>
 
 </manifest>

@@ -16,7 +16,6 @@ public class BetInformation {
     public String winner;
     public List<BetUsers> betUsers;
 
-<<<<<<< HEAD
     public BetInformation(String creator, String maxUsers, String title, String amount) {
         this.creator = creator;
         this.maxUsers = maxUsers;
@@ -79,7 +78,4 @@ public class BetInformation {
     public void setBetUsers(List<BetUsers> betUsers) {
         this.betUsers = betUsers;
     }
-=======
-
->>>>>>> e69d76eb1d706336244ac47c6d43beab69a77015
 }
