@@ -78,9 +78,6 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                 //Inflating the Popup using xml file
                 popup.inflate(R.menu.item_bet_menu);
                 //registering popup with OnMenuItemClickListener
-                popup.getMenu().getItem(0).setIcon(R.drawable.ic_edit_24dp);
-                popup.getMenu().getItem(1).setIcon(R.drawable.ic_delete_24dp);
-                popup.getMenu().getItem(2).setIcon(R.drawable.ic_lock_close_24dp);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(
