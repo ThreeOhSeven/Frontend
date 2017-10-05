@@ -20,16 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.NewsFeedActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <!--<activity android:name=".Activities.NewsFeedActivity"
+            android:theme="@style/AppTheme.NoActionBar" /> -->
         <activity android:name=".Activities.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.BetsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".Activities.ManageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activities.CreateBetActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.FriendsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.AddFriendActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
