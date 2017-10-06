@@ -1,6 +1,7 @@
 package edu.purdue.a307.betcha.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -12,8 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
+import edu.purdue.a307.betcha.Activities.BetActivity;
+import edu.purdue.a307.betcha.Activities.BetDetailActivity;
+import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Models.Bet;
@@ -30,21 +36,29 @@ import retrofit2.Response;
 
 public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
     private List<Bet> dataset;
+    private BetchaActivity activity;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mBetTitle;
         public TextView mBetText;
         public TextView mBetId;
+        public ConstraintLayout mItem;
         public ViewHolder(View v) {
             super(v);
             mBetId = (TextView) v.findViewById(R.id.bet_id);
             mBetTitle = (TextView) v.findViewById(R.id.bet_title);
             mBetText = (TextView) v.findViewById(R.id.bet_text);
+            mItem = (ConstraintLayout) v.findViewById(R.id.news_feed_item);
+
         }
+
     }
 
-    public NewsFeedAdapter(List<Bet> bets) {
+
+    public NewsFeedAdapter(BetchaActivity betchaActivity, List<Bet> bets) {
         super();
+
+        activity = betchaActivity;
         // TODO - Add live data
         /*
         Bet[] testData = new Bet[3];
@@ -69,10 +83,20 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mBetTitle.setText(dataset.get(position).title);
         holder.mBetText.setText(dataset.get(position).text);
         holder.mBetId.setText(String.format("%d", dataset.get(position).id));
+
+        holder.mItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(activity, BetDetailActivity.class);
+                Gson gson = new Gson();
+                myIntent.putExtra("Obj",gson.toJson(dataset.get(position)));
+                activity.startActivity(myIntent);
+            }
+        });
     }
 
     @Override
