@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -14,10 +15,19 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
+import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.FriendItem;
+import edu.purdue.a307.betcha.Models.FriendItems;
+import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -28,35 +38,33 @@ public class FriendsActivity extends BetchaActivity {
     Button buttons[] = new Button[3];
 
     RecyclerView recyclerView;
-    ArrayList<FriendItem> friends;
+    List<FriendItem> friends;
     FloatingActionButton addFriend;
+    FriendAdapter friendAdapter;
+    String selfTokenFA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerFriends);
+        selfTokenFA = getIntent().getStringExtra("selfToken");
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerFriends);
         friends = new ArrayList<FriendItem>();
-        FriendAdapter adapter = new FriendAdapter(this, friends);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        addFriend = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        addFriend = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         addFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FriendsActivity.this);
                 LayoutInflater inflater = FriendsActivity.this.getLayoutInflater();
                 View thisView = inflater.inflate(R.layout.send_friend_request, null);
-                final EditText email = (EditText)thisView.findViewById(R.id.email);
+                final EditText email = (EditText) thisView.findViewById(R.id.email);
                 alertDialogBuilder.setView(thisView);
                 alertDialogBuilder.setCancelable(false);
                 alertDialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         String name = email.getText().toString();
-                        if(name == null || name.length() <= 0) {
-                            Toast.makeText(getApplicationContext(), "Please type in an email",Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        if (name == null || name.length() <= 0) {
+                            Toast.makeText(getApplicationContext(), "Please type in an email", Toast.LENGTH_SHORT).show();
+                        } else {
                             dialog.dismiss();
                             //TODO: Handle action for sending friend request
                         }
@@ -77,51 +85,81 @@ public class FriendsActivity extends BetchaActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("FA SELF TOKEN", selfTokenFA);
+        ApiHelper.getInstance(this).getFriends(new LoginRequest(selfTokenFA)).enqueue(new Callback<FriendItems>() {
+            @Override
+            public void onResponse(Call<FriendItems> call, Response<FriendItems> response) {
+                if (response.code() != 200) {
+                    Log.d("AUTH ERROR", String.valueOf(response.code()));
+                    Toast.makeText(getApplicationContext(), "Unable to get friends", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+//                Log.d("Bets size", String.valueOf(response.body().getMyBets().size()));
+                friends = response.body().getFriends_obj();
+                friendAdapter = new FriendAdapter(FriendsActivity.this, friends);
+                recyclerView.setAdapter(friendAdapter);
+                recyclerView.invalidate();
+                recyclerView.setLayoutManager(new LinearLayoutManager(FriendsActivity.this));
+                friendAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<FriendItems> call, Throwable t) {
+                Log.d("COMPLETE FAIL", "FAiled");
+            }
+        });
+    }
+
     protected int getLayoutResource() {
         return R.layout.friends_activity;
     }
-
-    // Set Listeners
-    private void setListeners() {
-        //myProfileButton.setOnClickListener(this);
-        for (int i = 0; i < buttons.length; i++) {
-            String buttonID = "button" + i;
-            int resID = getResources().getIdentifier(buttonID, "id",
-                    "edu.purdue.a307.betcha");
-            switch (i) {
-                case 0:
-//                    buttons[i] = (Button) (findViewById(R.id.addFriendBtn));
-                    break;
-                case 1:
-//                    buttons[i] = (Button) (findViewById(R.id.manageFriendsBtn));
-                    break;
-                case 2:
-//                    buttons[i] = (Button) (findViewById(R.id.removeFriendBtn));
-                    break;
-            }
-            buttons[i].setOnClickListener(buttonClickListener);
-        }
-        //myScoreButton.setOnClickListener(this);
-    }
-
-    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-//                case R.id.addFriendBtn:
-//                    Intent myIntent = new Intent(FriendsActivity.this, AddFriendActivity.class);
-//                    startActivity(myIntent);
-//                    break;
-//                case R.id.manageFriendsBtn:
-//
-//                    break;
-//                case R.id.removeFriendBtn:
-//
-//                    break;
-            }
-        }
-    };
 }
+//
+//    // Set Listeners
+//    private void setListeners() {
+//        //myProfileButton.setOnClickListener(this);
+//        for (int i = 0; i < buttons.length; i++) {
+//            String buttonID = "button" + i;
+//            int resID = getResources().getIdentifier(buttonID, "id",
+//                    "edu.purdue.a307.betcha");
+//            switch (i) {
+//                case 0:
+////                    buttons[i] = (Button) (findViewById(R.id.addFriendBtn));
+//                    break;
+//                case 1:
+////                    buttons[i] = (Button) (findViewById(R.id.manageFriendsBtn));
+//                    break;
+//                case 2:
+////                    buttons[i] = (Button) (findViewById(R.id.removeFriendBtn));
+//                    break;
+//            }
+//            buttons[i].setOnClickListener(buttonClickListener);
+//        }
+//        //myScoreButton.setOnClickListener(this);
+//    }
+
+//    private View.OnClickListener buttonClickListener = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            switch (v.getId()) {
+////                case R.id.addFriendBtn:
+////                    Intent myIntent = new Intent(FriendsActivity.this, AddFriendActivity.class);
+////                    startActivity(myIntent);
+////                    break;
+////                case R.id.manageFriendsBtn:
+////
+////                    break;
+////                case R.id.removeFriendBtn:
+////
+////                    break;
+//            }
+//        }
+//    };
+//}
             /*case R.id.mySMSBtn:
                 fragment = new MySMS();
                 fragmentManager = getFragmentManager();

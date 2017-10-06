@@ -25,6 +25,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
+import edu.purdue.a307.betcha.Activities.ProfileActivity;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.FriendItem;
@@ -66,7 +67,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
     @Override
     public FriendAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_bet_information, parent, false);
+                .inflate(R.layout.item_friend, parent, false);
         return new FriendAdapter.MyViewHolder(itemView);
     }
 
@@ -100,7 +101,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(activity, BetActivity.class);
+                Intent myIntent = new Intent(activity, ProfileActivity.class);
                 Gson gson = new Gson();
                 myIntent.putExtra("Object",gson.toJson(info));
                 activity.startActivity(myIntent);

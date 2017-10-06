@@ -40,10 +40,10 @@ public class AddFriendActivity extends BetchaActivity {
 
     // Initiate Views
     private void initViews() {
-        friendName = (EditText) findViewById(R.id.friendName);
-        friendUserName = (EditText) findViewById(R.id.friendUserName);
-        friendPhotoUrl = (EditText) findViewById(R.id.friendPhotoUrl);
-        addFriendButton = (Button) findViewById(R.id.addFriendBtn);
+//        friendName = (EditText) findViewById(R.id.friendName);
+//        friendUserName = (EditText) findViewById(R.id.friendUserName);
+//        friendPhotoUrl = (EditText) findViewById(R.id.friendPhotoUrl);
+//        addFriendButton = (Button) findViewById(R.id.addFriendBtn);
     }
 
     // Set Listeners

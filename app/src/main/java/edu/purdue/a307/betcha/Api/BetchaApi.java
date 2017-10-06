@@ -11,11 +11,14 @@ import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.BetLike;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
+import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.PublicFeedItem;
 import edu.purdue.a307.betcha.Models.PublicFeedResponse;
+import edu.purdue.a307.betcha.Models.UserEmailRequest;
+import edu.purdue.a307.betcha.Models.UserID;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -58,10 +61,12 @@ public interface BetchaApi {
 
 
     // Friends
-    @POST("/friends")
-    Call<List<FriendItem>> getFriends(@Query("authToken") String authToken);
+    @POST("/friends/")
+    Call<FriendItems> getFriends(@Body LoginRequest authToken);
+    @POST("/friends/get")
+    Call<UserID> getFriendsBy(@Body UserEmailRequest request);
     @POST("/friends/add/{id}")
-    Call<BetchaResponse> addFriend(@Path("id") String friendID, @Query("authToken") String authToken);
+    Call<BetchaResponse> addFriend(@Path("id") String friendID, @Body String authToken);
     @POST("/friends/delete/{id}")
     Call<BetchaResponse> deleteFriend(@Path("id") String friendID, @Query("authToken") String authToken);
     @POST("/friends/info/{id}")
