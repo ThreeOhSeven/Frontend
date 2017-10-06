@@ -15,22 +15,6 @@
             android:layout_centerInParent="true"
             android:orientation="vertical" >
 
-            <EditText
-                android:id="@+id/friendName"
-                android:singleLine="true"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:drawableLeft="@drawable/email"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:hint="@string/friendName"
-                android:inputType="text"
-                android:padding="10dp"
-                android:textColor="@color/myNavy"
-                android:textColorHint="@color/myBlue"
-                android:textSize="16sp" />
-
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
@@ -44,7 +28,7 @@
                 android:drawableLeft="@drawable/password"
                 android:drawablePadding="8dp"
                 android:gravity="center_vertical"
-                android:hint="@string/friendUserName"
+                android:hint="username"
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:textColor="@color/myNavy"
@@ -56,22 +40,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
                 android:background="@color/white_greyish" />
-
-            <EditText
-                android:id="@+id/friendPhotoUrl"
-                android:singleLine="true"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/password"
-                android:drawablePadding="8dp"
-                android:gravity="center_vertical"
-                android:hint="@string/friendPhotoUrl"
-                android:inputType="textMultiLine"
-                android:padding="10dp"
-                android:textColor="@color/myNavy"
-                android:textColorHint="@color/myBlue"
-                android:backgroundTint="@color/myNavy"
-                android:textSize="16sp" />
 
             <View
                 android:layout_width="fill_parent"

@@ -84,7 +84,7 @@ public class MyBetsActivity extends BetchaActivity {
                 }
                 Log.d("Bets size", String.valueOf(response.body().getMyBets().size()));
                 bets = response.body().getMyBets();
-                betAdapter = new BetAdapter(MyBetsActivity.this, bets);
+                betAdapter = new BetAdapter(MyBetsActivity.this, bets,selfToken);
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(MyBetsActivity.this));

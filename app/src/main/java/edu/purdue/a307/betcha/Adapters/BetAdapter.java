@@ -37,6 +37,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
     private List<BetInformation> items;
     private BetchaActivity activity;
+    private String selfToken;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -61,9 +62,10 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
     }
 
 
-    public BetAdapter(BetchaActivity activity,List<BetInformation> items) {
+    public BetAdapter(BetchaActivity activity,List<BetInformation> items, String selfToken) {
         this.activity = activity;
         this.items = items;
+        this.selfToken = selfToken;
     }
 
     @Override
@@ -89,11 +91,11 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                 popup.inflate(R.menu.delete);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        Toast.makeText(
-                                activity,
-                                "You Clicked : " + item.getTitle(),
-                                Toast.LENGTH_SHORT
-                        ).show();
+//                        Toast.makeText(
+//                                activity,
+//                                "You Clicked : " + item.getTitle(),
+//                                Toast.LENGTH_SHORT
+//                        ).show();
                         return false;
                     }
                 });
@@ -103,12 +105,14 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         });
         IconGenerator.setImage(activity,holder.icon);
 
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(activity, BetActivity.class);
                 Gson gson = new Gson();
                 myIntent.putExtra("Object",gson.toJson(info));
+                myIntent.putExtra("selfToken",selfToken);
                 activity.startActivity(myIntent);
             }
         });
