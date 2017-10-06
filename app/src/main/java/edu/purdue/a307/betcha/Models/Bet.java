@@ -1,12 +1,13 @@
 package edu.purdue.a307.betcha.Models;
 
 
+import java.io.Serializable;
 
 /**
  * Created by Peter on 10/1/17.
  */
 
-public class Bet {
+public class Bet implements Serializable {
 
     public int getId() {
         return id;

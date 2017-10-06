@@ -45,7 +45,6 @@ public class NewsFeedActivity extends BetchaActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
         BetchaApi service =  ApiHelper.getInstance(this);
         Call<PublicFeedResponse> call = service.getPublicFeed();
 
@@ -59,7 +58,7 @@ public class NewsFeedActivity extends BetchaActivity {
 
                 if(response.isSuccessful()) {
                     // TODO - Update with newsfeed adapter
-                    mAdapter = new NewsFeedAdapter(feed.getBets());
+                    mAdapter = new NewsFeedAdapter(NewsFeedActivity.this, feed.getBets());
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     try {
