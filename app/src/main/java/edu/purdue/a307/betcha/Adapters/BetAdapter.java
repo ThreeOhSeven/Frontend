@@ -79,13 +79,14 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         holder.textTitle.setText(info.title);
         holder.textAmount.setText("$"+info.amount);
         // TODO: needs to be actual spots left
-        holder.textSpotsLeft.setText("Spots Left: " + info.maxUsers);
+        holder.textSpotsLeft.setText("");
+//        holder.textSpotsLeft.setText("Spots Left: " + info.maxUsers);
         holder.buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Creating the instance of PopupMenu
                 PopupMenu popup = new PopupMenu(activity, holder.buttonMenu);
-                popup.inflate(R.menu.item_bet_menu);
+                popup.inflate(R.menu.delete);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(

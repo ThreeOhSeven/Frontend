@@ -195,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("Callback Token", response.body().getSelfToken());
                     }
                     Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
+                    myIntent.putExtra("selfToken",response.body().getSelfToken());
                     startActivity(myIntent);
                     finish();
                 }

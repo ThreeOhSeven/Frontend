@@ -37,12 +37,13 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
 
     GoogleApiClient apiClient;
     ActionBarDrawerToggle toggle;
+    String selfToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_betcha);
-
+        selfToken = getIntent().getStringExtra("selfToken");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -153,19 +154,23 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
 
         if (id == R.id.nav_profile) {
             Intent myIntent = new Intent(BetchaActivity.this, ProfileActivity.class);
+            myIntent.putExtra("selfToken",selfToken);
             startActivity(myIntent);
             overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
 
         } else if (id == R.id.nav_social_feed) {
             Intent myIntent = new Intent(BetchaActivity.this, NewsFeedActivity.class);
+            myIntent.putExtra("selfToken",selfToken);
             startActivity(myIntent);
             overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
         } else if (id == R.id.nav_bets) {
             Intent myIntent = new Intent(BetchaActivity.this, MyBetsActivity.class);
+            myIntent.putExtra("selfToken",selfToken);
             startActivity(myIntent);
             overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
         } else if (id == R.id.nav_friends) {
             Intent myIntent = new Intent(BetchaActivity.this, FriendsActivity.class);
+            myIntent.putExtra("selfToken",selfToken);
             startActivity(myIntent);
             overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
         }

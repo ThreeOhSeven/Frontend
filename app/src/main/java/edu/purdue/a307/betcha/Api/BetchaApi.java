@@ -6,6 +6,8 @@ import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetInformation;
+import edu.purdue.a307.betcha.Models.BetInformationRequest;
+import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.BetLike;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
@@ -52,7 +54,7 @@ public interface BetchaApi {
     Call<List<PrivateFeedItem>> getPrivateFeed(@Query("authToken") String authToken);
 
     @POST("/mybets")
-    Call<List<BetInformation>> getUserBets(@Body LoginRequest authToken);
+    Call<BetInformations> getUserBets(@Body LoginRequest authToken);
 
 
     // Friends
@@ -67,8 +69,8 @@ public interface BetchaApi {
 
 
     // Bets
-    @POST("/bets/create")
-    Call<BetchaResponse> createBet(@Body BetInformation betInformation, @Query("authToken") String authToken);
+    @POST("/createbet")
+    Call<BetchaResponse> createBet(@Body BetInformationRequest betInformation);
     @POST("/bets/delete/{id}")
     Call<BetchaResponse> deleteBet(@Path("id") String betID, @Query("authToken") String authToken);
     @POST("/bets/update")

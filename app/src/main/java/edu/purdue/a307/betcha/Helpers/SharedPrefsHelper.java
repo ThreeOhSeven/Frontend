@@ -14,6 +14,6 @@ public class SharedPrefsHelper {
     }
 
     public static String getSelfToken(Context context) {
-        return SharedPrefsHelper.getSharedPrefs(context).getString("selfToken","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoia3lsZS5vaGFuaWFuQGdtYWlsLmNvbSIsImV4cCI6MTUwNzI3OTUyNH0.eaEJiqqD9AEc8-Hf6gXhPVhL2V0tWJ8I0ZKWQMzAS8Q");
+        return SharedPrefsHelper.getSharedPrefs(context).getString("selfToken","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDcyODA3MzYsInVzZXIiOiJreWxlLm9oYW5pYW5AZ21haWwuY29tIn0.w6_Og050TbkfE5XEJUnFV2beJ6zQQTNeznV48QIonU4");
     }
 }
