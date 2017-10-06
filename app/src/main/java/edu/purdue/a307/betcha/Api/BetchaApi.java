@@ -37,8 +37,8 @@ public interface BetchaApi {
     Call<AccountInformation> getAccountInfo(@Query("authToken") String authToken);
     @POST("/account/edit")
     Call<BetchaResponse> editAccountInfo(@Body AccountInformation accountInformation, @Query("authToken") String authToken);
-    @POST("/account/delete")
-    Call<BetchaResponse> deleteAccount(@Query("authToken") String authToken);
+    @POST("/delete")
+    Call<BetchaResponse> deleteAccount(@Body LoginRequest authToken);
 
 
     // Social Feed
@@ -51,8 +51,8 @@ public interface BetchaApi {
     @POST("/privatefeed")
     Call<List<PrivateFeedItem>> getPrivateFeed(@Query("authToken") String authToken);
 
-    @POST("/userbets/{id}")
-    Call<List<BetInformation>> getUserBets(@Query("authToken") String authToken);
+    @POST("/mybets")
+    Call<List<BetInformation>> getUserBets(@Body LoginRequest authToken);
 
 
     // Friends

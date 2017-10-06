@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.util.Collections;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
@@ -186,8 +187,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-//                        SharedPrefsHelper.getSharedPrefs(
-//                                getApplicationContext()).edit().putString("authToken",response.body().getAuthToken());
+                    SharedPrefsHelper.setSelfToken(LoginActivity.this, response.body().getSelfToken());
                     Log.d("Body Response", response.toString());
 //                    Log.d("Callback Response", response.);
                     Log.d("Message", response.message());

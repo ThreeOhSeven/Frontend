@@ -10,11 +10,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -22,7 +24,14 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public abstract class BetchaActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -97,8 +106,42 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        String selfToken = SharedPrefsHelper.getSelfToken(getApplicationContext());
         if (id == R.id.nav_sign_out) {
             signOut();
+        }
+        else if(id == R.id.nav_delete) {
+            ApiHelper.getInstance(getApplicationContext()).deleteAccount(
+                    new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+                @Override
+                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                    if (response.code() != 200) {
+                        Log.d("Response Code",String.valueOf(response.code()));
+                        Log.d("Response Message",String.valueOf(response.message()));
+                        Toast.makeText(getApplicationContext(), "Unable to delete account",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    else {
+                        Intent myIntent = new Intent(BetchaActivity.this, LoginActivity.class);
+                        Log.d("Body Response", response.toString());
+//                    Log.d("Callback Response", response.);
+                        Log.d("Message", response.message());
+                        if(response.body().getSelfToken() != null) {
+                            Log.d("Callback Token", response.body().getSelfToken());
+                        }
+                        signOut();
+                        Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
+                        startActivity(myIntent);
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<BetchaResponse> call, Throwable t) {
+
+                }
+            });
         }
         return true;
     }

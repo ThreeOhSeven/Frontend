@@ -15,7 +15,8 @@ public class BetInformation {
     public String description;
     public String amount;
     public String winner;
-    public List<BetUsers> betUsers;
+    public String locked;
+//    public List<BetUsers> betUsers;
 
 
     public BetInformation() {}
@@ -75,11 +76,11 @@ public class BetInformation {
         this.winner = winner;
     }
 
-    public List<BetUsers> getBetUsers() {
-        return betUsers;
-    }
-
-    public void setBetUsers(List<BetUsers> betUsers) {
-        this.betUsers = betUsers;
-    }
+//    public List<BetUsers> getBetUsers() {
+//        return betUsers;
+//    }
+//
+//    public void setBetUsers(List<BetUsers> betUsers) {
+//        this.betUsers = betUsers;
+//    }
 }
