@@ -8,6 +8,7 @@ import java.util.List;
 
 public class BetInformation {
 
+    public String id;
     public String creator;
     public String maxUsers;
     public String title;
@@ -15,6 +16,9 @@ public class BetInformation {
     public String amount;
     public String winner;
     public List<BetUsers> betUsers;
+
+
+    public BetInformation() {}
 
     public BetInformation(String creator, String maxUsers, String title, String amount) {
         this.creator = creator;

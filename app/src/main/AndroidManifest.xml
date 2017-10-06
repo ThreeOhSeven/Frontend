@@ -29,6 +29,9 @@
             android:name=".Activities.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Activities.MyBetsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Activities.BetActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>

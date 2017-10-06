@@ -1,7 +1,9 @@
 package edu.purdue.a307.betcha.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,12 +15,17 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
+import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
+import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.R;
 
@@ -33,7 +40,8 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        // TODO:: Components
+        @BindView(R.id.cv)
+        CardView cardView;
         @BindView(R.id.textTitle)
         TextView textTitle;
         @BindView(R.id.textAmount)
@@ -42,10 +50,12 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         TextView textSpotsLeft;
         @BindView(R.id.buttonMenu)
         ImageButton buttonMenu;
+        CircleImageView icon;
 
         public MyViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            icon = view.findViewById(R.id.iconImage);
 
         }
     }
@@ -67,17 +77,15 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
     public void onBindViewHolder(final BetAdapter.MyViewHolder holder, final int position) {
         final BetInformation info = items.get(position);
         holder.textTitle.setText(info.title);
-        holder.textAmount.setText(info.amount);
+        holder.textAmount.setText("$"+info.amount);
         // TODO: needs to be actual spots left
-        holder.textSpotsLeft.setText(info.maxUsers);
+        holder.textSpotsLeft.setText("Spots Left: " + info.maxUsers);
         holder.buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Creating the instance of PopupMenu
                 PopupMenu popup = new PopupMenu(activity, holder.buttonMenu);
-                //Inflating the Popup using xml file
                 popup.inflate(R.menu.item_bet_menu);
-                //registering popup with OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         Toast.makeText(
@@ -89,7 +97,18 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                     }
                 });
 
-                popup.show(); //showing popup menu
+                popup.show();
+            }
+        });
+        IconGenerator.setImage(activity,holder.icon);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(activity, BetActivity.class);
+                Gson gson = new Gson();
+                myIntent.putExtra("Object",gson.toJson(info));
+                activity.startActivity(myIntent);
             }
         });
     }
