@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +26,16 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.BetInformation;
+import edu.purdue.a307.betcha.Models.BetInformationRequest;
+import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -32,6 +43,11 @@ import edu.purdue.a307.betcha.R;
  */
 
 public class CreateBetActivity extends BetchaActivity {
+
+    EditText title, amount, description;
+    Button createButton;
+
+    String selfToken;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +55,46 @@ public class CreateBetActivity extends BetchaActivity {
         //textView = rootView.findViewById(R.id.nav_bets);
         //textView.setText(getResources().getString(R.string.bets_str));
         //textView = (TextView) findViewById(R.id.nav_bets);
+        selfToken = getIntent().getStringExtra("selfToken");
+
+        title = (EditText)findViewById(R.id.title);
+        amount = (EditText)findViewById(R.id.amount_to_bet);
+        description = (EditText)findViewById(R.id.bet_description);
+        createButton = (Button)findViewById(R.id.createBetBtn);
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO:: Update to server
+                BetInformationRequest betInformationRequest = new BetInformationRequest();
+                betInformationRequest.amount = amount.getText().toString();
+                betInformationRequest.title = title.getText().toString();
+                betInformationRequest.description = title.getText().toString();
+                betInformationRequest.maxUsers = "10";
+                betInformationRequest.locked = "false";
+                betInformationRequest.authToken = selfToken;
+                ApiHelper.getInstance(getApplicationContext()).
+                        createBet(betInformationRequest).enqueue(new Callback<BetchaResponse>() {
+                    @Override
+                    public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                        if (response.code() != 200) {
+                            Log.d("Response Code",String.valueOf(response.code()));
+                            Log.d("Response Message",String.valueOf(response.message()));
+                            Toast.makeText(getApplicationContext(), "Error in creating bet",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        else {
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BetchaResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
 
     }
 

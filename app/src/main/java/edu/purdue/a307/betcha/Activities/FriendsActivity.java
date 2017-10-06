@@ -47,9 +47,8 @@ public class FriendsActivity extends BetchaActivity {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FriendsActivity.this);
                 LayoutInflater inflater = FriendsActivity.this.getLayoutInflater();
                 View thisView = inflater.inflate(R.layout.send_friend_request, null);
-                final EditText email = (EditText)view.findViewById(R.id.email);
+                final EditText email = (EditText)thisView.findViewById(R.id.email);
                 alertDialogBuilder.setView(thisView);
-                alertDialogBuilder.setTitle("An error has occurred");
                 alertDialogBuilder.setCancelable(false);
                 alertDialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -58,9 +57,9 @@ public class FriendsActivity extends BetchaActivity {
                             Toast.makeText(getApplicationContext(), "Please type in an email",Toast.LENGTH_SHORT).show();
                         }
                         else {
+                            dialog.dismiss();
                             //TODO: Handle action for sending friend request
                         }
-                        dialog.dismiss();
                     }
                 });
                 alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

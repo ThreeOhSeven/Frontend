@@ -1,13 +1,11 @@
 package edu.purdue.a307.betcha.Models;
 
-import java.util.List;
-
 /**
- * Created by kyleohanian on 9/20/17.
+ * Created by kyleohanian on 10/6/17.
  */
 
-public class BetInformation {
-
+public class BetInformationRequest {
+    public String authToken;
     public String id;
     public String creator;
     public String maxUsers;
@@ -16,16 +14,21 @@ public class BetInformation {
     public String amount;
     public String winner;
     public String locked;
-//    public List<BetUsers> betUsers;
 
+    public String getAuthToken() {
+        return authToken;
+    }
 
-    public BetInformation() {}
+    public void setAuthToken(String authToken) {
+        this.authToken = authToken;
+    }
 
-    public BetInformation(String creator, String maxUsers, String title, String amount) {
-        this.creator = creator;
-        this.maxUsers = maxUsers;
-        this.title = title;
-        this.amount = amount;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCreator() {
@@ -76,11 +79,11 @@ public class BetInformation {
         this.winner = winner;
     }
 
-//    public List<BetUsers> getBetUsers() {
-//        return betUsers;
-//    }
-//
-//    public void setBetUsers(List<BetUsers> betUsers) {
-//        this.betUsers = betUsers;
-//    }
+    public String getLocked() {
+        return locked;
+    }
+
+    public void setLocked(String locked) {
+        this.locked = locked;
+    }
 }
