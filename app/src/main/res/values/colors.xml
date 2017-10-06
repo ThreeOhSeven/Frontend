@@ -12,19 +12,22 @@
     <color name="colorDelete">#B20000</color>
     <color name="colorButton">#FFFFFF</color>
     <color name="colorLock">#00701A</color>
+
+  
+  
+    <color name="white_greyish">#EEEEEE</color>
+    <color name="button_selectorcolor">#9E9E9E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="myNavy">#16567B</color>
+    <color name="myBlue">#7c7ce9</color>
+    <color name="Blue">#0000FF</color>
     <color name="colorIcon">#FFFFFF</color>
 
-
-
-
-
-
+  
+  
+  
     <color name="iconColor1">#CB462A</color>
     <color name="iconColor2">#E9A845</color>
     <color name="iconColor3">#6D2DB5</color>
-
-
-
-
-
 </resources>
