@@ -14,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.auth.api.Auth;
@@ -117,6 +115,10 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
 
         } else if (id == R.id.nav_social_feed) {
             Intent myIntent = new Intent(BetchaActivity.this, NewsFeedActivity.class);
+            startActivity(myIntent);
+            overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
+        } else if (id == R.id.nav_bets) {
+            Intent myIntent = new Intent(BetchaActivity.this, MyBetsActivity.class);
             startActivity(myIntent);
             overridePendingTransition(R.animator.enter_activity, R.animator.exit_activity);
         }
