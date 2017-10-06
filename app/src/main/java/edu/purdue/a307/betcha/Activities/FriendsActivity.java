@@ -143,7 +143,7 @@ public class FriendsActivity extends BetchaActivity {
                 }
 //                Log.d("Bets size", String.valueOf(response.body().getMyBets().size()));
                 friends = response.body().getFriends_obj();
-                friendAdapter = new FriendAdapter(FriendsActivity.this, friends);
+                friendAdapter = new FriendAdapter(FriendsActivity.this, friends, selfTokenFA);
                 recyclerView.setAdapter(friendAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(FriendsActivity.this));
