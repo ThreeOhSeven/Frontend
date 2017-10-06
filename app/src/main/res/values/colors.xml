@@ -2,14 +2,19 @@
 <resources>
     <color name="colorPrimary">#43A047</color>
     <color name="colorPrimaryDark">#00701A</color>
-    <color name="colorAccent">#76d275</color>
-    <color name="colorSecondary">#FFFFFF</color>
-    <color name="colorSecondaryAccent">#D3E3D2</color>
+    <color name="colorPrimaryLight">#76d275</color>
+    <color name="colorSecondary">#90caf9</color>
+    <color name="colorAccent">#90caf9</color>
+    <color name="colorSecondaryDark">#5d99c6</color>
+    <color name="colorSecondaryLight">#c3fdff</color>
+    <color name="colorFade">#D3E3D2</color>
     <color name="colorUpdate">#0000B2</color>
     <color name="colorDelete">#B20000</color>
-    <color name="colorIcon">#FFFFFF</color>
+    <color name="colorButton">#FFFFFF</color>
     <color name="colorLock">#00701A</color>
 
+  
+  
     <color name="white_greyish">#EEEEEE</color>
     <color name="button_selectorcolor">#9E9E9E</color>
     <color name="white">#FFFFFF</color>
@@ -17,4 +22,12 @@
     <color name="myNavy">#16567B</color>
     <color name="myBlue">#7c7ce9</color>
     <color name="Blue">#0000FF</color>
+    <color name="colorIcon">#FFFFFF</color>
+
+  
+  
+  
+    <color name="iconColor1">#CB462A</color>
+    <color name="iconColor2">#E9A845</color>
+    <color name="iconColor3">#6D2DB5</color>
 </resources>

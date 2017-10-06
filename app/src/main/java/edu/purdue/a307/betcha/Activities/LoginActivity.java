@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN).
+                requestEmail().
                 requestIdToken(getApplicationContext().getString(R.string.google_client_id)).build();
 
         apiClient = new GoogleApiClient.Builder(this).addApi(
@@ -171,6 +172,9 @@ public class LoginActivity extends AppCompatActivity {
         if(TOKEN == null) {
             return;
         }
+
+        Log.d("TOK MASTER", TOKEN);
+
         ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN)).enqueue(new Callback<BetchaResponse>() {
             @Override
             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response){
@@ -185,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
 //                        SharedPrefsHelper.getSharedPrefs(
 //                                getApplicationContext()).edit().putString("authToken",response.body().getAuthToken());
                     Log.d("Body Response", response.toString());
-                    Log.d("Callback Response", response.body().toString());
+//                    Log.d("Callback Response", response.);
                     Log.d("Message", response.message());
                     if(response.body().getSelfToken() != null) {
                         Log.d("Callback Token", response.body().getSelfToken());
@@ -198,6 +202,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                Log.d("TAG", "FAiled");
                 showErrorDialog();
                 signOut();
             }

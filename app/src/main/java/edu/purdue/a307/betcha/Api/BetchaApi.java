@@ -51,6 +51,9 @@ public interface BetchaApi {
     @POST("/privatefeed")
     Call<List<PrivateFeedItem>> getPrivateFeed(@Query("authToken") String authToken);
 
+    @POST("/userbets/{id}")
+    Call<List<BetInformation>> getUserBets(@Query("authToken") String authToken);
+
 
     // Friends
     @POST("/friends")
