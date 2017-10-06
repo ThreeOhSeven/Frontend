@@ -1,55 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent" android:layout_height="wrap_content" android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.purdue.a307.betcha.Activities.MyBetsActivity">
 
-    <LinearLayout
-        android:id="@+id/Row1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/addFriendBtn"
-            android:text="Add Friend"
-            android:textColor="@color/colorSecondary"
-            android:textAllCaps="false"
-            android:layout_width="0px"
-            android:layout_weight="1"
-            android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:background="@color/colorPrimaryDark"
-            android:layout_margin="2dp"
-            android:onClick="onClick"
-            />
-        <Button
-            android:id="@+id/manageFriendsBtn"
-            android:text="Manage Friends"
-            android:textColor="@color/colorSecondary"
-            android:textStyle="normal"
-            android:textAllCaps="false"
-            android:layout_width="0px"
-            android:layout_weight="1"
-            android:layout_height="80dp"
-            android:layout_margin="2dp"
-            android:layout_alignParentRight="true"
-            android:onClick="onClick"
-            android:background="@color/colorPrimaryDark"/>
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/Row2"
-        android:layout_below="@id/Row1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/removeFriendBtn"
-            android:text="Remove Friend"
-            android:textColor="@color/colorSecondary"
-            android:textAllCaps="false"
-            android:layout_width="0px"
-            android:layout_weight="1"
-            android:layout_height="80dp"
-            android:layout_alignParentLeft="true"
-            android:background="@color/colorPrimaryDark"
-            android:layout_margin="2dp"
-            android:onClick="onClick"
-            />
-    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recyclerFriends">
+    </android.support.v7.widget.RecyclerView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:paddingEnd="20dp"
+        android:clickable="true"
+        android:visibility="visible"
+        app:fabSize="normal"
+        android:src="@drawable/ic_add_24dp"
+        app:useCompatPadding="true"
+        app:paddingEnd="20dp"/>
+
 </RelativeLayout>

@@ -5,38 +5,27 @@ package edu.purdue.a307.betcha.Models;
  */
 
 public class FriendItem {
-    String name;
-    String userName;
-    String photoUrl;
+    String status;
+    User friend;
 
-
-    public FriendItem(String name, String userName, String photoUrl) {
-        this.name = name;
-        this.userName = userName;
-        this.photoUrl = photoUrl;
+    public FriendItem(String status, User friend) {
+        this.status = status;
+        this.friend = friend;
     }
 
-    public String getName() {
-        return name;
+    public String getStatus() {
+        return status;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getUserName() {
-        return userName;
+    public User getFriend() {
+        return friend;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPhotoUrl() {
-        return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
+    public void setFriend(User friend) {
+        this.friend = friend;
     }
 }

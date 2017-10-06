@@ -21,18 +21,18 @@
 
     <item android:title="Settings">
         <menu>
-            <item
-                android:id="@+id/nav_gen_settings"
-                android:icon="@drawable/ic_settings_black_24dp"
-                android:title="General" />
+            <!--<item-->
+                <!--android:id="@+id/nav_gen_settings"-->
+                <!--android:icon="@drawable/ic_settings_black_24dp"-->
+                <!--android:title="General" />-->
             <item
                 android:id="@+id/nav_acct_mgmt"
                 android:icon="@drawable/ic_account_mgmt_black_24dp"
                 android:title="Account Management" />
-            <item
-                android:id="@+id/nav_bug_report"
-                android:icon="@drawable/ic_bug_report_black_24dp"
-                android:title="Report Bugs" />
+            <!--<item-->
+                <!--android:id="@+id/nav_bug_report"-->
+                <!--android:icon="@drawable/ic_bug_report_black_24dp"-->
+                <!--android:title="Report Bugs" />-->
         </menu>
     </item>
 

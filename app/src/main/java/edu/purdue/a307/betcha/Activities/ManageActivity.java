@@ -51,7 +51,7 @@ public class ManageActivity extends BetchaActivity {
                     buttons[i] = (Button) (findViewById(R.id.manageBetsBtn));
                     break;
                 case 2:
-                    buttons[i] = (Button) (findViewById(R.id.myScoreBtn));
+//                    buttons[i] = (Button) (findViewById(R.id.myScoreBtn));
                     break;
             }
             buttons[i].setOnClickListener(buttonClickListener);

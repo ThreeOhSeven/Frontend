@@ -30,7 +30,7 @@ public class MyBetsActivity extends BetchaActivity {
             @Override
             public void onClick(View view) {
                 // TODO: Make this create bets activity
-                Intent myIntent = new Intent();
+                Intent myIntent = new Intent(MyBetsActivity.this, CreateBetActivity.class);
                 startActivity(myIntent);
             }
         });

@@ -1,10 +1,22 @@
 package edu.purdue.a307.betcha.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import edu.purdue.a307.betcha.Adapters.FriendAdapter;
+import edu.purdue.a307.betcha.Models.FriendItem;
 import edu.purdue.a307.betcha.R;
 
 
@@ -15,11 +27,54 @@ import edu.purdue.a307.betcha.R;
 public class FriendsActivity extends BetchaActivity {
     Button buttons[] = new Button[3];
 
+    RecyclerView recyclerView;
+    ArrayList<FriendItem> friends;
+    FloatingActionButton addFriend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setListeners();
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerFriends);
+        friends = new ArrayList<FriendItem>();
+        FriendAdapter adapter = new FriendAdapter(this, friends);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        addFriend = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(FriendsActivity.this);
+                LayoutInflater inflater = FriendsActivity.this.getLayoutInflater();
+                View thisView = inflater.inflate(R.layout.send_friend_request, null);
+                final EditText email = (EditText)view.findViewById(R.id.email);
+                alertDialogBuilder.setView(thisView);
+                alertDialogBuilder.setTitle("An error has occurred");
+                alertDialogBuilder.setCancelable(false);
+                alertDialogBuilder.setPositiveButton("Send", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        String name = email.getText().toString();
+                        if(name == null || name.length() <= 0) {
+                            Toast.makeText(getApplicationContext(), "Please type in an email",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            //TODO: Handle action for sending friend request
+                        }
+                        dialog.dismiss();
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                    }
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        });
+
+//        setListeners();
 
     }
 
@@ -36,13 +91,13 @@ public class FriendsActivity extends BetchaActivity {
                     "edu.purdue.a307.betcha");
             switch (i) {
                 case 0:
-                    buttons[i] = (Button) (findViewById(R.id.addFriendBtn));
+//                    buttons[i] = (Button) (findViewById(R.id.addFriendBtn));
                     break;
                 case 1:
-                    buttons[i] = (Button) (findViewById(R.id.manageFriendsBtn));
+//                    buttons[i] = (Button) (findViewById(R.id.manageFriendsBtn));
                     break;
                 case 2:
-                    buttons[i] = (Button) (findViewById(R.id.removeFriendBtn));
+//                    buttons[i] = (Button) (findViewById(R.id.removeFriendBtn));
                     break;
             }
             buttons[i].setOnClickListener(buttonClickListener);
@@ -54,16 +109,16 @@ public class FriendsActivity extends BetchaActivity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.addFriendBtn:
-                    Intent myIntent = new Intent(FriendsActivity.this, AddFriendActivity.class);
-                    startActivity(myIntent);
-                    break;
-                case R.id.manageFriendsBtn:
-
-                    break;
-                case R.id.removeFriendBtn:
-
-                    break;
+//                case R.id.addFriendBtn:
+//                    Intent myIntent = new Intent(FriendsActivity.this, AddFriendActivity.class);
+//                    startActivity(myIntent);
+//                    break;
+//                case R.id.manageFriendsBtn:
+//
+//                    break;
+//                case R.id.removeFriendBtn:
+//
+//                    break;
             }
         }
     };
