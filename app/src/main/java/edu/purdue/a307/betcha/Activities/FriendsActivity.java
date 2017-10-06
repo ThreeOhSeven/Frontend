@@ -21,9 +21,12 @@ import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Models.BetInformations;
+import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.UserEmailRequest;
+import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,8 +68,45 @@ public class FriendsActivity extends BetchaActivity {
                         if (name == null || name.length() <= 0) {
                             Toast.makeText(getApplicationContext(), "Please type in an email", Toast.LENGTH_SHORT).show();
                         } else {
-                            dialog.dismiss();
                             //TODO: Handle action for sending friend request
+                            UserEmailRequest uer = new UserEmailRequest();
+                            uer.authToken = selfTokenFA;
+                            uer.email = name;
+                            ApiHelper.getInstance(getApplicationContext()).getFriendsByUser(
+                                        uer).enqueue(new Callback<UserID>() {
+                                @Override
+                                public void onResponse(Call<UserID> call, Response<UserID> response) {
+                                    if(response.code() != 200) {
+                                        Log.d("AUTH ERROR", String.valueOf(response.code()));
+                                        Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    String id = response.body().getId();
+                                    ApiHelper.getInstance(getApplicationContext()).addFriend(
+                                            id,new LoginRequest(selfTokenFA)).enqueue(new Callback<BetchaResponse>() {
+                                        @Override
+                                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                            if(response.code() != 200) {
+                                                Log.d("AUTH ERROR", String.valueOf(response.code()));
+                                                Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            reset();
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                            Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onFailure(Call<UserID> call, Throwable t) {
+                                    Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            dialog.dismiss();
                         }
                     }
                 });
@@ -88,6 +128,10 @@ public class FriendsActivity extends BetchaActivity {
     @Override
     public void onResume() {
         super.onResume();
+        reset();
+    }
+
+    private void reset() {
         Log.d("FA SELF TOKEN", selfTokenFA);
         ApiHelper.getInstance(this).getFriends(new LoginRequest(selfTokenFA)).enqueue(new Callback<FriendItems>() {
             @Override

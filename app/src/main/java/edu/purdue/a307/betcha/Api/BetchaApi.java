@@ -63,10 +63,10 @@ public interface BetchaApi {
     // Friends
     @POST("/friends/")
     Call<FriendItems> getFriends(@Body LoginRequest authToken);
-    @POST("/friends/get")
-    Call<UserID> getFriendsBy(@Body UserEmailRequest request);
+    @POST("/get")
+    Call<UserID> getFriendsByUser(@Body UserEmailRequest request);
     @POST("/friends/add/{id}")
-    Call<BetchaResponse> addFriend(@Path("id") String friendID, @Body String authToken);
+    Call<BetchaResponse> addFriend(@Path("id") String friendID, @Body LoginRequest authToken);
     @POST("/friends/delete/{id}")
     Call<BetchaResponse> deleteFriend(@Path("id") String friendID, @Query("authToken") String authToken);
     @POST("/friends/info/{id}")
