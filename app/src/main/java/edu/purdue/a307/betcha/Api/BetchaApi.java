@@ -13,6 +13,7 @@ import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
 import edu.purdue.a307.betcha.Models.FriendItems;
+import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
@@ -39,13 +40,21 @@ public interface BetchaApi {
     Call<BetchaResponse> login(@Body LoginRequest betchaLoginRequest);
 
 
-    // Users
+    // Account Information
     @POST("/account/info")
     Call<AccountInformation> getAccountInfo(@Query("authToken") String authToken);
     @POST("/account/edit")
     Call<BetchaResponse> editAccountInfo(@Body AccountInformation accountInformation, @Query("authToken") String authToken);
     @POST("/delete")
     Call<BetchaResponse> deleteAccount(@Body LoginRequest authToken);
+
+
+    // User Info
+    @POST("/users/get/id")
+    Call<UserID> getIDByUser(@Body UserEmailRequest request);
+    @POST("/users/get/email")
+    Call<EmailResponse> getUserByID(@Body UserIDRequest request);
+
 
 
     // Social Feed
@@ -65,10 +74,6 @@ public interface BetchaApi {
     // Friends
     @POST("/friends/")
     Call<FriendItems> getFriends(@Body LoginRequest authToken);
-    @POST("/get")
-    Call<UserID> getFriendsByUser(@Body UserEmailRequest request);
-    @POST("/getid")
-    Call<EmailResponse> getUserByID(@Body UserIDRequest request);
     @POST("/friends/add/{id}")
     Call<BetchaResponse> addFriend(@Path("id") String friendID, @Body LoginRequest authToken);
     @POST("/friends/delete/{id}")
@@ -86,6 +91,9 @@ public interface BetchaApi {
     Call<BetchaResponse> updateBet(@Body BetInformation betInformation, @Query("authToken") String authToken);
     @POST("/bets/info/{id}")
     Call<BetInformation> getBetInfo(@Path("id") String betID, @Query("authToken") String authToken);
+
+    @POST("/bets/join")
+    Call<BetchaResponse> joinBet(@Body JoinBetRequest jbr);
 
 
     // Comments

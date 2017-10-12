@@ -72,7 +72,7 @@ public class FriendsActivity extends BetchaActivity {
                             UserEmailRequest uer = new UserEmailRequest();
                             uer.authToken = selfTokenFA;
                             uer.email = name;
-                            ApiHelper.getInstance(getApplicationContext()).getFriendsByUser(
+                            ApiHelper.getInstance(getApplicationContext()).getIDByUser(
                                         uer).enqueue(new Callback<UserID>() {
                                 @Override
                                 public void onResponse(Call<UserID> call, Response<UserID> response) {
