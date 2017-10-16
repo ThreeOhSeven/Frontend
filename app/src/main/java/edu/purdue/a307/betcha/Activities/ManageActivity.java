@@ -23,7 +23,6 @@ import edu.purdue.a307.betcha.R;
 
 public class ManageActivity extends BetchaActivity {
     Button buttons[] = new Button[3];
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
