@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.LoginRequest;
@@ -34,7 +35,7 @@ public class ProfileActivity extends BetchaActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selfToken = getIntent().getStringExtra("selfToken");
+        selfToken = SharedPrefsHelper.getSelfToken(this);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerBets);
 
     }

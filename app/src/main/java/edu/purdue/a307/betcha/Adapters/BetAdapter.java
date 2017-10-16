@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -36,7 +37,7 @@ import edu.purdue.a307.betcha.R;
 public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
     private List<BetInformation> items;
-    private BetchaActivity activity;
+    private Activity activity;
     private String selfToken;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -62,7 +63,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
     }
 
 
-    public BetAdapter(BetchaActivity activity,List<BetInformation> items, String selfToken) {
+    public BetAdapter(Activity activity, List<BetInformation> items, String selfToken) {
         this.activity = activity;
         this.items = items;
         this.selfToken = selfToken;

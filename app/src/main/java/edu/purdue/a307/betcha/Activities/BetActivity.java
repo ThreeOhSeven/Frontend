@@ -13,6 +13,7 @@ import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.UserID;
@@ -35,7 +36,7 @@ public class BetActivity extends BetchaActivity {
         Intent intent = getIntent();
         String gsonInfo = intent.getStringExtra("Object");
         betInformation = new Gson().fromJson(gsonInfo, BetInformation.class);
-        selfToken = getIntent().getStringExtra("selfToken");
+        selfToken = SharedPrefsHelper.getSelfToken(this);
 
         title = (TextView)findViewById(R.id.txtTitle);
         amount = (TextView)findViewById(R.id.txtAmount);

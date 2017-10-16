@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -36,7 +37,7 @@ import retrofit2.Response;
 
 public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
     private List<Bet> dataset;
-    private BetchaActivity activity;
+    private Activity activity;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mBetTitle;
@@ -55,7 +56,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     }
 
 
-    public NewsFeedAdapter(BetchaActivity betchaActivity, List<Bet> bets) {
+    public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets) {
         super();
 
         activity = betchaActivity;

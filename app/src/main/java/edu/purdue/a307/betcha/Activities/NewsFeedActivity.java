@@ -1,11 +1,15 @@
 package edu.purdue.a307.betcha.Activities;
 
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
 import java.io.IOException;
 
+import edu.purdue.a307.betcha.Adapters.NewsFeedPagerAdapter;
 import edu.purdue.a307.betcha.Models.PublicFeedResponse;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -30,50 +34,36 @@ import retrofit2.Response;
 
 
 public class NewsFeedActivity extends BetchaActivity {
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+    TabLayout tabLayout;
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Public Feed"));
+        tabLayout.addTab(tabLayout.newTab().setText("Private Feed"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.news_feed_recycler_view);
-
-        mRecyclerView.setHasFixedSize(true);
-
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-
-        BetchaApi service =  ApiHelper.getInstance(this);
-        Call<PublicFeedResponse> call = service.getPublicFeed();
-
-        List<Bet> feed = null;
-
-        call.enqueue(new Callback<PublicFeedResponse>() {
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        final NewsFeedPagerAdapter adapter = new NewsFeedPagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onResponse(Call<PublicFeedResponse> call, Response<PublicFeedResponse> response) {
-                int statusCode = response.code();
-                PublicFeedResponse feed = response.body();
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-                if(response.isSuccessful()) {
-                    // TODO - Update with newsfeed adapter
-                    mAdapter = new NewsFeedAdapter(NewsFeedActivity.this, feed.getBets());
-                    mRecyclerView.setAdapter(mAdapter);
-                } else {
-                    try {
-                        Log.d("api", response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onFailure(Call<PublicFeedResponse> call, Throwable t) {
-                Log.e("News Feed API", "Failed to get content from server for NewsFeed", t);
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 

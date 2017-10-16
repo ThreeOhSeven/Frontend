@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleApiClient apiClient;
 
     // Bundle key for account object
-    private static final String KEY_ACCOUNT = "key_account";
+//    private static final String KEY_ACCOUNT = "key_account";
 
     // Request codes
     private static final int RC_SIGN_IN = 9001;
@@ -74,9 +74,9 @@ public class LoginActivity extends AppCompatActivity {
         });
         signInButton.setSize(SignInButton.SIZE_STANDARD);
 
-        if (savedInstanceState != null) {
-            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
-        }
+//        if (savedInstanceState != null) {
+//            mAccount = savedInstanceState.getParcelable(KEY_ACCOUNT);
+//        }
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(
                 GoogleSignInOptions.DEFAULT_SIGN_IN).
@@ -96,32 +96,33 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         apiClient.connect();
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(apiClient);
+//        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(apiClient);
 
-        if (opr.isDone()) {
-            Log.d("TAG", "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    handleSignInResult(googleSignInResult);
-                }
-            });
-        }
+//        if (opr.isDone()) {
+//            Log.d("TAG", "Got cached sign-in");
+//            GoogleSignInResult result = opr.get();
+//            handleSignInResult(result);
+//        } else {
+//            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//                @Override
+//                public void onResult(GoogleSignInResult googleSignInResult) {
+//                    handleSignInResult(googleSignInResult);
+//                }
+//            });
+//        }
+//        opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+//            @Override
+//            public void onResult(GoogleSignInResult googleSignInResult) {
+//                handleSignInResult(googleSignInResult);
+//            }
+//        });
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putParcelable(KEY_ACCOUNT, mAccount);
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putParcelable(KEY_ACCOUNT, mAccount);
+//    }
 
 
 
@@ -196,8 +197,8 @@ public class LoginActivity extends AppCompatActivity {
                     if(response.body().getSelfToken() != null) {
                         Log.d("Callback Token", response.body().getSelfToken());
                     }
-                    Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
-                    myIntent.putExtra("selfToken",response.body().getSelfToken());
+                    SharedPrefsHelper.setSelfToken(getApplicationContext(), response.body().getSelfToken());
+                    Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
                     startActivity(myIntent);
                     finish();
                 }

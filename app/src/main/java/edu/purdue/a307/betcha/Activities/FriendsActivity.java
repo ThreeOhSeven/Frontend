@@ -20,6 +20,7 @@ import java.util.List;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
@@ -49,7 +50,7 @@ public class FriendsActivity extends BetchaActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selfTokenFA = getIntent().getStringExtra("selfToken");
+        selfTokenFA = SharedPrefsHelper.getSelfToken(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerFriends);
         friends = new ArrayList<FriendItem>();
         addFriend = (FloatingActionButton) findViewById(R.id.floatingActionButton);

@@ -71,7 +71,7 @@ public class CreateBetActivity extends BetchaActivity {
         //textView = rootView.findViewById(R.id.nav_bets);
         //textView.setText(getResources().getString(R.string.bets_str));
         //textView = (TextView) findViewById(R.id.nav_bets);
-        selfToken = getIntent().getStringExtra("selfToken");
+        selfToken = SharedPrefsHelper.getSelfToken(this);
 
         ButterKnife.bind(this);
         createButton.setOnClickListener(new View.OnClickListener() {
