@@ -72,28 +72,41 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
 
     @Override
     public void onPageSelected() {
-        ApiHelper.getInstance(getContext()).getUserBets(new LoginRequest(selfToken)).enqueue(new Callback<BetInformations>() {
-            @Override
-            public void onResponse(Call<BetInformations> call, Response<BetInformations> response) {
-                if(response.code() != 200) {
-                    Log.d("AUTH ERROR", String.valueOf(response.code()));
-                    Toast.makeText(getContext(), "Unable to get bets",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Log.d("Bets size", String.valueOf(response.body().getMyBets().size()));
-                bets = response.body().getMyBets();
-                betAdapter = new BetAdapter(getActivity(), bets,selfToken);
-                recyclerView.setAdapter(betAdapter);
-                recyclerView.invalidate();
-                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                betAdapter.notifyDataSetChanged();
+//        ApiHelper.getInstance(getContext()).getUserBets(new LoginRequest(selfToken)).enqueue(new Callback<BetInformations>() {
+//            @Override
+//            public void onResponse(Call<BetInformations> call, Response<BetInformations> response) {
+//                if(response.code() != 200) {
+//                    Log.d("AUTH ERROR", String.valueOf(response.code()));
+//                    Toast.makeText(getContext(), "Unable to get bets",Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                Log.d("Bets size", String.valueOf(response.body().getMyBets().size()));
+//                bets = response.body().getMyBets();
+//                betAdapter = new BetAdapter(getActivity(), bets,selfToken);
+//                recyclerView.setAdapter(betAdapter);
+//                recyclerView.invalidate();
+//                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                betAdapter.notifyDataSetChanged();
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<BetInformations> call, Throwable t) {
+//                Log.d("COMPLETE FAIL", "FAiled");
+//            }
+//        });
 
-            }
 
-            @Override
-            public void onFailure(Call<BetInformations> call, Throwable t) {
-                Log.d("COMPLETE FAIL", "FAiled");
-            }
-        });
+        bets = new ArrayList<>();
+        bets.add(new BetInformation("Kyle", "10", "SuperBowl","10"));
+        bets.add(new BetInformation("Sidd", "20", "World Series","7"));
+        bets.add(new BetInformation("Peter", "30", "NBA Finals","6"));
+        bets.add(new BetInformation("Noah", "5", "Stanley Cup","9"));
+        bets.add(new BetInformation("Kush", "1", "UEFA Champions League","2"));
+        betAdapter = new BetAdapter(getActivity(), bets,selfToken);
+        recyclerView.setAdapter(betAdapter);
+        recyclerView.invalidate();
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        betAdapter.notifyDataSetChanged();
     }
 }
