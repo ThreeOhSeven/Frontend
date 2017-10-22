@@ -110,8 +110,7 @@ public interface BetchaApi {
 
     // Likes
     @POST("likes/update")
-    Call<BetchaResponse> postLike(@Body BetLike betLike, @Query("incrementalValue") String incValue,
-                                  @Query("authToken") String authToken);
+    Call<BetchaResponse> postLike(@Body BetLike betLike, @Query("authToken") String authToken);
 
     @POST("/transaction/getPoints")
     Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);

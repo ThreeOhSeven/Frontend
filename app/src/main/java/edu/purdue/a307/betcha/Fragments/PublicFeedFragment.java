@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.io.IOException;
-import java.util.List;
 
-import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Adapters.NewsFeedAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
-import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.PublicFeedResponse;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -33,12 +31,12 @@ public class PublicFeedFragment extends Fragment implements OnPageSelectedListen
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private String selfTokenFA;
 
 
     public PublicFeedFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -60,8 +58,9 @@ public class PublicFeedFragment extends Fragment implements OnPageSelectedListen
 
     @Override
     public void onPageSelected() {
-        BetchaApi service =  ApiHelper.getInstance(getContext());
+        BetchaApi service = ApiHelper.getInstance(getContext());
         Call<PublicFeedResponse> call = service.getPublicFeed();
+        selfTokenFA = SharedPrefsHelper.getSelfToken(getContext());
 
 
         call.enqueue(new Callback<PublicFeedResponse>() {
@@ -70,9 +69,8 @@ public class PublicFeedFragment extends Fragment implements OnPageSelectedListen
                 int statusCode = response.code();
                 PublicFeedResponse feed = response.body();
 
-                if(response.isSuccessful()) {
-                    // TODO - Update with newsfeed adapter
-                    mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets());
+                if (response.isSuccessful()) {
+                    mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets(), selfTokenFA);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     try {
@@ -81,8 +79,6 @@ public class PublicFeedFragment extends Fragment implements OnPageSelectedListen
                         e.printStackTrace();
                     }
                 }
-
-
             }
 
             @Override
