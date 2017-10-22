@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -25,6 +26,7 @@ import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
+import edu.purdue.a307.betcha.Activities.EditBetActivity;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.R;
@@ -36,7 +38,7 @@ import edu.purdue.a307.betcha.R;
 public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
     private List<BetInformation> items;
-    private BetchaActivity activity;
+    private Activity activity;
     private String selfToken;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -52,17 +54,22 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         @BindView(R.id.buttonMenu)
         ImageButton buttonMenu;
         CircleImageView icon;
+        @BindView(R.id.likeButton)
+        ImageButton likeButton;
+
+        boolean isLiked;
 
         public MyViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
             icon = view.findViewById(R.id.iconImage);
+            isLiked = false;
 
         }
     }
 
 
-    public BetAdapter(BetchaActivity activity,List<BetInformation> items, String selfToken) {
+    public BetAdapter(Activity activity, List<BetInformation> items, String selfToken) {
         this.activity = activity;
         this.items = items;
         this.selfToken = selfToken;
@@ -81,21 +88,22 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         holder.textTitle.setText(info.title);
         holder.textAmount.setText("$"+info.amount);
         // TODO: needs to be actual spots left
-        holder.textSpotsLeft.setText("");
 //        holder.textSpotsLeft.setText("Spots Left: " + info.maxUsers);
         holder.buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Creating the instance of PopupMenu
                 PopupMenu popup = new PopupMenu(activity, holder.buttonMenu);
-                popup.inflate(R.menu.delete);
+                popup.inflate(R.menu.item_bet_menu);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-//                        Toast.makeText(
-//                                activity,
-//                                "You Clicked : " + item.getTitle(),
-//                                Toast.LENGTH_SHORT
-//                        ).show();
+                        switch (item.getItemId()) {
+                            case R.id.menu_item_edit:
+                                Intent myIntent = new Intent(activity, EditBetActivity.class);
+                                String json = new Gson().toJson(info);
+                                myIntent.putExtra("jsonObj", json);
+                                activity.startActivity(myIntent);
+                        }
                         return false;
                     }
                 });
@@ -104,6 +112,19 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
             }
         });
         IconGenerator.setImage(activity,holder.icon);
+        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.isLiked) {
+                    holder.likeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                    holder.isLiked = false;
+                }
+                else {
+                    holder.likeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+                    holder.isLiked = true;
+                }
+            }
+        });
 
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {

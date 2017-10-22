@@ -9,4 +9,10 @@
     <dimen name="item_view_padding_horizontal">8dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="bet_attr_header">10sp</dimen>
+    <dimen name="bet_attr_padding">20dp</dimen>
+    <dimen name="bet_attr_sub">20sp</dimen>
+    <dimen name="bet_attr_icon">40dp</dimen>
 </resources>

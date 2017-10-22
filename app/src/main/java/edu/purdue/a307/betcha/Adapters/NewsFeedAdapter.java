@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
@@ -17,11 +18,15 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetDetailActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
+import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -36,26 +41,34 @@ import retrofit2.Response;
 
 public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
     private List<Bet> dataset;
-    private BetchaActivity activity;
+    private Activity activity;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.cv)
+        public CardView cardView;
+        @BindView(R.id.textTitle)
         public TextView mBetTitle;
-        public TextView mBetText;
-        public TextView mBetId;
-        public ConstraintLayout mItem;
+        @BindView(R.id.textDesc)
+        public TextView mBetDesc;
+        @BindView(R.id.textSpotsLeft)
+        public TextView mSpotsLeft;
+        @BindView(R.id.textAmount)
+        public TextView mAmount;
+
+        CircleImageView icon;
+
         public ViewHolder(View v) {
             super(v);
-            mBetId = (TextView) v.findViewById(R.id.bet_id);
-            mBetTitle = (TextView) v.findViewById(R.id.bet_title);
-            mBetText = (TextView) v.findViewById(R.id.bet_text);
-            mItem = (ConstraintLayout) v.findViewById(R.id.news_feed_item);
+            ButterKnife.bind(this,v);
+            icon = (CircleImageView)v.findViewById(R.id.iconImage);
 
         }
 
     }
 
 
-    public NewsFeedAdapter(BetchaActivity betchaActivity, List<Bet> bets) {
+    public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets) {
         super();
 
         activity = betchaActivity;
@@ -76,7 +89,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public NewsFeedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ConstraintLayout v = (ConstraintLayout) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_news_feed_bet, parent, false);
         ViewHolder vh = new ViewHolder(v);
         return vh;
@@ -85,18 +98,18 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mBetTitle.setText(dataset.get(position).title);
-        holder.mBetText.setText(dataset.get(position).text);
-        holder.mBetId.setText(String.format("%d", dataset.get(position).id));
-
-        holder.mItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(activity, BetDetailActivity.class);
-                Gson gson = new Gson();
-                myIntent.putExtra("Obj",gson.toJson(dataset.get(position)));
-                activity.startActivity(myIntent);
-            }
-        });
+        holder.mBetDesc.setText(dataset.get(position).text);
+        // TODO: Change to BetInformation
+//        holder.cardView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent myIntent = new Intent(activity, BetActivity.class);
+//                Gson gson = new Gson();
+//                myIntent.putExtra("Obj",gson.toJson(dataset.get(position)));
+//                activity.startActivity(myIntent);
+//            }
+//        });
+        IconGenerator.setImage(activity,holder.icon);
     }
 
     @Override

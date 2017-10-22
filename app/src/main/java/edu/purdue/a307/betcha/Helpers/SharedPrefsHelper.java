@@ -10,10 +10,10 @@ public class SharedPrefsHelper {
 
     public static void setSelfToken(Context context, String selfTok) {
         SharedPrefsHelper.getSharedPrefs(
-                context).edit().putString("selfToken",selfTok);
+                context).edit().putString("selfToken",selfTok).apply();
     }
 
     public static String getSelfToken(Context context) {
-        return SharedPrefsHelper.getSharedPrefs(context).getString("selfToken","eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MDcyODA3MzYsInVzZXIiOiJreWxlLm9oYW5pYW5AZ21haWwuY29tIn0.w6_Og050TbkfE5XEJUnFV2beJ6zQQTNeznV48QIonU4");
+        return SharedPrefsHelper.getSharedPrefs(context).getString("selfToken",null);
     }
 }

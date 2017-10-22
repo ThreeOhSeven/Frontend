@@ -25,8 +25,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/iconImage"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="0dp" />
@@ -50,6 +50,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="7"
                         android:text="Title"
+                        android:textColor="@color/colorText"
                         android:textSize="24sp" />
 
                     <TextView
@@ -59,6 +60,7 @@
                         android:layout_gravity="start"
                         android:layout_weight="3"
                         android:text="Spots Left: "
+                        android:textColor="@color/colorText"
                         android:textSize="10sp" />
                 </LinearLayout>
 
@@ -67,7 +69,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Amount"
+                    android:textColor="@color/colorText"
                     android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageButton
+                        android:id="@+id/likeButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/colorIcon"
+                        android:src="@drawable/ic_favorite_border_black_24dp" />
+                </LinearLayout>
 
             </LinearLayout>
 

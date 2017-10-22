@@ -23,11 +23,19 @@
     <color name="myBlue">#7c7ce9</color>
     <color name="Blue">#0000FF</color>
     <color name="colorIcon">#FFFFFF</color>
+    <color name="colorText">#000000</color>
 
   
   
   
     <color name="iconColor1">#CB462A</color>
-    <color name="iconColor2">#E9A845</color>
+    <color name="iconColor2">#E65100</color>
     <color name="iconColor3">#6D2DB5</color>
+    <color name="iconColor4">#1565C0</color>
+    <color name="iconColor5">#0097A7</color>
+    <color name="iconColor6">#2E7D32</color>
+    <color name="iconColor7">#FFEB3B</color>
+    <color name="iconColor8">#757575</color>
+    <color name="iconColor9">#C51162</color>
+    <color name="iconColor10">#7986CB</color>
 </resources>
