@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -25,7 +26,9 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.BDialog;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Listeners.AlertDialogListener;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
@@ -108,37 +111,57 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.nav_sign_out) {
-            signOut();
-        }
-        else if(id == R.id.nav_delete) {
-            ApiHelper.getInstance(getApplicationContext()).deleteAccount(
-                    new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+            BDialog.showSignOut(this, new AlertDialogListener() {
                 @Override
-                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                    if (response.code() != 200) {
-                        Log.d("Response Code",String.valueOf(response.code()));
-                        Log.d("Response Message",String.valueOf(response.message()));
-                        Toast.makeText(getApplicationContext(), "Unable to delete account",
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    else {
-                        Intent myIntent = new Intent(BetchaActivity.this, LoginActivity.class);
-                        Log.d("Body Response", response.toString());
-//                    Log.d("Callback Response", response.);
-                        Log.d("Message", response.message());
-                        if(response.body().getSelfToken() != null) {
-                            Log.d("Callback Token", response.body().getSelfToken());
-                        }
-                        signOut();
-                        Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
-                        startActivity(myIntent);
-                        finish();
-                    }
+                public void onPositive() {
+                    signOut();
                 }
 
                 @Override
-                public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                public void onNegative() {
+
+                }
+            });
+        }
+        else if(id == R.id.nav_delete) {
+            BDialog.showDeleteAccount(this, new AlertDialogListener() {
+                @Override
+                public void onPositive() {
+                    ApiHelper.getInstance(getApplicationContext()).deleteAccount(
+                            new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+                        @Override
+                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                            if (response.code() != 200) {
+                                Log.d("Response Code",String.valueOf(response.code()));
+                                Log.d("Response Message",String.valueOf(response.message()));
+                                Toast.makeText(getApplicationContext(), "Unable to delete account",
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                            else {
+                                Intent myIntent = new Intent(BetchaActivity.this, LoginActivity.class);
+                                Log.d("Body Response", response.toString());
+//                    Log.d("Callback Response", response.);
+                                Log.d("Message", response.message());
+                                if(response.body().getSelfToken() != null) {
+                                    Log.d("Callback Token", response.body().getSelfToken());
+                                }
+                                signOut();
+                                Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
+                                startActivity(myIntent);
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onNegative() {
 
                 }
             });
