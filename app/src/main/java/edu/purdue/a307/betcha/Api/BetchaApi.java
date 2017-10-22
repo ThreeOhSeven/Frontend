@@ -19,6 +19,7 @@ import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.PublicFeedItem;
 import edu.purdue.a307.betcha.Models.PublicFeedResponse;
+import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
@@ -45,7 +46,7 @@ public interface BetchaApi {
     Call<AccountInformation> getAccountInfo(@Query("authToken") String authToken);
     @POST("/account/edit")
     Call<BetchaResponse> editAccountInfo(@Body AccountInformation accountInformation, @Query("authToken") String authToken);
-    @POST("/delete")
+    @POST("/account/delete")
     Call<BetchaResponse> deleteAccount(@Body LoginRequest authToken);
 
 
@@ -111,6 +112,9 @@ public interface BetchaApi {
     @POST("likes/update")
     Call<BetchaResponse> postLike(@Body BetLike betLike, @Query("incrementalValue") String incValue,
                                   @Query("authToken") String authToken);
+
+    @POST("/transaction/getPoints")
+    Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);
 
 
 

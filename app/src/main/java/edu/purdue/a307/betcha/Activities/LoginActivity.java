@@ -143,6 +143,11 @@ public class LoginActivity extends AppCompatActivity {
         if(res.isSuccess()) {
             GoogleSignInAccount account = res.getSignInAccount();
             String token = account.getIdToken();
+            Log.d("Display Name",account.getDisplayName());
+            Log.d("Photo URL",account.getPhotoUrl().toString(), null);
+            Log.d("Family Name",account.getFamilyName());
+            Log.d("Given Name",account.getGivenName());
+            Log.d("Account",account.getAccount().toString());
             authWithServer(token);
         }
         else

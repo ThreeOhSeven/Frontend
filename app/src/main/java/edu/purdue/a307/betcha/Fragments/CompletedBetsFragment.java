@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CompletedBetsFragment extends Fragment {
+public class CompletedBetsFragment extends Fragment implements OnPageSelectedListener {
 
 
     public CompletedBetsFragment() {
@@ -27,4 +28,8 @@ public class CompletedBetsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_completed_bets, container, false);
     }
 
+    @Override
+    public void onPageSelected() {
+
+    }
 }

@@ -7,12 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PrivateFeedFragment extends Fragment {
+public class PrivateFeedFragment extends Fragment implements OnPageSelectedListener {
 
 
     public PrivateFeedFragment() {
@@ -27,4 +28,8 @@ public class PrivateFeedFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_private_feed, container, false);
     }
 
+    @Override
+    public void onPageSelected() {
+
+    }
 }

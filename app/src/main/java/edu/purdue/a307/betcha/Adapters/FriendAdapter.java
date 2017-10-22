@@ -1,5 +1,6 @@
 package edu.purdue.a307.betcha.Adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -46,7 +47,7 @@ import retrofit2.Response;
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHolder> {
 
     private List<FriendItem> items;
-    private BetchaActivity activity;
+    private Activity activity;
     private String selfToken;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +69,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
     }
 
 
-    public FriendAdapter(BetchaActivity activity,List<FriendItem> items, String selfToken) {
+    public FriendAdapter(Activity activity, List<FriendItem> items, String selfToken) {
         this.activity = activity;
         this.items = items;
         this.selfToken = selfToken;

@@ -17,6 +17,7 @@ import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Adapters.NewsFeedAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
+import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.PublicFeedResponse;
 import edu.purdue.a307.betcha.R;
@@ -27,7 +28,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PublicFeedFragment extends Fragment {
+public class PublicFeedFragment extends Fragment implements OnPageSelectedListener {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -53,6 +54,12 @@ public class PublicFeedFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        onPageSelected();
+        return view;
+    }
+
+    @Override
+    public void onPageSelected() {
         BetchaApi service =  ApiHelper.getInstance(getContext());
         Call<PublicFeedResponse> call = service.getPublicFeed();
 
@@ -83,7 +90,6 @@ public class PublicFeedFragment extends Fragment {
                 Log.e("News Feed API", "Failed to get content from server for NewsFeed", t);
             }
         });
-        return view;
-    }
 
+    }
 }

@@ -13,10 +13,10 @@ import edu.purdue.a307.betcha.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BetInvitesFragment extends Fragment implements OnPageSelectedListener {
+public class FriendRequestFragment extends Fragment implements OnPageSelectedListener {
 
 
-    public BetInvitesFragment() {
+    public FriendRequestFragment() {
         // Required empty public constructor
     }
 
@@ -25,7 +25,8 @@ public class BetInvitesFragment extends Fragment implements OnPageSelectedListen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_bet_invites, container, false);
+        View v = inflater.inflate(R.layout.fragment_friend_requests, container, false);
+        return v;
     }
 
     @Override

@@ -20,6 +20,7 @@ import edu.purdue.a307.betcha.Activities.MyBetsActivity;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.LoginRequest;
@@ -31,7 +32,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OpenBetsFragment extends Fragment {
+public class OpenBetsFragment extends Fragment implements OnPageSelectedListener {
 
     RecyclerView recyclerView;
     ArrayList<BetInformation> bets;
@@ -65,6 +66,12 @@ public class OpenBetsFragment extends Fragment {
         });
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerBets);
         Log.d("Self Token", selfToken);
+        onPageSelected();
+        return view;
+    }
+
+    @Override
+    public void onPageSelected() {
         ApiHelper.getInstance(getContext()).getUserBets(new LoginRequest(selfToken)).enqueue(new Callback<BetInformations>() {
             @Override
             public void onResponse(Call<BetInformations> call, Response<BetInformations> response) {
@@ -88,7 +95,5 @@ public class OpenBetsFragment extends Fragment {
                 Log.d("COMPLETE FAIL", "FAiled");
             }
         });
-        return view;
     }
-
 }
