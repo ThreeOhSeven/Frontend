@@ -13,7 +13,8 @@ import edu.purdue.a307.betcha.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class BetInvitesFragment extends Fragment implements OnPageSelectedListener {
+public class
+BetInvitesFragment extends Fragment implements OnPageSelectedListener {
 
 
     public BetInvitesFragment() {
