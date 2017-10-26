@@ -54,16 +54,12 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         public CardView cardView;
         @BindView(R.id.textTitle)
         public TextView mBetTitle;
-        @BindView(R.id.textDesc)
-        public TextView mBetDesc;
-        @BindView(R.id.textSpotsLeft)
-        public TextView mSpotsLeft;
         @BindView(R.id.textAmount)
         public TextView mAmount;
         @BindView(R.id.likeButton)
         public ImageButton mLikeButton;
-        @BindView(R.id.likeCount)
-        public TextView mLikeCount;
+        @BindView(R.id.numLikes)
+        public TextView mNumLikes;
 
         CircleImageView icon;
 
@@ -96,9 +92,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.mBetTitle.setText(dataset.get(position).title);
-        holder.mBetDesc.setText(dataset.get(position).text);
-        holder.mLikeCount.setText(dataset.get(position).getLikeCount());
+        holder.mBetTitle.setText(dataset.get(position).getTitle());
+        holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes()));
+        holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount()));
 
         holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override

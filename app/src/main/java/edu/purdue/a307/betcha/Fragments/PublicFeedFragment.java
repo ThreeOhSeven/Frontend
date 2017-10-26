@@ -17,6 +17,7 @@ import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
+import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PublicFeedResponse;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -59,8 +60,9 @@ public class PublicFeedFragment extends Fragment implements OnPageSelectedListen
     @Override
     public void onPageSelected() {
         BetchaApi service = ApiHelper.getInstance(getContext());
-        Call<PublicFeedResponse> call = service.getPublicFeed();
         selfTokenFA = SharedPrefsHelper.getSelfToken(getContext());
+        Call<PublicFeedResponse> call = service.getPublicFeed(new LoginRequest(selfTokenFA));
+
 
 
         call.enqueue(new Callback<PublicFeedResponse>() {

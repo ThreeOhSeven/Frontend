@@ -59,9 +59,8 @@ public interface BetchaApi {
 
 
     // Social Feed
-    // TODO - Refactor to be POST with authToken
-    @GET("/publicfeed")
-    Call<PublicFeedResponse> getPublicFeed(); //@Query("authToken") String authToken
+    @POST("/publicfeed")
+    Call<PublicFeedResponse> getPublicFeed(@Body LoginRequest request);
 
 
     // Private Feed
