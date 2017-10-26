@@ -62,6 +62,8 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         public TextView mAmount;
         @BindView(R.id.likeButton)
         public ImageButton mLikeButton;
+        @BindView(R.id.likeCount)
+        public TextView mLikeCount;
 
         CircleImageView icon;
 
@@ -78,9 +80,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets, String selfToken) {
         super();
 
-        selfToken = selfToken;
-        activity = betchaActivity;
-        dataset = bets;
+        this.selfToken = selfToken;
+        this.activity = betchaActivity;
+        this.dataset = bets;
     }
 
 
@@ -96,6 +98,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.mBetTitle.setText(dataset.get(position).title);
         holder.mBetDesc.setText(dataset.get(position).text);
+        holder.mLikeCount.setText(dataset.get(position).getLikeCount());
 
         holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +109,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                         if(response.code() != 200) {
                             Log.d("Like Response Code", Integer.toString(response.code()));
-                            Log.d("Like Response Body", response.body().toString());
+                            Log.d("Like Response Body", response.errorBody().toString());
                             Toast.makeText(activity, "Failed to POST like", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
@@ -124,16 +127,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             }
         });
 
-        // TODO: Change to BetInformation
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent myIntent = new Intent(activity, BetActivity.class);
-//                Gson gson = new Gson();
-//                myIntent.putExtra("Obj",gson.toJson(dataset.get(position)));
-//                activity.startActivity(myIntent);
-//            }
-//        });
         IconGenerator.setImage(activity,holder.icon);
     }
 

@@ -91,6 +91,12 @@
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/colorIcon"
                         android:src="@drawable/ic_favorite_border_black_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/likeCount"
+                        android:textSize="16sp"/>
                 </LinearLayout>
 
             </LinearLayout>

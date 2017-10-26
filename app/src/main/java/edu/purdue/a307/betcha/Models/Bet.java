@@ -9,6 +9,22 @@ import java.io.Serializable;
 
 public class Bet implements Serializable {
 
+    public int id;
+    public int maxUsers;
+    public String title;
+    public String text;
+    public boolean completed;
+    public int likeCount;
+
+    public Bet(int id, int maxUsers, String title, String text, boolean completed, int likeCount) {
+        this.id = id;
+        this.maxUsers = maxUsers;
+        this.title = title;
+        this.text = text;
+        this.completed = completed;
+        this.likeCount = likeCount;
+    }
+
     public int getId() {
         return id;
     }
@@ -49,18 +65,11 @@ public class Bet implements Serializable {
         this.completed = completed;
     }
 
-    public int id;
-    public int maxUsers;
-    public String title;
-    public String text;
-    public boolean completed;
+    public int getLikeCount() {
+        return likeCount;
+    }
 
-
-    public Bet(int id, int maxUsers, String title, String text, boolean completed) {
-        this.id = id;
-        this.maxUsers = maxUsers;
-        this.title = title;
-        this.text = text;
-        this.completed = completed;
+    public void setLikeCount(int likeCount) {
+        this.likeCount = likeCount;
     }
 }

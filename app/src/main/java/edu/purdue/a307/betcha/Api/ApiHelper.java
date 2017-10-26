@@ -17,9 +17,6 @@ public class ApiHelper {
 
     public static BetchaApi getInstance(Context context) {
         if (betchaApi == null) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
 
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(/*context.getString(R.string.app_name)*/"http://18.220.176.148:80")
