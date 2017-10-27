@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -28,6 +30,8 @@ import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.Bet;
+import edu.purdue.a307.betcha.Models.BetLike;
+import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +46,7 @@ import retrofit2.Response;
 public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHolder> {
     private List<Bet> dataset;
     private Activity activity;
+    private String selfToken;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -49,12 +54,12 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         public CardView cardView;
         @BindView(R.id.textTitle)
         public TextView mBetTitle;
-        @BindView(R.id.textDesc)
-        public TextView mBetDesc;
-        @BindView(R.id.textSpotsLeft)
-        public TextView mSpotsLeft;
         @BindView(R.id.textAmount)
         public TextView mAmount;
+        @BindView(R.id.likeButton)
+        public ImageButton mLikeButton;
+        @BindView(R.id.numLikes)
+        public TextView mNumLikes;
 
         CircleImageView icon;
 
@@ -68,22 +73,12 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     }
 
 
-    public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets) {
+    public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets, String selfToken) {
         super();
 
-        activity = betchaActivity;
-        // TODO - Add live data
-        /*
-        Bet[] testData = new Bet[3];
-
-        testData[0] = new Bet(0, 5, "Test1", "I built this for testing", false);
-        testData[1] = new Bet(1, 6, "Test2", "I built this for testing fam", false);
-        testData[2] = new Bet(2, 7, "Test3", "I built this for testing bro", false);
-
-        dataset = testData;
-        */
-        dataset = bets;
-
+        this.selfToken = selfToken;
+        this.activity = betchaActivity;
+        this.dataset = bets;
     }
 
 
@@ -97,18 +92,37 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.mBetTitle.setText(dataset.get(position).title);
-        holder.mBetDesc.setText(dataset.get(position).text);
-        // TODO: Change to BetInformation
-//        holder.cardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent myIntent = new Intent(activity, BetActivity.class);
-//                Gson gson = new Gson();
-//                myIntent.putExtra("Obj",gson.toJson(dataset.get(position)));
-//                activity.startActivity(myIntent);
-//            }
-//        });
+        holder.mBetTitle.setText(dataset.get(position).getTitle());
+        holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes()));
+        holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount()));
+
+        holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BetLike betLike = new BetLike(1, dataset.get(position).getId());
+                ApiHelper.getInstance(activity).postLike(betLike, selfToken).enqueue(new Callback<BetchaResponse>() {
+                    @Override
+                    public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                        if(response.code() != 200) {
+                            Log.d("Like Response Code", Integer.toString(response.code()));
+                            Log.d("Like Response Body", response.errorBody().toString());
+                            Toast.makeText(activity, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            Log.d("Like Response Status", "Successful");
+                            notifyDataSetChanged();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                        Log.d("Like Update: ", "Failure");
+                        Toast.makeText(activity, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
         IconGenerator.setImage(activity,holder.icon);
     }
 

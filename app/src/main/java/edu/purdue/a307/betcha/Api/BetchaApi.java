@@ -59,9 +59,8 @@ public interface BetchaApi {
 
 
     // Social Feed
-    // TODO - Refactor to be POST with authToken
-    @GET("/publicfeed")
-    Call<PublicFeedResponse> getPublicFeed(); //@Query("authToken") String authToken
+    @POST("/publicfeed")
+    Call<PublicFeedResponse> getPublicFeed(@Body LoginRequest request);
 
 
     // Private Feed
@@ -109,9 +108,8 @@ public interface BetchaApi {
 
 
     // Likes
-    @POST("likes/update")
-    Call<BetchaResponse> postLike(@Body BetLike betLike, @Query("incrementalValue") String incValue,
-                                  @Query("authToken") String authToken);
+    @POST("like/update")
+    Call<BetchaResponse> postLike(@Body BetLike betLike, @Query("authToken") String authToken);
 
     @POST("/transaction/getPoints")
     Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);
