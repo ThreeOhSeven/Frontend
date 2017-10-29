@@ -14,6 +14,6 @@ public class SharedPrefsHelper {
     }
 
     public static String getSelfToken(Context context) {
-        return SharedPrefsHelper.getSharedPrefs(context).getString("selfToken",null);
+        return SharedPrefsHelper.getSharedPrefs(context).getString("selfToken","");
     }
 }

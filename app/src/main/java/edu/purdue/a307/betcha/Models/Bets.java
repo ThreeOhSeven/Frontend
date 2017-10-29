@@ -6,10 +6,10 @@ import java.util.List;
  * Created by Peter on 10/4/17.
  */
 
-public class PublicFeedResponse {
+public class Bets {
     public List<Bet> bets;
 
-    public PublicFeedResponse(List<Bet> bets) {
+    public Bets(List<Bet> bets) {
         this.bets = bets;
     }
 

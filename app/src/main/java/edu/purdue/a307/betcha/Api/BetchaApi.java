@@ -11,21 +11,18 @@ import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.BetLike;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
-import edu.purdue.a307.betcha.Models.FriendItem;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
-import edu.purdue.a307.betcha.Models.PublicFeedItem;
-import edu.purdue.a307.betcha.Models.PublicFeedResponse;
+import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -60,15 +57,21 @@ public interface BetchaApi {
 
     // Social Feed
     @POST("/publicfeed")
-    Call<PublicFeedResponse> getPublicFeed(@Body LoginRequest request);
+    Call<Bets> getPublicFeed(@Body LoginRequest request);
 
 
     // Private Feed
     @POST("/privatefeed")
-    Call<List<PrivateFeedItem>> getPrivateFeed(@Query("authToken") String authToken);
+    Call<Bets> getPrivateFeed(@Body LoginRequest request);
 
-    @POST("/mybets")
-    Call<BetInformations> getUserBets(@Body LoginRequest authToken);
+    @POST("/open")
+    Call<Bets> getMyOpenBets(@Body LoginRequest authToken);
+
+    @POST("/completed")
+    Call<Bets> getMyCompletedBets(@Body LoginRequest authToken);
+
+    @POST("/pending")
+    Call<Bets> getMyPendingBets(@Body LoginRequest authToken);
 
 
     // Friends

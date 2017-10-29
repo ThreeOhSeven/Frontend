@@ -28,6 +28,7 @@ import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Activities.EditBetActivity;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
+import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.R;
 
@@ -37,7 +38,7 @@ import edu.purdue.a307.betcha.R;
 
 public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
-    private List<BetInformation> items;
+    private List<Bet> items;
     private Activity activity;
     private String selfToken;
 
@@ -69,7 +70,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
     }
 
 
-    public BetAdapter(Activity activity, List<BetInformation> items, String selfToken) {
+    public BetAdapter(Activity activity, List<Bet> items, String selfToken) {
         this.activity = activity;
         this.items = items;
         this.selfToken = selfToken;
@@ -84,9 +85,9 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(final BetAdapter.MyViewHolder holder, final int position) {
-        final BetInformation info = items.get(position);
-        holder.textTitle.setText(info.title);
-        holder.textAmount.setText("$"+info.amount);
+        final Bet info = items.get(position);
+        holder.textTitle.setText(info.getTitle());
+        holder.textAmount.setText("$"+info.getAmount());
         // TODO: needs to be actual spots left
 //        holder.textSpotsLeft.setText("Spots Left: " + info.maxUsers);
         holder.buttonMenu.setOnClickListener(new View.OnClickListener() {

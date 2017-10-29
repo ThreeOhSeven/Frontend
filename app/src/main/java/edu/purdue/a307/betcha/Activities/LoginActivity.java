@@ -203,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d("Callback Token", response.body().getSelfToken());
                     }
                     SharedPrefsHelper.setSelfToken(getApplicationContext(), response.body().getSelfToken());
+                    Log.d("BETCHA TOKEN", response.body().getSelfToken());
                     Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
                     startActivity(myIntent);
                     finish();

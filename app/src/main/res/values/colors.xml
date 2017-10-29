@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#43A047</color>
+    <color name="colorPrimary">#43a047</color>
     <color name="colorPrimaryDark">#00701A</color>
     <color name="colorPrimaryLight">#76d275</color>
     <color name="colorSecondary">#90caf9</color>
@@ -8,7 +8,7 @@
     <color name="colorSecondaryDark">#5d99c6</color>
     <color name="colorSecondaryLight">#c3fdff</color>
     <color name="colorFade">#D3E3D2</color>
-    <color name="colorUpdate">#0000B2</color>
+    <color name="colorUpdate">#0000b2</color>
     <color name="colorDelete">#B20000</color>
     <color name="colorButton">#FFFFFF</color>
     <color name="colorLock">#00701A</color>
