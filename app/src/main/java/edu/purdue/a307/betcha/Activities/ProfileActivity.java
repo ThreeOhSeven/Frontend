@@ -25,8 +25,10 @@ import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformations;
+import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.R;
@@ -37,7 +39,7 @@ import retrofit2.Response;
 public class ProfileActivity extends BetchaActivity {
 
     RecyclerView recyclerView;
-    ArrayList<BetInformation> bets;
+    List<Bet> bets;
     BetAdapter betAdapter;
     String selfToken;
     TextView balance;
@@ -76,16 +78,16 @@ public class ProfileActivity extends BetchaActivity {
 
             }
         });
-        ApiHelper.getInstance(this).getUserBets(new LoginRequest(selfToken)).enqueue(new Callback<BetInformations>() {
+        ApiHelper.getInstance(this).getMyOpenBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
             @Override
-            public void onResponse(Call<BetInformations> call, Response<BetInformations> response) {
+            public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {
                     Log.d("AUTH ERROR", String.valueOf(response.code()));
                     Toast.makeText(getApplicationContext(), "Unable to get bets",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Log.d("Bets size", String.valueOf(response.body().getMyBets().size()));
-                bets = response.body().getMyBets();
+                Log.d("Bets size", String.valueOf(response.body().getBets().size()));
+                bets = response.body().getBets();
                 betAdapter = new BetAdapter(ProfileActivity.this, bets, selfToken);
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
@@ -95,7 +97,7 @@ public class ProfileActivity extends BetchaActivity {
             }
 
             @Override
-            public void onFailure(Call<BetInformations> call, Throwable t) {
+            public void onFailure(Call<Bets> call, Throwable t) {
                 Log.d("COMPLETE FAIL", "FAiled");
             }
         });
