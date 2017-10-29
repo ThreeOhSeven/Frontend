@@ -3,6 +3,8 @@ package edu.purdue.a307.betcha.Api;
 import android.content.Context;
 
 import edu.purdue.a307.betcha.R;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -15,6 +17,7 @@ public class ApiHelper {
 
     public static BetchaApi getInstance(Context context) {
         if (betchaApi == null) {
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(/*context.getString(R.string.app_name)*/"http://18.220.176.148:80")
                     .addConverterFactory(GsonConverterFactory.create())
