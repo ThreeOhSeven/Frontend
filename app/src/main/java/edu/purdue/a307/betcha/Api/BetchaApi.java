@@ -17,6 +17,7 @@ import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.Bets;
+import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
@@ -97,6 +98,9 @@ public interface BetchaApi {
 
     @POST("/bets/join")
     Call<BetchaResponse> joinBet(@Body JoinBetRequest jbr);
+
+    @POST("/bets/send")
+    Call<BetchaResponse> sendBet(@Body SendBetRequest sbr);
 
 
     // Comments
