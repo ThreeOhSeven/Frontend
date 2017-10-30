@@ -62,7 +62,7 @@ public class SearchFriendsActivity extends BetchaActivity {
                                 @Override
                                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                     if(response.code() != 200) {
-                                        Log.d("AUTH ERROR", String.valueOf(response.code()));
+                                        Log.d("AUTH ERROR", String.valueOf(response.message()));
                                         Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
                                         return;
                                     }

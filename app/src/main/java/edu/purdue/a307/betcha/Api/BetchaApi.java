@@ -2,6 +2,7 @@ package edu.purdue.a307.betcha.Api;
 
 import java.util.List;
 
+import edu.purdue.a307.betcha.Models.AcceptBetRequest;
 import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetComment;
@@ -17,6 +18,7 @@ import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.Bets;
+import edu.purdue.a307.betcha.Models.RejectBetRequest;
 import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
@@ -101,6 +103,12 @@ public interface BetchaApi {
 
     @POST("/bets/send")
     Call<BetchaResponse> sendBet(@Body SendBetRequest sbr);
+
+    @POST("/bets/accept")
+    Call<BetchaResponse> acceptBet(@Body AcceptBetRequest abr);
+
+    @POST("/bets/reject")
+    Call<BetchaResponse> rejectBet(@Body RejectBetRequest rbr);
 
 
     // Comments

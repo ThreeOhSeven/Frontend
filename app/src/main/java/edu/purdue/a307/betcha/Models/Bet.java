@@ -2,6 +2,7 @@ package edu.purdue.a307.betcha.Models;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Generic Bet Class
@@ -20,6 +21,7 @@ public class Bet implements Serializable {
     private boolean complete;
     private int numLikes;
     private boolean liked;
+    private List<User> users;
 
     public Bet(int creatorId, int maxUsers, String title, String description, double amount, boolean winner, boolean locked, boolean complete, int numLikes, boolean liked) {
         this.creatorId = creatorId;
