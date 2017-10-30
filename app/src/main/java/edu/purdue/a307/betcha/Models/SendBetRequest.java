@@ -1,19 +1,18 @@
 package edu.purdue.a307.betcha.Models;
 
 /**
- * Created by kyleohanian on 10/12/17.
+ * Created by kyleohanian on 10/29/17.
  */
 
-public class JoinBetRequest {
+public class SendBetRequest {
 
+    public String userID;
     public String betID;
-    public String side;
     public String authToken;
 
-    public JoinBetRequest(String betID, String authToken, String side) {
+    public SendBetRequest(String userID, String betID, String authToken) {
         this.betID = betID;
         this.authToken = authToken;
-        this.side = side;
     }
 
     public String getBetID() {
@@ -30,5 +29,13 @@ public class JoinBetRequest {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
