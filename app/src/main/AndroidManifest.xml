@@ -50,10 +50,19 @@
         <activity android:name=".Activities.BetDetailActivity" />
         <activity
             android:name=".Activities.SearchFriendsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.EditBetActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.JoinBetActivity"
+            android:label="@string/title_activity_join_bet"
+            android:parentActivityName=".Activities.NewsFeedActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.purdue.a307.betcha.Activities.NewsFeedActivity" />
+        </activity>
     </application>
 
 </manifest>
