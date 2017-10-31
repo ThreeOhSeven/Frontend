@@ -91,7 +91,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
             holder.cardView.setBackgroundResource(R.color.colorAccent);
             holder.buttonMenu.setBackgroundColor(ContextCompat.getColor(activity,R.color.colorAccent));
         }
-        holder.friendName.setText(info.getFriend().getUsername());
+        holder.friendName.setText(info.getFriend().getEmail());
         // TODO: needs to be actual spots left
         holder.buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
