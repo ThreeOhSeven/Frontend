@@ -29,7 +29,7 @@
         android:id="@+id/joinDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:text="No Description"
         android:textSize="12dp"
         android:gravity="center"
         tools:layout_conversion_absoluteX="0dp"

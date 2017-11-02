@@ -136,13 +136,15 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         holder.mJoinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent detailIntent = new Intent(activity.getApplicationContext(), JoinBetActivity.class);
+                Intent joinIntent = new Intent(activity.getApplicationContext(), JoinBetActivity.class);
 
                 Gson gson = new Gson();
                 String json = gson.toJson(dataset.get(position));
-                detailIntent.putExtra("Obj", json);
+                joinIntent.putExtra("Obj", json);
 
-                activity.startActivity(detailIntent);
+                Log.d("Object", json);
+
+                activity.startActivity(joinIntent);
             }
         });
 
