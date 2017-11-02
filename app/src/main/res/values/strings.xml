@@ -25,5 +25,6 @@
     <string name="friendUserName">User Name</string>
     <string name="friendPhotoUrl">Photo URL</string>
     <string name="addFriendBtnText">Add Friend</string>
+    <string name="title_activity_join_bet">JoinBetActivity</string>
     <string name="title_activity_invite_peeps">InvitePeepsActivity</string>
 </resources>
