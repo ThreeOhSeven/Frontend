@@ -11,6 +11,7 @@ import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.BetLike;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
@@ -89,8 +90,8 @@ public interface BetchaApi {
 
 
     // Bets
-    @POST("/createbet")
-    Call<BetchaResponse> createBet(@Body BetInformationRequest betInformation);
+    @POST("/bets/create")
+    Call<CreateBetResponse> createBet(@Body BetInformationRequest betInformation);
     @POST("/bets/delete/{id}")
     Call<BetchaResponse> deleteBet(@Path("id") String betID, @Query("authToken") String authToken);
     @POST("/bets/update")

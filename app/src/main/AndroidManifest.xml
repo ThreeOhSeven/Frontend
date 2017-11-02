@@ -50,10 +50,14 @@
         <activity android:name=".Activities.BetDetailActivity" />
         <activity
             android:name=".Activities.SearchFriendsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.EditBetActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.InvitePeepsActivity"
+            android:label="@string/title_activity_invite_peeps"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

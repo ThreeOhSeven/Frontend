@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
@@ -68,7 +69,7 @@ public class FriendRequestFragment extends Fragment implements OnPageSelectedLis
                     }
                 }
                 FriendAdapter adapter = new FriendAdapter(getActivity(), friends,
-                        token);
+                        token, AdapterType.FRIENDS_LIST);
 
                 requests.setAdapter(adapter);
                 requests.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -6,14 +6,14 @@ package edu.purdue.a307.betcha.Models;
 
 public class BetInformationRequest {
     public String authToken;
-    public String id;
-    public String creator;
     public String maxUsers;
     public String title;
     public String description;
     public String amount;
-    public String winner;
     public String locked;
+    public String sideA;
+    public String sideB;
+
 
     public String getAuthToken() {
         return authToken;
@@ -21,22 +21,6 @@ public class BetInformationRequest {
 
     public void setAuthToken(String authToken) {
         this.authToken = authToken;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCreator() {
-        return creator;
-    }
-
-    public void setCreator(String creator) {
-        this.creator = creator;
     }
 
     public String getMaxUsers() {
@@ -71,19 +55,27 @@ public class BetInformationRequest {
         this.amount = amount;
     }
 
-    public String getWinner() {
-        return winner;
-    }
-
-    public void setWinner(String winner) {
-        this.winner = winner;
-    }
-
     public String getLocked() {
         return locked;
     }
 
     public void setLocked(String locked) {
         this.locked = locked;
+    }
+
+    public String getSideA() {
+        return sideA;
+    }
+
+    public void setSideA(String sideA) {
+        this.sideA = sideA;
+    }
+
+    public String getSideB() {
+        return sideB;
+    }
+
+    public void setSideB(String sideB) {
+        this.sideB = sideB;
     }
 }
