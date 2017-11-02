@@ -98,6 +98,8 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         // Add filled heart if it has been liked by the user
         if(dataset.get(position).isLiked()) {
             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+        } else {
+            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         }
 
         // Add click for liking
@@ -141,8 +143,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 Gson gson = new Gson();
                 String json = gson.toJson(dataset.get(position));
                 joinIntent.putExtra("Obj", json);
-
-                Log.d("Object", json);
 
                 activity.startActivity(joinIntent);
             }

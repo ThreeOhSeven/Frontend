@@ -143,4 +143,24 @@ public class Bet implements Serializable {
     public void setSideB(String sideB) {
         this.sideB = sideB;
     }
+
+    @Override
+    public String toString() {
+        return "Bet{" +
+                "id=" + id +
+                ", creatorId=" + creatorId +
+                ", maxUsers=" + maxUsers +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", winner=" + winner +
+                ", locked=" + locked +
+                ", complete=" + complete +
+                ", numLikes=" + numLikes +
+                ", liked=" + liked +
+                ", users=" + users +
+                ", sideA='" + sideA + '\'' +
+                ", sideB='" + sideB + '\'' +
+                '}';
+    }
 }

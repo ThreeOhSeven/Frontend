@@ -15,7 +15,7 @@ public class BetDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bet_detail);
+
 
         JSONObject obj = null;
         try {
@@ -56,5 +56,7 @@ public class BetDetailActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+    protected int getLayoutResource() { return R.layout.activity_bet_detail; }
 
 }
