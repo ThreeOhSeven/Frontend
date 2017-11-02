@@ -2,11 +2,13 @@ package edu.purdue.a307.betcha.Api;
 
 import edu.purdue.a307.betcha.Models.AcceptBetRequest;
 import edu.purdue.a307.betcha.Models.AccountInformation;
+import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.CompleteBetRequest;
 import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.FriendItems;
@@ -76,10 +78,10 @@ public interface BetchaApi {
 
 
     // Friends
-    @POST("/friends/")
+    @POST("/friends")
     Call<FriendItems> getFriends(@Body LoginRequest authToken);
-    @POST("/friends/add/{id}")
-    Call<BetchaResponse> addFriend(@Path("id") String friendID, @Body LoginRequest authToken);
+    @POST("/friends/add/")
+    Call<BetchaResponse> addFriend(@Body AddFriendRequest addFriendRequest);
     @POST("/friends/delete/{id}")
     Call<BetchaResponse> deleteFriend(@Path("id") String friendID, @Body LoginRequest authToken);
     @POST("/friends/info/{id}")
@@ -107,6 +109,9 @@ public interface BetchaApi {
 
     @POST("/bets/reject")
     Call<BetchaResponse> rejectBet(@Body RejectBetRequest rbr);
+
+    @POST("/bets/complete")
+    Call<BetchaResponse> completeBet(@Body CompleteBetRequest rbr);
 
 
     // Comments
