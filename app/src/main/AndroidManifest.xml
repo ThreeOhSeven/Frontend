@@ -8,7 +8,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/launch_icon"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -55,6 +55,7 @@
             android:name=".Activities.EditBetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+
             android:name=".Activities.JoinBetActivity"
             android:label="@string/title_activity_join_bet"
             android:parentActivityName=".Activities.NewsFeedActivity"
@@ -63,6 +64,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.purdue.a307.betcha.Activities.NewsFeedActivity" />
         </activity>
+        <activity
+            android:name=".Activities.InvitePeepsActivity"
+            android:label="@string/title_activity_invite_peeps"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
