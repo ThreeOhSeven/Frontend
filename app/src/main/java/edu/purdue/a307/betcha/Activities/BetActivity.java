@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.UserID;
@@ -25,7 +26,7 @@ import retrofit2.Response;
 
 public class BetActivity extends BetchaActivity {
 
-    BetInformation betInformation;
+    Bet betInformation;
     TextView title, amount, description, maxUsers, creator;
     Button createButton;
     String selfToken;
@@ -35,7 +36,7 @@ public class BetActivity extends BetchaActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         String gsonInfo = intent.getStringExtra("Object");
-        betInformation = new Gson().fromJson(gsonInfo, BetInformation.class);
+        betInformation = new Gson().fromJson(gsonInfo, Bet.class);
         selfToken = SharedPrefsHelper.getSelfToken(this);
 
         title = (TextView)findViewById(R.id.txtTitle);
@@ -45,13 +46,14 @@ public class BetActivity extends BetchaActivity {
         creator = (TextView)findViewById(R.id.txtCreator);
 
         title.setText(betInformation.getTitle());
-        amount.setText(betInformation.getAmount());
+        amount.setText(String.valueOf(betInformation.getAmount()));
         description.setText(betInformation.getDescription());
         maxUsers.setText("10");
 
         UserIDRequest req = new UserIDRequest();
         req.authToken =selfToken;
-        req.id = betInformation.creator;
+
+        req.id = String.valueOf(betInformation.getCreatorId());
         ApiHelper.getInstance(this).getUserByID(req).enqueue(new Callback<EmailResponse>() {
             @Override
             public void onResponse(Call<EmailResponse> call, Response<EmailResponse> response) {

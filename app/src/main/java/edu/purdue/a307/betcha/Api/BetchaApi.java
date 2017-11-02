@@ -1,21 +1,17 @@
 package edu.purdue.a307.betcha.Api;
 
-import java.util.List;
-
 import edu.purdue.a307.betcha.Models.AcceptBetRequest;
 import edu.purdue.a307.betcha.Models.AccountInformation;
-import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
-import edu.purdue.a307.betcha.Models.BetInformations;
-import edu.purdue.a307.betcha.Models.BetLike;
+import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
-import edu.purdue.a307.betcha.Models.PrivateFeedItem;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
@@ -26,7 +22,9 @@ import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -89,8 +87,8 @@ public interface BetchaApi {
 
 
     // Bets
-    @POST("/createbet")
-    Call<BetchaResponse> createBet(@Body BetInformationRequest betInformation);
+    @POST("/bets/create")
+    Call<CreateBetResponse> createBet(@Body BetInformationRequest betInformation);
     @POST("/bets/delete/{id}")
     Call<BetchaResponse> deleteBet(@Path("id") String betID, @Query("authToken") String authToken);
     @POST("/bets/update")
@@ -124,7 +122,7 @@ public interface BetchaApi {
 
     // Likes
     @POST("like/update")
-    Call<BetchaResponse> postLike(@Body BetLike betLike, @Query("authToken") String authToken);
+    Call<BetchaResponse> postLike(@Body BetLikeRequest betLikeRequest);
 
     @POST("/transaction/getPoints")
     Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);

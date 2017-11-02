@@ -17,6 +17,7 @@ import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
+import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.R;

@@ -1,9 +1,7 @@
 package edu.purdue.a307.betcha.Adapters;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -11,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,15 +19,16 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetDetailActivity;
-import edu.purdue.a307.betcha.Activities.BetchaActivity;
+import edu.purdue.a307.betcha.Activities.JoinBetActivity;
+import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
-import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.Bet;
-import edu.purdue.a307.betcha.Models.BetLike;
+import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.JoinBetRequest;
+import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,6 +57,8 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         public ImageButton mLikeButton;
         @BindView(R.id.numLikes)
         public TextView mNumLikes;
+        @BindView(R.id.joinButton)
+        public ImageButton mJoinButton;
 
         CircleImageView icon;
 
@@ -92,15 +91,28 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        holder.mBetTitle.setText(dataset.get(position).getTitle());
-        holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes()));
-        holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount()));
+        holder.mBetTitle.setText(dataset.get(position).getTitle()); // Title
+        holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes())); // Number of Likes
+        holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount())); // Amount
 
+        // Add filled heart if it has been liked by the user
+        if(dataset.get(position).isLiked()) {
+            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+        } else {
+            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+        }
+
+        // Add click for liking
         holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BetLike betLike = new BetLike(1, dataset.get(position).getId());
-                ApiHelper.getInstance(activity).postLike(betLike, selfToken).enqueue(new Callback<BetchaResponse>() {
+                BetLikeRequest betLikeRequest = new BetLikeRequest(1, dataset.get(position).getId(), selfToken);
+
+                if(dataset.get(position).isLiked()) {
+                    betLikeRequest.setLike(0);
+                }
+
+                ApiHelper.getInstance(activity).postLike(betLikeRequest).enqueue(new Callback<BetchaResponse>() {
                     @Override
                     public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                         if(response.code() != 200) {
@@ -120,6 +132,19 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                         Toast.makeText(activity, "Failed to POST like", Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+        holder.mJoinButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent joinIntent = new Intent(activity.getApplicationContext(), JoinBetActivity.class);
+
+                Gson gson = new Gson();
+                String json = gson.toJson(dataset.get(position));
+                joinIntent.putExtra("Obj", json);
+
+                activity.startActivity(joinIntent);
             }
         });
 

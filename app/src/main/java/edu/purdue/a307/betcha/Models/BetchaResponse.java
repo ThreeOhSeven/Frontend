@@ -9,8 +9,7 @@ public class BetchaResponse {
     public boolean result;
     public String selfToken;
     public String userID;
-
-    public BetchaResponse() {}
+    private String error;
 
     public boolean isResult() {
         return result;
@@ -45,4 +44,14 @@ public class BetchaResponse {
             return "success: " + result + ": Token: " + selfToken;
         }
     }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+
 }

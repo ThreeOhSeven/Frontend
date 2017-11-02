@@ -6,14 +6,14 @@ package edu.purdue.a307.betcha.Models;
 
 public class JoinBetRequest {
 
-    public String betID;
-    public String side;
-    public String authToken;
+    private String betID;
+    private int side;
+    private String authToken;
 
-    public JoinBetRequest(String betID, String authToken, String side) {
+    public JoinBetRequest(String betID, int side, String authToken) {
         this.betID = betID;
-        this.authToken = authToken;
         this.side = side;
+        this.authToken = authToken;
     }
 
     public String getBetID() {
@@ -22,6 +22,14 @@ public class JoinBetRequest {
 
     public void setBetID(String betID) {
         this.betID = betID;
+    }
+
+    public int getSide() {
+        return side;
+    }
+
+    public void setSide(int side) {
+        this.side = side;
     }
 
     public String getAuthToken() {
