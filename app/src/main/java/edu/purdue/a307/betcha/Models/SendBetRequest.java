@@ -6,11 +6,12 @@ package edu.purdue.a307.betcha.Models;
 
 public class SendBetRequest {
 
-    public String userID;
+    public String id;
     public String betID;
     public String authToken;
 
     public SendBetRequest(String userID, String betID, String authToken) {
+        this.id = userID;
         this.betID = betID;
         this.authToken = authToken;
     }
@@ -32,10 +33,10 @@ public class SendBetRequest {
     }
 
     public String getUserID() {
-        return userID;
+        return id;
     }
 
     public void setUserID(String userID) {
-        this.userID = userID;
+        this.id = userID;
     }
 }

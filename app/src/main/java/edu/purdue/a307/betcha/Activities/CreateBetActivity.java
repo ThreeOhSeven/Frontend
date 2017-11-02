@@ -75,6 +75,10 @@ public class CreateBetActivity extends BetchaActivity {
     EditText maxUsers;
     @BindView(R.id.locked)
     CheckBox locked;
+    @BindView(R.id.sideA)
+    EditText sideA;
+    @BindView(R.id.sideB)
+    EditText sideB;
     @BindView(R.id.createBetBtn)
     FloatingActionButton createButton;
     @BindView(R.id.inviteButton)
@@ -96,6 +100,13 @@ public class CreateBetActivity extends BetchaActivity {
         selfToken = SharedPrefsHelper.getSelfToken(this);
 
         ButterKnife.bind(this);
+
+        title.setText("World Series");
+        amount.setText("5");
+        description.setText("This is for all the marbles!!!!");
+        maxUsers.setText("3");
+        sideA.setText("Dodgers");
+        sideB.setText("Astros");
 
         inviteButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -139,6 +150,8 @@ public class CreateBetActivity extends BetchaActivity {
         betInformationRequest.description = description.getText().toString();
         betInformationRequest.maxUsers = maxUsers.getText().toString();
         betInformationRequest.locked = locked.toString();
+        betInformationRequest.sideA = sideA.getText().toString();
+        betInformationRequest.sideB = sideB.getText().toString();
         betInformationRequest.authToken = selfToken;
         ApiHelper.getInstance(getApplicationContext()).
                 createBet(betInformationRequest).enqueue(new Callback<CreateBetResponse>() {
