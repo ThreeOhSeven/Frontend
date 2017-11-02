@@ -30,6 +30,7 @@ import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Activities.ProfileActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
@@ -46,9 +47,11 @@ import retrofit2.Response;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHolder> {
 
-    private List<FriendItem> items;
+    public List<FriendItem> items;
     private Activity activity;
     private String selfToken;
+
+    private AdapterType adapterType;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -69,10 +72,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
     }
 
 
-    public FriendAdapter(Activity activity, List<FriendItem> items, String selfToken) {
+    public FriendAdapter(Activity activity, List<FriendItem> items, String selfToken, AdapterType adapterType) {
         this.activity = activity;
         this.items = items;
         this.selfToken = selfToken;
+        this.adapterType = adapterType;
     }
 
     @Override
@@ -86,77 +90,79 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
     public void onBindViewHolder(final FriendAdapter.MyViewHolder holder, final int position) {
         final FriendItem info = items.get(position);
 
-
         if(info.getStatus().equals("0")) {
             holder.cardView.setBackgroundResource(R.color.colorAccent);
             holder.buttonMenu.setBackgroundColor(ContextCompat.getColor(activity,R.color.colorAccent));
         }
-        holder.friendName.setText(info.getFriend().getUsername());
+        holder.friendName.setText(info.getFriend().getEmail());
         // TODO: needs to be actual spots left
         holder.buttonMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Creating the instance of PopupMenu
                 PopupMenu popup = new PopupMenu(activity, holder.buttonMenu);
-                if(info.getStatus().equals("0")) {
-                    popup.inflate(R.menu.add_and_delete);
+                if (adapterType == AdapterType.FRIENDS_BETS) {
+                    popup.inflate(R.menu.remove);
                 }
-                else
-                    popup.inflate(R.menu.delete);
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                    public boolean onMenuItemClick(final MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.menu_item_delete:
-                                Log.d("ITEM ID", String.valueOf(item.getItemId()));
-                                ApiHelper.getInstance(activity).deleteFriend(info.getFriend().getId(),
-                                        new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
-                                    @Override
-                                    public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                        if (response.code() != 200) {
-                                            Log.d("Response Code",String.valueOf(response.code()));
-                                            Log.d("Response Message",String.valueOf(response.message()));
-                                            Toast.makeText(activity,"Can't remove bets",Toast.LENGTH_SHORT).show();
-                                            return;
+                else {
+                    if (info.getStatus().equals("0")) {
+                        popup.inflate(R.menu.add_and_delete);
+                    } else
+                        popup.inflate(R.menu.delete);
+                    popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                        public boolean onMenuItemClick(final MenuItem item) {
+                            switch (item.getItemId()) {
+                                case R.id.menu_item_delete:
+                                    Log.d("ITEM ID", String.valueOf(item.getItemId()));
+                                    ApiHelper.getInstance(activity).deleteFriend(info.getFriend().getId(),
+                                            new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+                                        @Override
+                                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                            if (response.code() != 200) {
+                                                Log.d("Response Code", String.valueOf(response.code()));
+                                                Log.d("Response Message", String.valueOf(response.message()));
+                                                Toast.makeText(activity, "Can't remove bets", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            } else {
+                                                Log.d("IN OK", "IT IS OK");
+                                                items.remove(position);
+                                                notifyDataSetChanged();
+                                            }
                                         }
-                                        else {
-                                            Log.d("IN OK","IT IS OK");
-                                            items.remove(position);
-                                            notifyDataSetChanged();
-                                        }
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                        Log.d("DELETE", "FAILED");
-                                    }
-                                });
-                                break;
-                            case R.id.menu_item_add:
-                                ApiHelper.getInstance(activity).addFriend(
-                                        info.getFriend().getId(),new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
-                                    @Override
-                                    public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                        if(response.code() != 200) {
-                                            Log.d("AUTH ERROR", String.valueOf(response.code()));
-                                            Toast.makeText(activity, "Unable to send friend request",Toast.LENGTH_SHORT).show();
-                                            return;
+                                        @Override
+                                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                            Log.d("DELETE", "FAILED");
                                         }
-                                        holder.cardView.setBackgroundResource(R.color.colorIcon);
-                                        holder.buttonMenu.setBackgroundColor(ContextCompat.getColor(activity,R.color.colorIcon));
-                                        holder.buttonMenu.setVisibility(View.INVISIBLE);
-                                    }
+                                    });
+                                    break;
+                                case R.id.menu_item_add:
+                                    ApiHelper.getInstance(activity).addFriend(
+                                            info.getFriend().getId(), new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+                                        @Override
+                                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                            if (response.code() != 200) {
+                                                Log.d("AUTH ERROR", String.valueOf(response.code()));
+                                                Toast.makeText(activity, "Unable to send friend request", Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }
+                                            holder.cardView.setBackgroundResource(R.color.colorIcon);
+                                            holder.buttonMenu.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorIcon));
+                                            holder.buttonMenu.setVisibility(View.INVISIBLE);
+                                        }
 
-                                    @Override
-                                    public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                        Toast.makeText(activity, "Unable to send friend request",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                        @Override
+                                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                            Toast.makeText(activity, "Unable to send friend request", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                            }
+                            return true;
                         }
-                        return true;
-                    }
-                });
+                    });
 
-                popup.show();
+                    popup.show();
+                }
             }
         });
         IconGenerator.setImage(activity,holder.icon);
