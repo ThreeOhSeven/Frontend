@@ -141,6 +141,8 @@ public class EditBetActivity extends BetchaActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(EditBetActivity.this, InvitePeepsActivity.class);
+                myIntent.putExtra("type", 1);
+                myIntent.putExtra("betID",String.valueOf(bet.getId()));
                 startActivityForResult(myIntent, 1000);
             }
         });
@@ -156,15 +158,6 @@ public class EditBetActivity extends BetchaActivity {
             case (1000) : {
                 if (resultCode == RESULT_OK) {
                     // TODO Extract the data returned from the child Activity.
-                    String returnValue = data.getStringExtra("usersList");
-                    Users users = new Gson().fromJson(returnValue, Users.class);
-                    ArrayList<FriendItem> friends = new ArrayList<>();
-                    for(User user: users.users) {
-                        friends.add(new FriendItem("", user));
-                    }
-                    friendAdapter = new FriendAdapter(this, friends, SharedPrefsHelper.getSelfToken(this), AdapterType.FRIENDS_BETS);
-                    betUsers.setAdapter(friendAdapter);
-                    betUsers.setLayoutManager(new LinearLayoutManager(this));
                 }
                 break;
             }
@@ -203,24 +196,6 @@ public class EditBetActivity extends BetchaActivity {
                     return;
                 }
                 else {
-                    for(FriendItem item: friendAdapter.items) {
-                        ApiHelper.getInstance(getApplicationContext()).sendBet(
-                                new SendBetRequest(item.getFriend().getId(),response.body().getId(),
-                                        selfToken)).enqueue(new Callback<BetchaResponse>() {
-                            @Override
-                            public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                if(response.code() != 200) {
-                                    BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
-                                }
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
-                            }
-                        });
-                    }
                     finish();
                 }
             }

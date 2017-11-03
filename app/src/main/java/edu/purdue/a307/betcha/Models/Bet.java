@@ -12,7 +12,7 @@ public class Bet implements Serializable {
 
     private int id;
     private int creatorId;
-    private int maxUsers;
+    private String maxUsers;
     private String title;
     private String description;
     private double amount;
@@ -25,7 +25,7 @@ public class Bet implements Serializable {
     private String sideA;
     private String sideB;
 
-    public Bet(int creatorId, int maxUsers, String title, String description, double amount, boolean winner, boolean locked, boolean complete, int numLikes, boolean liked, String sideA, String sideB) {
+    public Bet(int creatorId, String maxUsers, String title, String description, double amount, boolean winner, boolean locked, boolean complete, int numLikes, boolean liked, String sideA, String sideB) {
         this.creatorId = creatorId;
         this.maxUsers = maxUsers;
         this.title = title;
@@ -56,11 +56,11 @@ public class Bet implements Serializable {
         this.creatorId = creatorId;
     }
 
-    public int getMaxUsers() {
+    public String getMaxUsers() {
         return maxUsers;
     }
 
-    public void setMaxUsers(int maxUsers) {
+    public void setMaxUsers(String maxUsers) {
         this.maxUsers = maxUsers;
     }
 

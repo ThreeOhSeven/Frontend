@@ -95,6 +95,7 @@ public class CreateBetActivity extends BetchaActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateBetActivity.this, InvitePeepsActivity.class);
+                myIntent.putExtra("type", 0);
                 startActivityForResult(myIntent, 1000);
             }
         });
@@ -154,26 +155,18 @@ public class CreateBetActivity extends BetchaActivity {
                     return;
                 }
                 else {
-                    try{
-                        if(friendAdapter.items.size() +1 > Integer.parseInt(betInformationRequest.getMaxUsers())) {
-                            BToast.makeShort(getApplicationContext(), "Cannot exceed max users");
-                            finish();
-                        }
+                    if(friendAdapter == null) {
+                        finish();
+                        return;
+                    }
+                    for(FriendItem item: friendAdapter.items) {
+                        ApiHelper.getInstance(getApplicationContext()).sendBet(
+                                new SendBetRequest(item.getFriend().getId(),response.body().getId(),
+                                        selfToken)).enqueue(new Callback<BetchaResponse>() {
+                            @Override
+                            public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                if(response.code() != 200) {
 
-                        for(FriendItem item: friendAdapter.items) {
-                            ApiHelper.getInstance(getApplicationContext()).sendBet(
-                                    new SendBetRequest(item.getFriend().getId(),response.body().getId(),
-                                            selfToken)).enqueue(new Callback<BetchaResponse>() {
-                                @Override
-                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                    if(response.code() != 200) {
-                                        BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
-                                    }
-
-                                }
-
-                                @Override
-                                public void onFailure(Call<BetchaResponse> call, Throwable t) {
                                     BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
                                 }
                             });
