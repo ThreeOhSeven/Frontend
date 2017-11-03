@@ -55,7 +55,7 @@ public class FriendRequestFragment extends Fragment implements OnPageSelectedLis
     @Override
     public void onPageSelected() {
         final String token = SharedPrefsHelper.getSelfToken(getContext());
-        ApiHelper.getInstance(getContext()).getFriends(new LoginRequest(token)).enqueue(new Callback<FriendItems>() {
+        ApiHelper.getInstance(getContext()).getFriendRequests(new LoginRequest(token)).enqueue(new Callback<FriendItems>() {
             @Override
             public void onResponse(Call<FriendItems> call, Response<FriendItems> response) {
                 if(response.code() != 200) {

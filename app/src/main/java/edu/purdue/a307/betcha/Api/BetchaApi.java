@@ -78,8 +78,10 @@ public interface BetchaApi {
 
 
     // Friends
-    @POST("/friends")
+    @POST("/friends/")
     Call<FriendItems> getFriends(@Body LoginRequest authToken);
+    @POST("/friends/requests")
+    Call<FriendItems> getFriendRequests(@Body LoginRequest authToken);
     @POST("/friends/add/")
     Call<BetchaResponse> addFriend(@Body AddFriendRequest addFriendRequest);
     @POST("/friends/delete/{id}")
