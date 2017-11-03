@@ -1,12 +1,30 @@
 <resources>
     <string name="app_name">Betcha</string>
     <string name="title_activity_nav">NavActivity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <!--TODO: App url when ready-->
+    <string name="app_url">ec2-52-14-139-38.us-east-2.compute.amazonaws.com/</string>
+    <!--<string name="google_client_id">944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com</string>-->
+    <string name="google_client_id">944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com</string>
+
+    <string name="title_activity_bets">Bets</string>
+    <string name="bets_str">Bets Summary</string>
+
+    <string name="createBetsBtnText">Create Bet</string>
+    <string name="amountToBet">Amount to Bet</string>
+    <string name="betDescription">Bet Description</string>
+    <string name="friendBettingWith">Friend betting with</string>
+    <string name="betEndsOn">Date/Time when Bet ends</string>
+
+    <string name="friendName">Name</string>
+    <string name="friendUserName">User Name</string>
+    <string name="friendPhotoUrl">Photo URL</string>
+    <string name="addFriendBtnText">Add Friend</string>
+    <string name="title_activity_join_bet">JoinBetActivity</string>
+    <string name="title_activity_invite_peeps">InvitePeepsActivity</string>
 </resources>
