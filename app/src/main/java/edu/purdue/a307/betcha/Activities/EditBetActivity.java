@@ -182,12 +182,11 @@ public class EditBetActivity extends BetchaActivity {
         betUpdateRequest.maxUsers = maxUsers.getText().toString();
 
         if(locked.isChecked()) {
-            betUpdateRequest.locked = "1";
+            betUpdateRequest.locked = true;
         } else {
-            betUpdateRequest.locked = "0";
+            betUpdateRequest.locked = false;
         }
 
-        betUpdateRequest.locked = locked.toString();
         betUpdateRequest.sideA = sideA.getText().toString();
         betUpdateRequest.sideB = sideB.getText().toString();
         betUpdateRequest.authToken = selfToken;
