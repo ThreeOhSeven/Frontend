@@ -1,54 +1,35 @@
 package edu.purdue.a307.betcha.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
-import edu.purdue.a307.betcha.Adapters.InviteFriendsAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Fragments.InvitePeepsFragment;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
-import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
-import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.Models.Users;
@@ -101,6 +82,7 @@ public class CreateBetActivity extends BetchaActivity {
 
         ButterKnife.bind(this);
 
+        // TODO - Change to be the bet passed through the intent
         title.setText("World Series");
         amount.setText("5");
         description.setText("This is for all the marbles!!!!");
@@ -149,7 +131,13 @@ public class CreateBetActivity extends BetchaActivity {
         betInformationRequest.title = title.getText().toString();
         betInformationRequest.description = description.getText().toString();
         betInformationRequest.maxUsers = maxUsers.getText().toString();
-        betInformationRequest.locked = locked.toString();
+
+        if(locked.isChecked()) {
+            betInformationRequest.locked = "1";
+        } else {
+            betInformationRequest.locked = "0";
+        }
+
         betInformationRequest.sideA = sideA.getText().toString();
         betInformationRequest.sideB = sideB.getText().toString();
         betInformationRequest.authToken = selfToken;

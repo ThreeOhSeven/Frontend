@@ -21,7 +21,7 @@ public class Bet implements Serializable {
     private boolean complete;
     private int numLikes;
     private boolean liked;
-    private List<User> users;
+    public List<User> users;
     private String sideA;
     private String sideB;
 

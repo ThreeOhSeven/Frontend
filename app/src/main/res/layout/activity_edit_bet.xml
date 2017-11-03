@@ -92,7 +92,7 @@
                 android:textSize="20dp" />
 
             <Button
-                android:id="@+id/EditButton"
+                android:id="@+id/editButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -106,15 +106,5 @@
             android:id="@+id/betUsers" />
 
     </LinearLayout>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/createBetBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_24dp" />
 
 </RelativeLayout>
