@@ -24,6 +24,7 @@ import edu.purdue.a307.betcha.Activities.BetDetailActivity;
 import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.JoinBetType;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
@@ -152,6 +153,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             public void onClick(View view) {
                 Intent joinIntent = new Intent(activity.getApplicationContext(), JoinBetActivity.class);
 
+                joinIntent.putExtra("type", 0);
                 Gson gson = new Gson();
                 String json = gson.toJson(dataset.get(position));
                 joinIntent.putExtra("Obj", json);

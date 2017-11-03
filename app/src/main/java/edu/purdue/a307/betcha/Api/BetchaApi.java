@@ -108,7 +108,7 @@ public interface BetchaApi {
     Call<BetchaResponse> sendBet(@Body SendBetRequest sbr);
 
     @POST("/bets/accept")
-    Call<BetchaResponse> acceptBet(@Body AcceptBetRequest abr);
+    Call<BetchaResponse> acceptBet(@Body JoinBetRequest abr);
 
     @POST("/bets/reject")
     Call<BetchaResponse> rejectBet(@Body RejectBetRequest rbr);
