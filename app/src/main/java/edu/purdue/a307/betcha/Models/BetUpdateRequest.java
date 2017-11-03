@@ -10,7 +10,7 @@ public class BetUpdateRequest {
     public String title;
     public String description;
     public String amount;
-    public String locked;
+    public boolean locked;
     public String sideA;
     public String sideB;
     public int betId;
@@ -56,14 +56,6 @@ public class BetUpdateRequest {
         this.amount = amount;
     }
 
-    public String getLocked() {
-        return locked;
-    }
-
-    public void setLocked(String locked) {
-        this.locked = locked;
-    }
-
     public String getSideA() {
         return sideA;
     }
@@ -86,6 +78,14 @@ public class BetUpdateRequest {
 
     public void setBetId(int betId) {
         this.betId = betId;
+    }
+
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
 }
 

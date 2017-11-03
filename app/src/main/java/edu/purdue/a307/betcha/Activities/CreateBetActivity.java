@@ -133,9 +133,9 @@ public class CreateBetActivity extends BetchaActivity {
         betInformationRequest.maxUsers = maxUsers.getText().toString();
 
         if(locked.isChecked()) {
-            betInformationRequest.locked = "1";
+            betInformationRequest.locked = true;
         } else {
-            betInformationRequest.locked = "0";
+            betInformationRequest.locked = false;
         }
 
         betInformationRequest.sideA = sideA.getText().toString();
