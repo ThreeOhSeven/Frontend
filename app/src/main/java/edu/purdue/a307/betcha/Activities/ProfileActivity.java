@@ -23,6 +23,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.BetAdapterType;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.Bet;
@@ -88,7 +89,7 @@ public class ProfileActivity extends BetchaActivity {
                 }
                 Log.d("Bets size", String.valueOf(response.body().getBets().size()));
                 bets = response.body().getBets();
-                betAdapter = new BetAdapter(ProfileActivity.this, bets, selfToken);
+                betAdapter = new BetAdapter(ProfileActivity.this, bets, selfToken, BetAdapterType.PROFILE);
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
