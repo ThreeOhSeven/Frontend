@@ -159,6 +159,14 @@ public class CreateBetActivity extends BetchaActivity {
                         finish();
                         return;
                     }
+                    if(maxUsers.getText().toString() == null ||
+                            maxUsers.getText().toString().length() <= 0) {
+                        return;
+                    }
+                    if(Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
+                        BToast.makeShort(getApplicationContext(), "Trying to add too many people");
+                        return;
+                    }
                     for(FriendItem item: friendAdapter.items) {
                         ApiHelper.getInstance(getApplicationContext()).sendBet(
                                 new SendBetRequest(item.getFriend().getId(),response.body().getId(),
@@ -166,7 +174,6 @@ public class CreateBetActivity extends BetchaActivity {
                             @Override
                             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                 if(response.code() != 200) {
-
                                     BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
                                 }
                             }

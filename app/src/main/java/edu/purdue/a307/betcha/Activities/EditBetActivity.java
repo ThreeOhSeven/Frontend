@@ -119,6 +119,15 @@ public class EditBetActivity extends BetchaActivity {
         } catch (Exception e) {
             //Do nothing
         }
+        try {
+            if(bet.isLocked()) {
+                locked.setChecked(true);
+            }
+            else
+                locked.setChecked(false);
+        } catch (Exception e) {
+            //Do nothing
+        }
 
         ArrayList<FriendItem> friends = new ArrayList<FriendItem>();
         try {

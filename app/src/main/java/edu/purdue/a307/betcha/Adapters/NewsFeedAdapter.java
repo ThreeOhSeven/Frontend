@@ -26,11 +26,14 @@ import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.JoinBetType;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,6 +99,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         holder.mBetTitle.setText(dataset.get(position).getTitle()); // Title
         holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes())); // Number of Likes
         holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount())); // Amount
+
+        Bet info = dataset.get(position);
+
+        User accountInformation = SharedPrefsHelper.getAccountInformation(activity);
 
         // Add filled heart if it has been liked by the user
         if(dataset.get(position).isLiked()) {

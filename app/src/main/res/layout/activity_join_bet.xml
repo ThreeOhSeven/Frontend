@@ -39,7 +39,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_below="@id/joinAmount"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/linLayout">
 
         <Button
             android:layout_width="wrap_content"
@@ -52,8 +53,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/joinSideBButton"
             android:text="SideB" />
-
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/rejectButton"
+        android:text="Reject"
+        android:layout_below="@+id/linLayout"/>
 
 
 </RelativeLayout>

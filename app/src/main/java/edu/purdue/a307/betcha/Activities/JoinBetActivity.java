@@ -15,10 +15,12 @@ import java.io.IOException;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.JoinBetType;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.AcceptBetRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
+import edu.purdue.a307.betcha.Models.RejectBetRequest;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +45,11 @@ public class JoinBetActivity extends BetchaActivity {
         TextView mAmount = (TextView) findViewById(R.id.joinAmount);
         Button mAButton = (Button) findViewById(R.id.joinSideAButton);
         Button mBButton = (Button) findViewById(R.id.joinSideBButton);
+        Button rejectBtn = (Button)findViewById(R.id.rejectButton);
+
+        if(joinBetType == 0) {
+            rejectBtn.setVisibility(View.INVISIBLE);
+        }
 
 
         // Get Strings from Bet Object Passed from Last Activity
@@ -105,6 +112,35 @@ public class JoinBetActivity extends BetchaActivity {
                     e.printStackTrace();
                 }
                 joinSideB(id);
+            }
+        });
+
+        rejectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String id = null;
+                try {
+                    id = obj.getString("id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                ApiHelper.getInstance(getApplicationContext()).rejectBet(
+                        new RejectBetRequest(id, selfToken)).enqueue(new Callback<BetchaResponse>() {
+                    @Override
+                    public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                        if(response.code() != 200) {
+                            BToast.makeShort(getApplicationContext(), "Cannot reject the bet (ERROR)");
+                            return;
+                        }
+                        BToast.makeShort(getApplicationContext(), "Bet Rejected");
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                        BToast.makeShort(getApplicationContext(), "Cannot reject the bet (FAILURE)");
+                    }
+                });
             }
         });
 

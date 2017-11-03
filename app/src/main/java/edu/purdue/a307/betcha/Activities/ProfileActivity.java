@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
@@ -46,14 +48,19 @@ public class ProfileActivity extends BetchaActivity {
     TextView balance;
     CircleImageView imgView;
 
+    @BindView(R.id.name)
+    TextView name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
         selfToken = SharedPrefsHelper.getSelfToken(this);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerBets);
         balance = (TextView) findViewById(R.id.balance);
         imgView = (CircleImageView)findViewById(R.id.profile_image);
-        String str = "https://lh5.googleusercontent.com/-PQET_z4R67s/AAAAAAAAAAI/AAAAAAAAAAA/ACnBePZAlTXRD4xKtSJ844YCXtxCJZ3RhA/s96-c/photo.jpg";
+        name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail());
+        String str = SharedPrefsHelper.getPhotoURL(getApplicationContext());
         Picasso.with(this).load(str).fit().centerInside().into(imgView);
 
     }

@@ -10,12 +10,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import edu.purdue.a307.betcha.Activities.ActionBarActivity;
 import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Activities.EditBetActivity;
@@ -74,6 +77,8 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         CircleImageView icon;
         @BindView(R.id.likeButton)
         ImageButton likeButton;
+        @BindView(R.id.commentButton)
+        ImageView commentButton;
 
 
         boolean isLiked;
@@ -107,6 +112,8 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         final Bet info = items.get(position);
         holder.textTitle.setText(info.getTitle());
         holder.textAmount.setText("$"+info.getAmount());
+        int spotsLeft = Integer.parseInt(info.getMaxUsers()) - info.users.size();
+        holder.textSpotsLeft.setText("Spots Left: " + String.valueOf(spotsLeft));
         // TODO: needs to be actual spots left
 //        holder.textSpotsLeft.setText("Spots Left: " + info.maxUsers);
         if(info.getCreatorId() == Integer.parseInt(SharedPrefsHelper.getUserID(activity))) {
@@ -141,6 +148,10 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                                         BToast.makeShort(activity, "This completion failed (ERROR)");
                                                     }
                                                     dialogInterface.dismiss();
+                                                    if(activity instanceof ActionBarActivity) {
+                                                        ((ActionBarActivity)activity).setStuffUp();
+                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                    }
                                                 }
 
                                                 @Override
@@ -163,6 +174,10 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                                         BToast.makeShort(activity, "This completion failed (ERROR)");
                                                     }
                                                     dialogInterface.dismiss();
+                                                    if(activity instanceof ActionBarActivity) {
+                                                        ((ActionBarActivity)activity).setStuffUp();
+                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                    }
                                                 }
 
                                                 @Override
@@ -188,19 +203,22 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
             holder.buttonMenu.setVisibility(View.INVISIBLE);
         }
         IconGenerator.setImage(activity,holder.icon);
-        holder.likeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(holder.isLiked) {
-                    holder.likeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-                    holder.isLiked = false;
-                }
-                else {
-                    holder.likeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
-                    holder.isLiked = true;
-                }
-            }
-        });
+//        holder.likeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if(holder.isLiked) {
+//                    holder.likeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+//                    holder.isLiked = false;
+//                }
+//                else {
+//                    holder.likeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+//                    holder.isLiked = true;
+//                }
+//            }
+//        });
+        holder.likeButton.setVisibility(View.INVISIBLE);
+        holder.commentButton.setVisibility(View.INVISIBLE);
+
 
         if(type == BetAdapterType.PENDING) {
             holder.cardView.setOnClickListener(new View.OnClickListener() {
