@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.Excluder;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class CreateBetActivity extends BetchaActivity {
     RecyclerView betUsers;
 
 
-    FriendAdapter friendAdapter;
+    FriendAdapter friendAdapter = null;
 
     String selfToken;
     @Override
@@ -127,7 +128,7 @@ public class CreateBetActivity extends BetchaActivity {
 
     @OnClick(R.id.createBetBtn)
     public void create() {
-        BetInformationRequest betInformationRequest = new BetInformationRequest();
+        final BetInformationRequest betInformationRequest = new BetInformationRequest();
         betInformationRequest.amount = amount.getText().toString();
         betInformationRequest.title = title.getText().toString();
         betInformationRequest.description = description.getText().toString();
@@ -165,17 +166,16 @@ public class CreateBetActivity extends BetchaActivity {
                             @Override
                             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                 if(response.code() != 200) {
+
                                     BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
                                 }
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
-                            }
-                        });
+                            });
+                        }
+                    } catch (Exception e) {
+                        // Do nothing
                     }
+
+
                     finish();
                 }
             }
