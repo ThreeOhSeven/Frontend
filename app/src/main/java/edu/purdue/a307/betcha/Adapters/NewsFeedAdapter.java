@@ -19,6 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetDetailActivity;
 import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
@@ -101,6 +102,17 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         } else {
             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         }
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(activity, BetActivity.class);
+                Gson gson = new Gson();
+                myIntent.putExtra("Object",gson.toJson(dataset.get(position)));
+                myIntent.putExtra("selfToken",selfToken);
+                activity.startActivity(myIntent);
+            }
+        });
 
         // Add click for liking
         holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
