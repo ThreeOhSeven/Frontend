@@ -26,11 +26,14 @@ import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.JoinBetType;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,12 +65,15 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         @BindView(R.id.joinButton)
         public ImageButton mJoinButton;
 
+        public boolean isAlreadyLiked;
+
         CircleImageView icon;
 
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this,v);
             icon = (CircleImageView)v.findViewById(R.id.iconImage);
+            isAlreadyLiked = false;
 
         }
 
@@ -92,10 +98,18 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mBetTitle.setText(dataset.get(position).getTitle()); // Title
         holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes())); // Number of Likes
         holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount())); // Amount
+
+        Bet info = dataset.get(position);
+        if(info.isLiked()) {
+            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+            holder.isAlreadyLiked = true;
+        }
+
+        User accountInformation = SharedPrefsHelper.getAccountInformation(activity);
 
         // Add filled heart if it has been liked by the user
         if(dataset.get(position).isLiked()) {
@@ -135,7 +149,15 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                             return;
                         } else {
                             Log.d("Like Response Status", "Successful");
-                            notifyDataSetChanged();
+                            if(holder.isAlreadyLiked) {
+                                return;
+                            }
+                            int numLikes = Integer.parseInt(holder.mNumLikes.getText().toString());
+                            numLikes++;
+                            holder.isAlreadyLiked = true;
+                            holder.mNumLikes.setText(String.valueOf(numLikes));
+                            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+//                            notifyDataSetChanged();
                         }
                     }
 

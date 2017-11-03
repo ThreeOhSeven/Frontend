@@ -148,6 +148,7 @@ public class LoginActivity extends AppCompatActivity {
             String token = account.getIdToken();
             Log.d("Display Name",account.getDisplayName());
             Log.d("Photo URL",account.getPhotoUrl().toString(), null);
+            SharedPrefsHelper.setPhotoURL(getApplicationContext(), account.getPhotoUrl().toString());
             Log.d("Family Name",account.getFamilyName());
             Log.d("Given Name",account.getGivenName());
             Log.d("Account",account.getAccount().toString());

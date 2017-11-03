@@ -38,4 +38,14 @@ public class SharedPrefsHelper {
         User accountInformation = getAccountInformation(context);
         return accountInformation.getId();
     }
+
+    public static String getPhotoURL(Context context) {
+        String prefs = SharedPrefsHelper.getSharedPrefs(context).getString("photoURL","");
+        return prefs;
+    }
+
+    public static void setPhotoURL(Context context, String url) {
+        SharedPrefsHelper.getSharedPrefs(
+                context).edit().putString("photoURL",url).apply();
+    }
 }

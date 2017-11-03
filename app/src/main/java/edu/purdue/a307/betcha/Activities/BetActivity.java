@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import butterknife.BindDimen;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import edu.purdue.a307.betcha.Adapters.BetUserAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
@@ -30,9 +33,19 @@ public class BetActivity extends BetchaActivity {
     String selfToken;
     RecyclerView betters;
 
+    @BindView(R.id.txtSideA)
+    TextView sideA;
+    @BindView(R.id.txtSideB)
+    TextView sideB;
+    @BindView(R.id.txtStatus)
+    TextView status;
+    @BindView(R.id.txtWinner)
+    TextView winner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
         Intent intent = getIntent();
         String gsonInfo = intent.getStringExtra("Object");
         betInformation = new Gson().fromJson(gsonInfo, Bet.class);
@@ -71,6 +84,23 @@ public class BetActivity extends BetchaActivity {
         }
         try{
             maxUsers.setText(betInformation.getMaxUsers());
+        } catch (Exception e) {
+            // Do nothing
+        }
+        try {
+            sideA.setText(betInformation.getSideA());
+            sideB.setText(betInformation.getSideB());
+            if(betInformation.isLocked()) {
+                status.setText("Locked");
+            }
+            else {
+                status.setText("In Progress");
+            }
+            if(betInformation.isComplete()) {
+                status.setText("Complete");
+            }
+            winner.setText(String.valueOf(betInformation.isWinner()));
+
         } catch (Exception e) {
             // Do nothing
         }

@@ -15,6 +15,7 @@ import android.view.View;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.purdue.a307.betcha.Adapters.SectionsAdapter;
+import edu.purdue.a307.betcha.Listeners.OnListChangedListener;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.R;
 
@@ -34,7 +35,6 @@ public abstract class ActionBarActivity extends BetchaActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        setStuffUp();
     }
 
     public void setStuffUp() {
@@ -69,4 +69,10 @@ public abstract class ActionBarActivity extends BetchaActivity {
     protected abstract Fragment[] getFragmentsList();
 
     protected abstract String[] getStringsList();
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setStuffUp();
+    }
 }

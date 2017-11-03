@@ -1,7 +1,9 @@
 package edu.purdue.a307.betcha.Fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.purdue.a307.betcha.Activities.SearchFriendsActivity;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.AdapterType;
@@ -37,6 +40,8 @@ public class FriendRequestFragment extends Fragment implements OnPageSelectedLis
     @BindView(R.id.recyclerFriendRequests)
     RecyclerView requests;
 
+    FloatingActionButton addFriend;
+
 
     public FriendRequestFragment() {
         // Required empty public constructor
@@ -49,6 +54,14 @@ public class FriendRequestFragment extends Fragment implements OnPageSelectedLis
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_friend_requests, container, false);
         ButterKnife.bind(this, v);
+        addFriend = (FloatingActionButton)v.findViewById(R.id.floatingActionButton);
+        addFriend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(getActivity(), SearchFriendsActivity.class);
+                getActivity().startActivity(myIntent);
+            }
+        });
         return v;
     }
 

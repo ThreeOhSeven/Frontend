@@ -12,7 +12,7 @@
 
 
     <dimen name="bet_attr_header">10sp</dimen>
-    <dimen name="bet_attr_padding">20dp</dimen>
-    <dimen name="bet_attr_sub">20sp</dimen>
+    <dimen name="bet_attr_padding">8dp</dimen>
+    <dimen name="bet_attr_sub">15sp</dimen>
     <dimen name="bet_attr_icon">40dp</dimen>
 </resources>
