@@ -79,7 +79,7 @@ public class ProfileActivity extends BetchaActivity {
 
             }
         });
-        ApiHelper.getInstance(this).getMyOpenBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
+        ApiHelper.getInstance(this).getProfileBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
             @Override
             public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {
