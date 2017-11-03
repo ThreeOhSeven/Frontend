@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.media.Image;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -29,7 +30,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Activities.EditBetActivity;
+import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.AdapterType;
+import edu.purdue.a307.betcha.Enums.BetAdapterType;
+import edu.purdue.a307.betcha.Fragments.BetInvitesFragment;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
@@ -51,6 +56,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
     private List<Bet> items;
     private Activity activity;
     private String selfToken;
+    public BetAdapterType type;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -68,6 +74,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         @BindView(R.id.likeButton)
         ImageButton likeButton;
 
+
         boolean isLiked;
 
         public MyViewHolder(View view) {
@@ -80,10 +87,11 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
     }
 
 
-    public BetAdapter(Activity activity, List<Bet> items, String selfToken) {
+    public BetAdapter(Activity activity, List<Bet> items, String selfToken, BetAdapterType type) {
         this.activity = activity;
         this.items = items;
         this.selfToken = selfToken;
+        this.type = type;
     }
 
     @Override
@@ -187,17 +195,30 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
             }
         });
 
+        if(type == BetAdapterType.PENDING) {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent myIntent = new Intent(activity, JoinBetActivity.class);
+                    Gson gson = new Gson();
+                    myIntent.putExtra("Obj",gson.toJson(info));
+                    activity.startActivity(myIntent);
+                }
+            });
+        } else {
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent myIntent = new Intent(activity, BetActivity.class);
+                    Gson gson = new Gson();
+                    myIntent.putExtra("Object",gson.toJson(info));
+                    myIntent.putExtra("selfToken",selfToken);
+                    activity.startActivity(myIntent);
+                }
+            });
+        }
 
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(activity, BetActivity.class);
-                Gson gson = new Gson();
-                myIntent.putExtra("Object",gson.toJson(info));
-                myIntent.putExtra("selfToken",selfToken);
-                activity.startActivity(myIntent);
-            }
-        });
+
     }
 
     @Override

@@ -20,6 +20,7 @@ import edu.purdue.a307.betcha.Activities.CreateBetActivity;
 import edu.purdue.a307.betcha.Activities.MyBetsActivity;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.BetAdapterType;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.Models.Bet;
@@ -85,7 +86,7 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
                 }
                 Log.d("Bets size", String.valueOf(response.body().getBets().size()));
                 bets = response.body().getBets();
-                betAdapter = new BetAdapter(getActivity(), bets,selfToken);
+                betAdapter = new BetAdapter(getActivity(), bets,selfToken, BetAdapterType.OPEN);
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
