@@ -2,22 +2,20 @@ package edu.purdue.a307.betcha.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 
+import edu.purdue.a307.betcha.Adapters.BetUserAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.Bet;
-import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.EmailResponse;
-import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -30,6 +28,7 @@ public class BetActivity extends BetchaActivity {
     TextView title, amount, description, maxUsers, creator;
     Button createButton;
     String selfToken;
+    RecyclerView betters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +43,41 @@ public class BetActivity extends BetchaActivity {
         description = (TextView) findViewById(R.id.txtDescription);
         maxUsers = (TextView)findViewById(R.id.txtMaxUsers);
         creator = (TextView)findViewById(R.id.txtCreator);
+        betters = (RecyclerView)findViewById(R.id.bettersList);
 
-        title.setText(betInformation.getTitle());
-        amount.setText(String.valueOf(betInformation.getAmount()));
-        description.setText(betInformation.getDescription());
-        maxUsers.setText("10");
+        betters.setHasFixedSize(true);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        betters.setLayoutManager(layoutManager);
+
+        if(betInformation.users.size() > 0) {
+            betters.setAdapter(new BetUserAdapter(this, betInformation.users, selfToken));
+        }
+
+        try{
+            title.setText(betInformation.getTitle());
+        } catch (Exception e) {
+            // Do nothing
+        }
+        try{
+            amount.setText(String.valueOf(betInformation.getAmount()));
+        } catch (Exception e) {
+            // Do nothing
+        }
+        try{
+            description.setText(betInformation.getDescription());
+        } catch (Exception e) {
+            // Do nothing
+        }
+        try{
+            maxUsers.setText(betInformation.getMaxUsers());
+        } catch (Exception e) {
+            // Do nothing
+        }
+
+
+
+
 
         UserIDRequest req = new UserIDRequest();
         req.authToken =selfToken;

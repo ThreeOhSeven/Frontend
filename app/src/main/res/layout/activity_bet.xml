@@ -194,13 +194,29 @@
                 android:src="@drawable/ic_view_list_black_24dp"
                 android:paddingRight="@dimen/bet_attr_padding"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/lblBetters"
-                android:text="Betters"
-                android:textSize="@dimen/bet_attr_sub"
-                android:layout_gravity="center_vertical"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/lblBetters"
+                    android:text="Betters"
+                    android:textSize="@dimen/bet_attr_header"
+                    android:layout_gravity="center_vertical"/>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bettersList">
+
+                </android.support.v7.widget.RecyclerView>
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 
