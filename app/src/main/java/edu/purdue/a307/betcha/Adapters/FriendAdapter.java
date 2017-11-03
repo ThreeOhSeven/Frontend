@@ -32,6 +32,7 @@ import edu.purdue.a307.betcha.Activities.ProfileActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
+import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.FriendItem;
@@ -138,7 +139,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                                     break;
                                 case R.id.menu_item_add:
                                     ApiHelper.getInstance(activity).addFriend(
-                                            info.getFriend().getId(), new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+                                            new AddFriendRequest(selfToken,info.getFriend().getId())).enqueue(new Callback<BetchaResponse>() {
                                         @Override
                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                             if (response.code() != 200) {

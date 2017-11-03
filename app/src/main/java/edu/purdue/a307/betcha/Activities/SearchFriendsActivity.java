@@ -12,6 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
@@ -53,31 +54,32 @@ public class SearchFriendsActivity extends BetchaActivity {
                         public void onResponse(Call<UserID> call, Response<UserID> response) {
                             if(response.code() != 200) {
                                 Log.d("AUTH ERROR", String.valueOf(response.code()));
-                                Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Unable to send id (ERROR)",Toast.LENGTH_SHORT).show();
                                 return;
                             }
                             String id = response.body().getId();
+                            Log.d("ID", id);
                             ApiHelper.getInstance(getApplicationContext()).addFriend(
-                                    id,new LoginRequest(SharedPrefsHelper.getSelfToken(getApplicationContext()))).enqueue(new Callback<BetchaResponse>() {
+                                    new AddFriendRequest(SharedPrefsHelper.getSelfToken(getApplicationContext()),id)).enqueue(new Callback<BetchaResponse>() {
                                 @Override
                                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                     if(response.code() != 200) {
                                         Log.d("AUTH ERROR", String.valueOf(response.message()));
-                                        Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "Unable to send friend request(ERROR)",Toast.LENGTH_SHORT).show();
                                         return;
                                     }
                                 }
 
                                 @Override
                                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                    Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Unable to send friend request (FAIL)",Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
 
                         @Override
                         public void onFailure(Call<UserID> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "Unable to send friend request",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Unable to send id  (FAIL)",Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

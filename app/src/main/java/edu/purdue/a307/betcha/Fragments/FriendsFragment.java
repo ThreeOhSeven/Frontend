@@ -25,6 +25,8 @@ import edu.purdue.a307.betcha.Activities.FriendsActivity;
 import edu.purdue.a307.betcha.Activities.SearchFriendsActivity;
 import edu.purdue.a307.betcha.Adapters.FriendAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Enums.AdapterType;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
@@ -79,5 +81,29 @@ public class FriendsFragment extends Fragment implements OnPageSelectedListener 
     public void onPageSelected() {
         selfTokenFA = SharedPrefsHelper.getSelfToken(getContext());
         friends = new ArrayList<FriendItem>();
+        ApiHelper.getInstance(getContext()).getFriends(new LoginRequest(selfTokenFA)).enqueue(new Callback<FriendItems>() {
+            @Override
+            public void onResponse(Call<FriendItems> call, Response<FriendItems> response) {
+                if(response.code() != 200) {
+                    BToast.makeShort(getContext(), "This failed");
+                    return;
+                }
+                ArrayList<FriendItem> friends = new ArrayList<FriendItem>();
+                for(FriendItem friendItem : response.body().getFriends_obj()) {
+                    friends.add(friendItem);
+                }
+                FriendAdapter adapter = new FriendAdapter(getActivity(), friends,
+                        selfTokenFA, AdapterType.FRIENDS_LIST);
+
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+            }
+
+            @Override
+            public void onFailure(Call<FriendItems> call, Throwable t) {
+
+            }
+        });
     }
 }
