@@ -93,7 +93,7 @@ public class ProfileActivity extends BetchaActivity {
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
-                betAdapter.notifyDataSetChanged();
+                betAdapter.notifyDataSetChanged()   ;
 
             }
 
