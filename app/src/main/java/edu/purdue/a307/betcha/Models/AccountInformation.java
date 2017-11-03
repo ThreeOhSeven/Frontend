@@ -5,15 +5,18 @@ package edu.purdue.a307.betcha.Models;
  */
 
 public class AccountInformation {
+    String id;
     String name;
-    String userName;
+    String username;
     String email;
 
     public AccountInformation(String name, String userName, String email) {
         this.name = name;
-        this.userName = userName;
+        this.username = userName;
         this.email = email;
     }
+
+    public AccountInformation() {}
 
     public String getName() {
         return name;
@@ -24,11 +27,11 @@ public class AccountInformation {
     }
 
     public String getUserName() {
-        return userName;
+        return username;
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.username = userName;
     }
 
     public String getEmail() {

@@ -94,6 +94,7 @@ public class CreateBetActivity extends BetchaActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(CreateBetActivity.this, InvitePeepsActivity.class);
+                myIntent.putExtra("type", 0);
                 startActivityForResult(myIntent, 1000);
             }
         });
@@ -153,6 +154,10 @@ public class CreateBetActivity extends BetchaActivity {
                     return;
                 }
                 else {
+                    if(friendAdapter == null) {
+                        finish();
+                        return;
+                    }
                     for(FriendItem item: friendAdapter.items) {
                         ApiHelper.getInstance(getApplicationContext()).sendBet(
                                 new SendBetRequest(item.getFriend().getId(),response.body().getId(),

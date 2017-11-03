@@ -20,9 +20,11 @@ import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
 import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
+import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
+import edu.purdue.a307.betcha.Models.Users;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Multipart;
@@ -49,6 +51,10 @@ public interface BetchaApi {
     Call<BetchaResponse> editAccountInfo(@Body AccountInformation accountInformation, @Query("authToken") String authToken);
     @POST("/account/delete")
     Call<BetchaResponse> deleteAccount(@Body LoginRequest authToken);
+
+    @POST("/info")
+    Call<User> getUserInfo(@Body LoginRequest loginRequest);
+
 
 
     // User Info
@@ -118,6 +124,11 @@ public interface BetchaApi {
 
     @POST("/bets/profile")
     Call<Bets> getProfileBets(@Body LoginRequest request);
+
+
+    // Reusing RejectBetRequest because it has same schema
+    @POST("/bets/friendsNot")
+    Call<Users> getFriendsNotInBet(@Body RejectBetRequest request);
 
 
     // Comments

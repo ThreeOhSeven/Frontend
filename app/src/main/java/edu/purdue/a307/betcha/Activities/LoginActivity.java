@@ -38,9 +38,12 @@ import java.io.IOException;
 import java.util.Collections;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -194,7 +197,6 @@ public class LoginActivity extends AppCompatActivity {
                     signOut();
                 }
                 else {
-                    Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
                     SharedPrefsHelper.setSelfToken(LoginActivity.this, response.body().getSelfToken());
                     Log.d("Body Response", response.toString());
 //                    Log.d("Callback Response", response.);
@@ -204,9 +206,30 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     SharedPrefsHelper.setSelfToken(getApplicationContext(), response.body().getSelfToken());
                     Log.d("BETCHA TOKEN", response.body().getSelfToken());
-                    Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
-                    startActivity(myIntent);
-                    finish();
+
+                    ApiHelper.getInstance(getApplicationContext()).getUserInfo(new LoginRequest(response.body().getSelfToken())).enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            if(response.code() != 200) {
+                                BToast.makeShort(getApplicationContext(), "Couldn't get user info (ERROR)");
+                                return;
+                            }
+
+                            User information = response.body();
+                            SharedPrefsHelper.setAccountInformation(getApplicationContext(),information);
+
+                            Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
+                            Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
+                            startActivity(myIntent);
+                            finish();
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            BToast.makeShort(getApplicationContext(), "Couldn't get user info (FAILURE)");
+                        }
+                    });
                 }
             }
 
