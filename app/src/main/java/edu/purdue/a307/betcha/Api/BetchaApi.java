@@ -116,6 +116,9 @@ public interface BetchaApi {
     @POST("/bets/complete")
     Call<BetchaResponse> completeBet(@Body CompleteBetRequest rbr);
 
+    @POST("/bets/profile")
+    Call<Bets> getProfileBets(@Body LoginRequest request);
+
 
     // Comments
     @POST("/comments/create")
