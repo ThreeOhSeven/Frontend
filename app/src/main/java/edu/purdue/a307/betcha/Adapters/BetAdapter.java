@@ -34,6 +34,7 @@ import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Enums.BetAdapterType;
+import edu.purdue.a307.betcha.Enums.JoinBetType;
 import edu.purdue.a307.betcha.Fragments.BetInvitesFragment;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
@@ -122,11 +123,11 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                 String json = new Gson().toJson(info);
                                 myIntent.putExtra("jsonObj", json);
                                 activity.startActivity(myIntent);
+                                break;
                             case R.id.menu_item_complete:
                                 AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                                 builder.setMessage("Which side won?");
                                 builder.setTitle("Completing Bet");
-                                builder.setCancelable(false);
                                 builder.setPositiveButton(info.getSideB(), new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(final DialogInterface dialogInterface, int i) {
@@ -172,6 +173,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     }
                                 });
                                 builder.show();
+                                break;
                         }
                         return false;
                     }
@@ -200,6 +202,8 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                 @Override
                 public void onClick(View view) {
                     Intent myIntent = new Intent(activity, JoinBetActivity.class);
+                    // 1 = Accept
+                    myIntent.putExtra("type", 1);
                     Gson gson = new Gson();
                     myIntent.putExtra("Obj",gson.toJson(info));
                     activity.startActivity(myIntent);
