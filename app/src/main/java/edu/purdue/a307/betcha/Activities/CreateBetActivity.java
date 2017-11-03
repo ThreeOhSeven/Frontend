@@ -169,10 +169,12 @@ public class CreateBetActivity extends BetchaActivity {
 
                                     BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
                                 }
-                            });
-                        }
-                    } catch (Exception e) {
-                        // Do nothing
+                            }
+                            @Override
+                            public void onFailure(Call<BetchaResponse> call, Throwable t) {
+
+                            }
+                        });
                     }
 
 
