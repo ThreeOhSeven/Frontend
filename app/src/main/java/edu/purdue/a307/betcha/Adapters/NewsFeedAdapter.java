@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -38,6 +41,7 @@ import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.Comment;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.User;
@@ -195,13 +199,30 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //Inflate the view from a predefined XML layout
                 View layout = inflater.inflate(R.layout.view_comments,null);
-                // create a 300px width and 470px height PopupWindow
-                int width = LinearLayout.LayoutParams.MATCH_PARENT;
+
+
+                RecyclerView recyclerView = layout.findViewById(R.id.comments);
+                ArrayList<Comment> comments = new ArrayList<Comment>();
+                comments.add(new Comment(new User("","","Kyle Ohanian",""),"This is such a cool app!", "1 hr"));
+                comments.add(new Comment(new User("","","Peter Jones",""),"Whoever invented this app is a super genius", "58 min"));
+                comments.add(new Comment(new User("","","Siddharth Shah",""),"Ehhh......it's not that good", "50 min"));
+                comments.add(new Comment(new User("","","Kyle Ohanian",""),"@Siddharth Shah, what are you talking about????? This is by far " +
+                        "the greatest creation for the betting industry", "41 min"));
+                comments.add(new Comment(new User("","","Kushagra Kushagra",""),"lol", "33 min"));
+                comments.add(new Comment(new User("","","Noah Smith",""),"I'm with Kyle", "10 min"));
+                comments.add(new Comment(new User("","","Peter Jones",""),"^ Same", "Just now"));
+
+                recyclerView.setAdapter(new CommentAdapter(activity, comments, ""));
+                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+
+
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
                 int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                PopupWindow pw = new PopupWindow(layout, width, height, true);
+                final PopupWindow pw = new PopupWindow(layout, width, height, true);
                 pw.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 // display the popup in the center
-                pw.showAsDropDown(holder.cardView);
+                pw.showAsDropDown(holder.mLikeButton);
             }
         });
 

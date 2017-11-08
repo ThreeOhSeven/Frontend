@@ -143,6 +143,14 @@ public class CreateBetActivity extends BetchaActivity {
         betInformationRequest.sideA = sideA.getText().toString();
         betInformationRequest.sideB = sideB.getText().toString();
         betInformationRequest.authToken = selfToken;
+        if(maxUsers.getText().toString() == null ||
+                maxUsers.getText().toString().length() <= 0) {
+            return;
+        }
+        if(Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
+            BToast.makeShort(getApplicationContext(), "Trying to add too many people");
+            return;
+        }
         ApiHelper.getInstance(getApplicationContext()).
                 createBet(betInformationRequest).enqueue(new Callback<CreateBetResponse>() {
             @Override
@@ -157,14 +165,6 @@ public class CreateBetActivity extends BetchaActivity {
                 else {
                     if(friendAdapter == null) {
                         finish();
-                        return;
-                    }
-                    if(maxUsers.getText().toString() == null ||
-                            maxUsers.getText().toString().length() <= 0) {
-                        return;
-                    }
-                    if(Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
-                        BToast.makeShort(getApplicationContext(), "Trying to add too many people");
                         return;
                     }
                     for(FriendItem item: friendAdapter.items) {

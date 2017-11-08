@@ -166,6 +166,11 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
                 }
             });
         }
+        else if(id == R.id.nav_create_bet) {
+            Intent myIntent = new Intent(this, CreateBetActivity.class);
+            myIntent.putExtra("selfToken", selfToken);
+            startActivity(myIntent);
+        }
         return true;
     }
 

@@ -41,7 +41,6 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
     RecyclerView recyclerView;
     List<Bet> bets;
     BetAdapter betAdapter;
-    FloatingActionButton createBet;
     String selfToken;
 
 
@@ -58,16 +57,6 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
         bets = new ArrayList<Bet>();
         selfToken = SharedPrefsHelper.getSelfToken(getContext());
 //        fillList();
-        createBet = (FloatingActionButton)view.findViewById(R.id.floatingActionButton);
-        createBet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO: Make this create bets activity
-                Intent myIntent = new Intent(getActivity(), CreateBetActivity.class);
-                myIntent.putExtra("selfToken", selfToken);
-                startActivity(myIntent);
-            }
-        });
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerBets);
         Log.d("Self Token", selfToken);
         onPageSelected();
