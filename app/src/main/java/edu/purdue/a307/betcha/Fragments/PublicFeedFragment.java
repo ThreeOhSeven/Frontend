@@ -73,7 +73,7 @@ public class PublicFeedFragment extends Fragment implements OnPageSelectedListen
                 Bets feed = response.body();
 
                 if (response.isSuccessful()) {
-                    mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets(), selfTokenFA);
+                    mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets(), selfTokenFA, 0);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     try {

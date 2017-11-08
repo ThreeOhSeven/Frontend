@@ -72,7 +72,7 @@ public class PrivateFeedFragment extends Fragment implements OnPageSelectedListe
                 Bets feed = response.body();
 
                 if (response.isSuccessful()) {
-                    mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets(), selfTokenFA);
+                    mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets(), selfTokenFA, 1);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
                     try {

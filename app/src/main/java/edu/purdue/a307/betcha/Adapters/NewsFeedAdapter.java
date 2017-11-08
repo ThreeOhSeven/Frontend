@@ -1,14 +1,21 @@
 package edu.purdue.a307.betcha.Adapters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +56,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     private List<Bet> dataset;
     private Activity activity;
     private String selfToken;
+    private int type;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -65,6 +73,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         @BindView(R.id.joinButton)
         public ImageButton mJoinButton;
 
+        @BindView(R.id.commentButton)
+        public ImageButton commentButton;
+
         public boolean isAlreadyLiked;
 
         CircleImageView icon;
@@ -80,12 +91,13 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
     }
 
 
-    public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets, String selfToken) {
+    public NewsFeedAdapter(Activity betchaActivity, List<Bet> bets, String selfToken, int type) {
         super();
 
         this.selfToken = selfToken;
         this.activity = betchaActivity;
         this.dataset = bets;
+        this.type = type;
     }
 
 
@@ -103,6 +115,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes())); // Number of Likes
         holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount())); // Amount
 
+        if(type == 0) {
+            holder.mJoinButton.setVisibility(View.INVISIBLE);
+        }
+
         Bet info = dataset.get(position);
         if(info.isLiked()) {
             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
@@ -110,13 +126,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         }
 
         User accountInformation = SharedPrefsHelper.getAccountInformation(activity);
-
-        // Add filled heart if it has been liked by the user
-        if(dataset.get(position).isLiked()) {
-            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
-        } else {
-            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-        }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,10 +143,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             @Override
             public void onClick(View view) {
                 BetLikeRequest betLikeRequest = new BetLikeRequest(1, dataset.get(position).getId(), selfToken);
-
-                if(dataset.get(position).isLiked()) {
-                    betLikeRequest.setLike(0);
-                }
 
                 ApiHelper.getInstance(activity).postLike(betLikeRequest).enqueue(new Callback<BetchaResponse>() {
                     @Override
@@ -181,6 +186,22 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 joinIntent.putExtra("Obj", json);
 
                 activity.startActivity(joinIntent);
+            }
+        });
+
+        holder.commentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                //Inflate the view from a predefined XML layout
+                View layout = inflater.inflate(R.layout.view_comments,null);
+                // create a 300px width and 470px height PopupWindow
+                int width = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                PopupWindow pw = new PopupWindow(layout, width, height, true);
+                pw.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                // display the popup in the center
+                pw.showAsDropDown(holder.cardView);
             }
         });
 
