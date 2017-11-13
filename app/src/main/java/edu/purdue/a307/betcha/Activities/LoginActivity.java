@@ -205,8 +205,9 @@ public class LoginActivity extends AppCompatActivity {
                     if(response.body().getSelfToken() != null) {
                         Log.d("Callback Token", response.body().getSelfToken());
                     }
-                    SharedPrefsHelper.setSelfToken(getApplicationContext(), response.body().getSelfToken());
-                    Log.d("BETCHA TOKEN", response.body().getSelfToken());
+                    final String authToken = response.body().getSelfToken();
+                    SharedPrefsHelper.setSelfToken(getApplicationContext(), authToken);
+                    Log.d("BETCHA TOKEN", authToken);
 
                     ApiHelper.getInstance(getApplicationContext()).getUserInfo(new LoginRequest(response.body().getSelfToken())).enqueue(new Callback<User>() {
                         @Override
@@ -218,8 +219,10 @@ public class LoginActivity extends AppCompatActivity {
 
                             User information = response.body();
                             SharedPrefsHelper.setAccountInformation(getApplicationContext(),information);
-
                             Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
+
+                            myIntent.putExtra("authToken", authToken);
+
                             Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
                             startActivity(myIntent);
                             finish();
