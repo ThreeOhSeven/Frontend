@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,6 +50,7 @@ public class ProfileActivity extends BetchaActivity {
     @BindView(R.id.name)
     TextView name;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +59,7 @@ public class ProfileActivity extends BetchaActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerBets);
         balance = (TextView) findViewById(R.id.balance);
         imgView = (CircleImageView)findViewById(R.id.profile_image);
+
         name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail());
         String str = SharedPrefsHelper.getPhotoURL(getApplicationContext());
         Picasso.with(this).load(str).fit().centerInside().into(imgView);
@@ -100,7 +101,7 @@ public class ProfileActivity extends BetchaActivity {
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
-                betAdapter.notifyDataSetChanged()   ;
+                betAdapter.notifyDataSetChanged();
 
             }
 

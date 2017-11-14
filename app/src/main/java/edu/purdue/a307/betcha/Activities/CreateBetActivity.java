@@ -147,7 +147,7 @@ public class CreateBetActivity extends BetchaActivity {
                 maxUsers.getText().toString().length() <= 0) {
             return;
         }
-        if(Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
+        if(friendAdapter != null && Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
             BToast.makeShort(getApplicationContext(), "Trying to add too many people");
             return;
         }
@@ -164,6 +164,8 @@ public class CreateBetActivity extends BetchaActivity {
                 }
                 else {
                     if(friendAdapter == null) {
+                        Intent intent = new Intent(CreateBetActivity.this, MyBetsActivity.class);
+                        startActivity(intent);
                         finish();
                         return;
                     }
@@ -184,7 +186,8 @@ public class CreateBetActivity extends BetchaActivity {
                         });
                     }
 
-
+                    Intent intent = new Intent(CreateBetActivity.this, MyBetsActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }

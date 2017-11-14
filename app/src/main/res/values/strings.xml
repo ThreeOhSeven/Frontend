@@ -9,7 +9,6 @@
 
     <!--TODO: App url when ready-->
     <string name="app_url">ec2-52-14-139-38.us-east-2.compute.amazonaws.com/</string>
-    <!--<string name="google_client_id">944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com</string>-->
     <string name="google_client_id">944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com</string>
 
     <string name="title_activity_bets">Bets</string>

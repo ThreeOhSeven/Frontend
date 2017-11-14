@@ -89,7 +89,6 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
             }
         });
 
-
 //        bets = new ArrayList<>();
 //        bets.add(new BetInformation("Kyle", "10", "SuperBowl","10"));
 //        bets.add(new BetInformation("Sidd", "20", "World Series","7"));

@@ -114,7 +114,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
         invitePeepsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<User> selectedUsers = new ArrayList<User>();
+                final ArrayList<User> selectedUsers = new ArrayList<User>();
                 if(type == 0) {
                     ArrayList<InviteFriendsObj> currentItems = (ArrayList<InviteFriendsObj>)adapter.items;
                     for (InviteFriendsObj obj: currentItems) {
@@ -129,10 +129,26 @@ public class InvitePeepsActivity extends AppCompatActivity {
                     finish();
                 }
                 else if(type == 1) {
-                    ArrayList<InviteFriendsObj> currentItems = (ArrayList<InviteFriendsObj>)adapter.items;
-                    for (InviteFriendsObj obj: currentItems) {
+
+
+                    final ArrayList<InviteFriendsObj> currentItems = (ArrayList<InviteFriendsObj>)adapter.items;
+                    for (int i = 0; i < selectedUsers.size(); i++) {
+                        final InviteFriendsObj obj = currentItems.get(i);
                         if(obj.isChecked) {
                             selectedUsers.add(obj.friend);
+                        }
+                    }
+                    if(selectedUsers.size() == 0) {
+                        Intent myIntent = getIntent();
+                        setResult(RESULT_CANCELED, myIntent);
+                        finish();
+                    }
+
+                    final int size = selectedUsers.size();
+
+                    for (int i = 0; i < selectedUsers.size(); i++) {
+                        final InviteFriendsObj obj = currentItems.get(i);
+                        final int index = i;
                             ApiHelper.getInstance(getApplicationContext()).sendBet(
                                     new SendBetRequest(obj.friend.getId(), betID, SharedPrefsHelper.getSelfToken(
                                             getApplicationContext()))).enqueue(new Callback<BetchaResponse>() {
@@ -145,6 +161,15 @@ public class InvitePeepsActivity extends AppCompatActivity {
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
+                                        Intent myIntent = getIntent();
+                                        setResult(RESULT_OK, myIntent);
+                                        finish();
+                                        return;
+                                    }
+                                    if(index == size - 1) {
+                                        Users users = new Users(selectedUsers);
+                                        Intent myIntent = getIntent();
+                                        myIntent.putExtra("usersList",new Gson().toJson(users));
                                     }
                                 }
 
@@ -153,11 +178,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
                                     BToast.makeShort(getApplicationContext(),"Couldn't add friend to bet (FAIL)");
                                 }
                             });
-                        }
                     }
-                    Intent myIntent = getIntent();
-                    setResult(RESULT_OK, myIntent);
-                    finish();
 
                 }
             }

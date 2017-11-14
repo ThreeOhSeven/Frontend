@@ -6,14 +6,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.support.transition.Transition;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Fade;
+import android.transition.Slide;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -123,13 +128,12 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             holder.mJoinButton.setVisibility(View.INVISIBLE);
         }
 
-        Bet info = dataset.get(position);
+        final Bet info = dataset.get(position);
+        Log.d("Show Stuff:", String.valueOf(position) + ": " + String.valueOf(info.isLiked()));
         if(info.isLiked()) {
             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
             holder.isAlreadyLiked = true;
         }
-
-        User accountInformation = SharedPrefsHelper.getAccountInformation(activity);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +168,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                             int numLikes = Integer.parseInt(holder.mNumLikes.getText().toString());
                             numLikes++;
                             holder.isAlreadyLiked = true;
+                            info.setLiked(true);
                             holder.mNumLikes.setText(String.valueOf(numLikes));
                             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
 //                            notifyDataSetChanged();
@@ -217,12 +222,11 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
 
 
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int width = LinearLayout.LayoutParams.MATCH_PARENT;
+                int height = 1000;
                 final PopupWindow pw = new PopupWindow(layout, width, height, true);
                 pw.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                // display the popup in the center
-                pw.showAsDropDown(holder.mLikeButton);
+                pw.showAtLocation(holder.cardView,Gravity.CENTER,0,0);
             }
         });
 

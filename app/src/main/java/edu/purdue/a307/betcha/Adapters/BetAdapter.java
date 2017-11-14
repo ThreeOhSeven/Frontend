@@ -102,6 +102,11 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         this.type = type;
     }
 
+    public void setItems(List<Bet> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     @Override
     public BetAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())

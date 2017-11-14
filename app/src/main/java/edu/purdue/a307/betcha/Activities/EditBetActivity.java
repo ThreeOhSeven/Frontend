@@ -167,6 +167,12 @@ public class EditBetActivity extends BetchaActivity {
             case (1000) : {
                 if (resultCode == RESULT_OK) {
                     // TODO Extract the data returned from the child Activity.
+                    Users users = new Gson().fromJson(data.getStringExtra("usersList"), Users.class);
+                    Log.d("Users Length:", String.valueOf(users.users.size()));
+                    for(User user: users.users) {
+                        friendAdapter.items.add(new FriendItem("",user));
+                    }
+//                    friendAdapter.notifyDataSetChanged();
                 }
                 break;
             }
