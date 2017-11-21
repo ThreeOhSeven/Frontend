@@ -75,13 +75,10 @@ public class EditBetActivity extends BetchaActivity {
     Bet bet;
 
     String selfToken;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //View rootView = inflater.inflate(R.layout.fragment_bets, container, false);
-        //textView = rootView.findViewById(R.id.nav_bets);
-        //textView.setText(getResources().getString(R.string.bets_str));
-        //textView = (TextView) findViewById(R.id.nav_bets);
         selfToken = SharedPrefsHelper.getSelfToken(this);
 
         bet = new Gson().fromJson(getIntent().getStringExtra("jsonObj"), Bet.class);
@@ -172,7 +169,7 @@ public class EditBetActivity extends BetchaActivity {
                     for(User user: users.users) {
                         friendAdapter.items.add(new FriendItem("",user));
                     }
-//                    friendAdapter.notifyDataSetChanged();
+                    friendAdapter.notifyDataSetChanged();
                 }
                 break;
             }
