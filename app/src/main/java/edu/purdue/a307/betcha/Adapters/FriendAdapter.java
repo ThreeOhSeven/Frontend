@@ -31,6 +31,7 @@ import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Activities.ProfileActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.AdapterType;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.BetInformation;
@@ -122,10 +123,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                                             if (response.code() != 200) {
                                                 Log.d("Response Code", String.valueOf(response.code()));
                                                 Log.d("Response Message", String.valueOf(response.message()));
-                                                Toast.makeText(activity, "Can't remove bets", Toast.LENGTH_SHORT).show();
+                                                BToast.makeError(activity, activity.getString(R.string.friend_request_reject_error));
                                                 return;
                                             } else {
                                                 Log.d("IN OK", "IT IS OK");
+                                                BToast.makeInformation(activity, activity.getString(R.string.friend_request_reject_success));
                                                 items.remove(position);
                                                 notifyDataSetChanged();
                                             }
@@ -133,6 +135,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
 
                                         @Override
                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                            BToast.makeError(activity, activity.getString(R.string.friend_request_reject_error));
                                             Log.d("DELETE", "FAILED");
                                         }
                                     });
@@ -144,17 +147,20 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                             if (response.code() != 200) {
                                                 Log.d("AUTH ERROR", String.valueOf(response.code()));
-                                                Toast.makeText(activity, "Unable to send friend request", Toast.LENGTH_SHORT).show();
+                                                BToast.makeError(activity, activity.getString(R.string.friend_request_accept_error));
                                                 return;
                                             }
                                             holder.cardView.setBackgroundResource(R.color.colorIcon);
                                             holder.buttonMenu.setBackgroundColor(ContextCompat.getColor(activity, R.color.colorIcon));
                                             holder.buttonMenu.setVisibility(View.INVISIBLE);
+                                            BToast.makeSuccess(activity, activity.getString(R.string.friend_request_accept_success));
+                                            items.remove(position);
+                                            notifyDataSetChanged();
                                         }
 
                                         @Override
                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                            Toast.makeText(activity, "Unable to send friend request", Toast.LENGTH_SHORT).show();
+                                            BToast.makeError(activity, activity.getString(R.string.friend_request_accept_error));
                                         }
                                     });
                             }

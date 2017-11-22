@@ -21,6 +21,7 @@ import edu.purdue.a307.betcha.Activities.MyBetsActivity;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.BetAdapterType;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.Models.Bet;
@@ -70,7 +71,7 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
             public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {
                     Log.d("AUTH ERROR", String.valueOf(response.code()));
-                    Toast.makeText(getContext(), "Unable to get bets",Toast.LENGTH_SHORT).show();
+                    BToast.makeBetsError(getActivity());
                     return;
                 }
                 Log.d("Bets size", String.valueOf(response.body().getBets().size()));
@@ -86,6 +87,7 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
                 Log.d("COMPLETE FAIL", "FAiled");
+                BToast.makeBetsError(getActivity());
             }
         });
 

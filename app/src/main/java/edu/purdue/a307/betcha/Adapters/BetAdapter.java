@@ -155,8 +155,10 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                                         @Override
                                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                                             if (response.code() != 200) {
-                                                                BToast.makeShort(activity, "This completion failed (ERROR)");
+                                                                BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                                                return;
                                                             }
+                                                            BToast.makeSuccess(activity, activity.getString(R.string.bet_completion_success));
                                                             dialogInterface.dismiss();
                                                             if(activity instanceof ActionBarActivity) {
                                                                 ((ActionBarActivity)activity).setStuffUp();
@@ -166,7 +168,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
                                                         @Override
                                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                            BToast.makeShort(activity, "This completion failed (FAILED");
+                                                            BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
                                                             dialogInterface.dismiss();
                                                         }
                                                     });
@@ -189,8 +191,10 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                                         @Override
                                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                                             if (response.code() != 200) {
-                                                                BToast.makeShort(activity, "This completion failed (ERROR)");
+                                                                BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                                                return;
                                                             }
+                                                            BToast.makeSuccess(activity, activity.getString(R.string.bet_completion_success));
                                                             dialogInterface.dismiss();
                                                             if(activity instanceof ActionBarActivity) {
                                                                 ((ActionBarActivity)activity).setStuffUp();
@@ -200,7 +204,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
                                                         @Override
                                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                            BToast.makeShort(activity, "This completion failed (FAILED");
+                                                            BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
                                                             dialogInterface.dismiss();
                                                         }
                                                     });

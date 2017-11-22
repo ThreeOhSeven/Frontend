@@ -86,7 +86,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<FriendItems> call, Response<FriendItems> response) {
                     if(response.code() != 200) {
-                        BToast.makeShort(getApplicationContext(),"Friends Thing didn't work");
+                        BToast.makeFriendsError(InvitePeepsActivity.this);
                         return;
                     }
                     ArrayList<FriendItem> items = response.body().getFriends_obj();
@@ -101,7 +101,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<FriendItems> call, Throwable t) {
-                    BToast.makeShort(getApplicationContext(),"Friends Thing didn't work");
+                    BToast.makeFriendsError(InvitePeepsActivity.this);
                 }
             });
         }
@@ -112,7 +112,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Users> call, Response<Users> response) {
                     if(response.code() != 200) {
-                        BToast.makeShort(getApplicationContext(),"Friends Thing didn't work");
+                        BToast.makeFriendsError(InvitePeepsActivity.this);
                         return;
                     }
                     List<User> items = response.body().users;
@@ -127,7 +127,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Users> call, Throwable t) {
-                    BToast.makeShort(getApplicationContext(),"Friends Thing didn't work");
+                    BToast.makeFriendsError(InvitePeepsActivity.this);
                 }
             });
         }

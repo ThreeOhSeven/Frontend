@@ -85,7 +85,7 @@ public class FriendsFragment extends Fragment implements OnPageSelectedListener 
             @Override
             public void onResponse(Call<FriendItems> call, Response<FriendItems> response) {
                 if(response.code() != 200) {
-                    BToast.makeShort(getContext(), "This failed");
+                    BToast.makeFriendsError(getActivity());
                     return;
                 }
                 ArrayList<FriendItem> friends = new ArrayList<FriendItem>();
@@ -102,7 +102,7 @@ public class FriendsFragment extends Fragment implements OnPageSelectedListener 
 
             @Override
             public void onFailure(Call<FriendItems> call, Throwable t) {
-
+                BToast.makeFriendsError(getActivity());
             }
         });
     }

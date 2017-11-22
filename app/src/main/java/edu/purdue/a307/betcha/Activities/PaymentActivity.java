@@ -39,26 +39,26 @@ public class PaymentActivity extends BetchaActivity {
     public void pay() {
         Card card = cardInputWidget.getCard();
         if (card == null) {
-            BToast.makeShort(this,"Invalid Card Data");
+            BToast.makeError(PaymentActivity.this, getString(R.string.payment_reject));
             return;
         }
 
         if(!card.validateCard()) {
-            BToast.makeShort(this,"Couldn't validate card");
+            BToast.makeError(PaymentActivity.this, getString(R.string.payment_reject));
             return;
         }
 
-        Stripe stripe = new Stripe(this, "pk_test_gycLlqiV4B6HRUIl3VhPooIa");
+        Stripe stripe = new Stripe(this, getString(R.string.stripe_token));
         stripe.createToken(
                 card,
                 new TokenCallback() {
                     public void onSuccess(Token token) {
                         // Send token to your server
-                        Log.d("STRIPE TOKEN", token.getId());
+                        BToast.makeSuccess(PaymentActivity.this, getString(R.string.payment_accept));
                     }
                     public void onError(Exception error) {
                         // Show localized error message
-                        BToast.makeShort(PaymentActivity.this, "There was an error");
+                        BToast.makeError(PaymentActivity.this, getString(R.string.payment_reject));
                     }
                 }
         );

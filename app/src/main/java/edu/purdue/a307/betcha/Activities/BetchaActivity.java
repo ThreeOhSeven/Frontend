@@ -27,6 +27,7 @@ import com.google.android.gms.common.api.Status;
 
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Helpers.BDialog;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.AlertDialogListener;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
@@ -134,28 +135,26 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
                             if (response.code() != 200) {
                                 Log.d("Response Code",String.valueOf(response.code()));
                                 Log.d("Response Message",String.valueOf(response.message()));
-                                Toast.makeText(getApplicationContext(), "Unable to delete account",
-                                        Toast.LENGTH_SHORT).show();
+                                BToast.makeError(BetchaActivity.this, getString(R.string.delete_account_error));
                                 return;
                             }
                             else {
-                                Intent myIntent = new Intent(BetchaActivity.this, LoginActivity.class);
+//                                Intent myIntent = new Intent(BetchaActivity.this, LoginActivity.class);
                                 Log.d("Body Response", response.toString());
-//                    Log.d("Callback Response", response.);
                                 Log.d("Message", response.message());
                                 if(response.body().getSelfToken() != null) {
                                     Log.d("Callback Token", response.body().getSelfToken());
                                 }
+                                BToast.makeSuccess(BetchaActivity.this, getString(R.string.delete_account_success));
                                 signOut();
-                                Toast.makeText(getApplicationContext(), response.body().getSelfToken(), Toast.LENGTH_LONG).show();
-                                startActivity(myIntent);
-                                finish();
+//                                startActivity(myIntent);
+//                                finish();
                             }
                         }
 
                         @Override
                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-
+                            BToast.makeError(BetchaActivity.this, getString(R.string.delete_account_error));
                         }
                     });
                 }
@@ -224,6 +223,7 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
                     public void onResult(Status status) {
                         Intent myIntent = new Intent(
                                 BetchaActivity.this, LoginActivity.class);
+                        BToast.makeInformation(BetchaActivity.this, getString(R.string.sign_out_success));
                         startActivity(myIntent);
                         finish();
                     }

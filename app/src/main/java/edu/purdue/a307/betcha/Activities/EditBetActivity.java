@@ -203,18 +203,18 @@ public class EditBetActivity extends BetchaActivity {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
                     Log.d("Response Message",String.valueOf(response.message()));
-                    Toast.makeText(getApplicationContext(), "Error in creating bet",
-                            Toast.LENGTH_SHORT).show();
+                    BToast.makeError(EditBetActivity.this, getString(R.string.bet_editing_error));
                     return;
                 }
                 else {
+                    BToast.makeSuccess(EditBetActivity.this, getString(R.string.bet_editing_success));
                     finish();
                 }
             }
 
             @Override
             public void onFailure(Call<CreateBetResponse> call, Throwable t) {
-
+                BToast.makeError(EditBetActivity.this, getString(R.string.bet_editing_error));
             }
         });
     }

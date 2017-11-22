@@ -75,7 +75,7 @@ public class ProfileActivity extends BetchaActivity {
             @Override
             public void onResponse(Call<TransactionBalance> call, Response<TransactionBalance> response) {
                 if(response.code() != 200) {
-                    BToast.makeShort(getApplicationContext(), "Unable to get balance");
+                    BToast.makeError(ProfileActivity.this, getString(R.string.balance_error));
                     return;
                 }
 
@@ -84,7 +84,7 @@ public class ProfileActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<TransactionBalance> call, Throwable t) {
-
+                BToast.makeError(ProfileActivity.this, getString(R.string.balance_error));
             }
         });
         ApiHelper.getInstance(this).getProfileBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
@@ -92,7 +92,7 @@ public class ProfileActivity extends BetchaActivity {
             public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {
                     Log.d("AUTH ERROR", String.valueOf(response.code()));
-                    Toast.makeText(getApplicationContext(), "Unable to get bets",Toast.LENGTH_SHORT).show();
+                    BToast.makeBetsError(ProfileActivity.this);
                     return;
                 }
                 Log.d("Bets size", String.valueOf(response.body().getBets().size()));
@@ -107,7 +107,7 @@ public class ProfileActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
-                Log.d("COMPLETE FAIL", "FAiled");
+                BToast.makeBetsError(ProfileActivity.this);
             }
         });
     }

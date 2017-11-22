@@ -220,7 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPrefsHelper.setAccountInformation(getApplicationContext(),information);
 
                             Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
-                            Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
                             startActivity(myIntent);
                             finish();
 

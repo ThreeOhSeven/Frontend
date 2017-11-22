@@ -40,6 +40,7 @@ import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Activities.NewsFeedActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.JoinBetType;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.AccountInformation;
@@ -158,10 +159,10 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                         if(response.code() != 200) {
                             Log.d("Like Response Code", Integer.toString(response.code()));
                             Log.d("Like Response Body", response.errorBody().toString());
-                            Toast.makeText(activity, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                            BToast.makeError(activity, activity.getString(R.string.like_bet_error));
                             return;
                         } else {
-                            Log.d("Like Response Status", "Successful");
+                            BToast.makeSuccess(activity, activity.getString(R.string.like_bet_success));
                             if(holder.isAlreadyLiked) {
                                 return;
                             }
@@ -178,7 +179,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     @Override
                     public void onFailure(Call<BetchaResponse> call, Throwable t) {
                         Log.d("Like Update: ", "Failure");
-                        Toast.makeText(activity, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                        BToast.makeError(activity, activity.getString(R.string.like_bet_error));
                     }
                 });
             }

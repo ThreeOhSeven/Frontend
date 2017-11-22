@@ -15,6 +15,7 @@ import java.io.IOException;
 import edu.purdue.a307.betcha.Adapters.NewsFeedAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Api.BetchaApi;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.OnPageSelectedListener;
 import edu.purdue.a307.betcha.Models.LoginRequest;
@@ -75,17 +76,14 @@ public class PrivateFeedFragment extends Fragment implements OnPageSelectedListe
                     mAdapter = new NewsFeedAdapter(getActivity(), feed.getBets(), selfTokenFA, 1);
                     mRecyclerView.setAdapter(mAdapter);
                 } else {
-                    try {
-                        Log.d("api", response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    BToast.makeBetsError(getActivity());
                 }
             }
 
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
                 Log.e("News Feed API", "Failed to get content from server for NewsFeed", t);
+                BToast.makeBetsError(getActivity());
             }
         });
 
