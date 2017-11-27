@@ -30,6 +30,7 @@ import edu.purdue.a307.betcha.Helpers.BDialog;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.AlertDialogListener;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -165,6 +166,11 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
 
                 }
             });
+        }
+        else if (id == R.id.nav_send_feedback) {
+            Intent feedbackIntent = new Intent(BetchaActivity.this, FeedbackActivity.class);
+            startActivity(feedbackIntent);
+            finish();
         }
         return true;
     }

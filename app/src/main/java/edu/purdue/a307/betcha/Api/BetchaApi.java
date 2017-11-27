@@ -13,6 +13,7 @@ import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.CompleteBetRequest;
 import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
+import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
@@ -149,6 +150,11 @@ public interface BetchaApi {
 
     @POST("/transaction/getPoints")
     Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);
+
+
+    // Feedback
+    @POST("/feedback")
+    Call<BetchaResponse> sendFeedback(@Body FeedbackRequest feedbackRequest);
 
 
 
