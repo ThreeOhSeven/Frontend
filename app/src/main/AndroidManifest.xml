@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -17,8 +17,7 @@
         <activity
             android:name=".Activities.HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".Activities.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -57,7 +56,6 @@
             android:name=".Activities.EditBetActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-
             android:name=".Activities.JoinBetActivity"
             android:label="@string/title_activity_join_bet"
             android:parentActivityName=".Activities.NewsFeedActivity"
@@ -67,16 +65,14 @@
                 android:value="edu.purdue.a307.betcha.Activities.NewsFeedActivity" />
         </activity>
 
-        <service
-            android:name=".Helpers.MyFirebaseInstanceIdService">
+        <service android:name=".Helpers.MyFirebaseInstanceIdService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".Helpers.MyFirebaseMessagingService">
+        <service android:name=".Helpers.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
@@ -84,9 +80,10 @@
             android:name=".Activities.InvitePeepsActivity"
             android:label="@string/title_activity_invite_peeps"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity
+            android:name=".Activities.FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
-
-
 
 </manifest>
