@@ -29,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Activities.BetActivity;
 import edu.purdue.a307.betcha.Activities.BetchaActivity;
 import edu.purdue.a307.betcha.Activities.ProfileActivity;
+import edu.purdue.a307.betcha.Activities.UserProfileActivity;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
@@ -171,10 +172,10 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent myIntent = new Intent(activity, ProfileActivity.class);
-//                Gson gson = new Gson();
-//                myIntent.putExtra("Object",gson.toJson(info));
-//                activity.startActivity(myIntent);
+                Intent myIntent = new Intent(activity, UserProfileActivity.class);
+                Gson gson = new Gson();
+                myIntent.putExtra("Object",gson.toJson(info));
+                activity.startActivity(myIntent);
             }
         });
     }

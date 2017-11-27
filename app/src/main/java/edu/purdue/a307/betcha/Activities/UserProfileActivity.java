@@ -1,23 +1,15 @@
 package edu.purdue.a307.betcha.Activities;
 
-import android.net.Uri;
-import android.os.Parcel;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,8 +21,6 @@ import edu.purdue.a307.betcha.Enums.BetAdapterType;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.Bet;
-import edu.purdue.a307.betcha.Models.BetInformation;
-import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
@@ -39,7 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileActivity extends BetchaActivity {
+public class UserProfileActivity extends BetchaActivity {
 
     RecyclerView recyclerView;
     List<Bet> bets;
@@ -48,7 +38,7 @@ public class ProfileActivity extends BetchaActivity {
     TextView balance;
     CircleImageView imgView;
 
-    @BindView(R.id.name)
+    @BindView(R.id.user_name)
     TextView name;
 
     @Override
@@ -56,16 +46,15 @@ public class ProfileActivity extends BetchaActivity {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         selfToken = SharedPrefsHelper.getSelfToken(this);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerBets);
-        balance = (TextView) findViewById(R.id.balance);
-        imgView = (CircleImageView)findViewById(R.id.profile_image);
-        name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail());
-        String str = SharedPrefsHelper.getPhotoURL(getApplicationContext());
-        Picasso.with(this).load(str).fit().centerInside().into(imgView);
+        recyclerView = (RecyclerView)findViewById(R.id.userRecyclerBets);
+        balance = (TextView) findViewById(R.id.user_balance);
+        imgView = (CircleImageView)findViewById(R.id.user_profile_image);
+        name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail()); // Get user email
+        imgView.setImageResource(R.mipmap.ic_launcher_round);
 
     }
 
-    protected int getLayoutResource() { return R.layout.activity_profile; }
+    protected int getLayoutResource() { return R.layout.activity_user_profile; }
 
     @Override
     public void onResume() {
@@ -96,17 +85,17 @@ public class ProfileActivity extends BetchaActivity {
                 }
                 Log.d("Bets size", String.valueOf(response.body().getBets().size()));
                 bets = response.body().getBets();
-                betAdapter = new BetAdapter(ProfileActivity.this, bets, selfToken, BetAdapterType.PROFILE);
+                betAdapter = new BetAdapter(UserProfileActivity.this, bets, selfToken, BetAdapterType.PROFILE);
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
-                recyclerView.setLayoutManager(new LinearLayoutManager(ProfileActivity.this));
+                recyclerView.setLayoutManager(new LinearLayoutManager(UserProfileActivity.this));
                 betAdapter.notifyDataSetChanged()   ;
 
             }
 
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
-                Log.d("COMPLETE FAIL", "Failed");
+                Log.d("COMPLETE FAIL", "FAiled");
             }
         });
     }
