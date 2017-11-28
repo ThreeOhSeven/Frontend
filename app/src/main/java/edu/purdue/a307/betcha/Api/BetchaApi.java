@@ -18,6 +18,7 @@ import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
+import edu.purdue.a307.betcha.Models.RecordResponse;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
 import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
@@ -67,6 +68,9 @@ public interface BetchaApi {
 
     @POST("/users/updateDevice")
     Call<ApiResponse> postDeviceId(@Body UpdateIdRequest request);
+
+    @POST("/users/get/record")
+    Call<RecordResponse> getRecord(@Body LoginRequest request);
 
 
     // Social Feed
