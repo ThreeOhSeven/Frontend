@@ -179,7 +179,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                     @Override
                     public void onFailure(Call<BetchaResponse> call, Throwable t) {
                         Log.d("Like Update: ", "Failure");
-                        BToast.makeError(activity, activity.getString(R.string.like_bet_error));
+                        BToast.makeServerError(activity);
                     }
                 });
             }

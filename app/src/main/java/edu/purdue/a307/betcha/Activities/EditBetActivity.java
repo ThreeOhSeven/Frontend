@@ -180,41 +180,75 @@ public class EditBetActivity extends BetchaActivity {
 
     @OnClick(R.id.createBetBtn)
     public void create() {
-        BetUpdateRequest betUpdateRequest = new BetUpdateRequest();
-        betUpdateRequest.amount = amount.getText().toString();
-        betUpdateRequest.title = title.getText().toString();
-        betUpdateRequest.description = description.getText().toString();
-        betUpdateRequest.maxUsers = maxUsers.getText().toString();
+        final BetUpdateRequest betInformationRequest = new BetUpdateRequest();
+        betInformationRequest.amount = amount.getText().toString();
+        betInformationRequest.title = title.getText().toString();
+        betInformationRequest.description = description.getText().toString();
+        betInformationRequest.maxUsers = maxUsers.getText().toString();
+        betInformationRequest.betId = bet.getId();
 
         if(locked.isChecked()) {
-            betUpdateRequest.locked = true;
+            betInformationRequest.locked = true;
         } else {
-            betUpdateRequest.locked = false;
+            betInformationRequest.locked = false;
         }
 
-        betUpdateRequest.sideA = sideA.getText().toString();
-        betUpdateRequest.sideB = sideB.getText().toString();
-        betUpdateRequest.authToken = selfToken;
-        betUpdateRequest.betId = bet.getId();
+        betInformationRequest.sideA = sideA.getText().toString();
+        betInformationRequest.sideB = sideB.getText().toString();
+        betInformationRequest.authToken = selfToken;
+        if(maxUsers.getText().toString() == null ||
+                maxUsers.getText().toString().length() <= 0) {
+            return;
+        }
+        if(friendAdapter != null && Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size()) {
+            BToast.makeError(EditBetActivity.this, getString(R.string.too_many_users));
+            return;
+        }
         ApiHelper.getInstance(getApplicationContext()).
-                updateBet(betUpdateRequest).enqueue(new Callback<CreateBetResponse>() {
+                updateBet(betInformationRequest).enqueue(new Callback<CreateBetResponse>() {
             @Override
             public void onResponse(Call<CreateBetResponse> call, Response<CreateBetResponse> response) {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
                     Log.d("Response Message",String.valueOf(response.message()));
-                    BToast.makeError(EditBetActivity.this, getString(R.string.bet_editing_error));
+                    BToast.makeError(EditBetActivity.this, getString(R.string.bet_creation_error));
                     return;
                 }
                 else {
-                    BToast.makeSuccess(EditBetActivity.this, getString(R.string.bet_editing_success));
+                    BToast.makeSuccess(EditBetActivity.this, getString(R.string.bet_creation_success));
+                    if(friendAdapter == null) {
+                        Intent intent = new Intent(EditBetActivity.this, MyBetsActivity.class);
+                        startActivity(intent);
+                        finish();
+                        return;
+                    }
+                    for(final FriendItem item: friendAdapter.items) {
+                        ApiHelper.getInstance(getApplicationContext()).sendBet(
+                                new SendBetRequest(item.getFriend().getId(),Integer.toString(bet.getId()),
+                                        selfToken)).enqueue(new Callback<BetchaResponse>() {
+                            @Override
+                            public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                if(response.code() != 200) {
+                                    BToast.makeError(EditBetActivity.this, "Unable to add user: " + item.getFriend().getEmail());
+                                    return;
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                BToast.makeServerError(EditBetActivity.this);
+                            }
+                        });
+                    }
+
+                    Intent intent = new Intent(EditBetActivity.this, MyBetsActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
 
             @Override
             public void onFailure(Call<CreateBetResponse> call, Throwable t) {
-                BToast.makeError(EditBetActivity.this, getString(R.string.bet_editing_error));
+                BToast.makeServerError(EditBetActivity.this);
             }
         });
     }

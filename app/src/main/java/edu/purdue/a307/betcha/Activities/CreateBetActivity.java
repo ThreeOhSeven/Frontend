@@ -182,7 +182,7 @@ public class CreateBetActivity extends BetchaActivity {
                             }
                             @Override
                             public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                BToast.makeError(CreateBetActivity.this, "Unable to add user: " + item.getFriend().getEmail());
+                                BToast.makeServerError(CreateBetActivity.this);
                             }
                         });
                     }
@@ -195,7 +195,7 @@ public class CreateBetActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<CreateBetResponse> call, Throwable t) {
-                BToast.makeError(CreateBetActivity.this, getString(R.string.bet_creation_error));
+                BToast.makeServerError(CreateBetActivity.this);
             }
         });
     }

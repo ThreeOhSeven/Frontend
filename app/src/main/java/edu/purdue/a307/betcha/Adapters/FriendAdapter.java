@@ -135,7 +135,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
 
                                         @Override
                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                            BToast.makeError(activity, activity.getString(R.string.friend_request_reject_error));
+                                            BToast.makeServerError(activity);
                                             Log.d("DELETE", "FAILED");
                                         }
                                     });
@@ -160,7 +160,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
 
                                         @Override
                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                            BToast.makeError(activity, activity.getString(R.string.friend_request_accept_error));
+                                            BToast.makeServerError(activity);
                                         }
                                     });
                             }

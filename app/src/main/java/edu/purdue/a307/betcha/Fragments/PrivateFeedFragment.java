@@ -83,7 +83,7 @@ public class PrivateFeedFragment extends Fragment implements OnPageSelectedListe
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
                 Log.e("News Feed API", "Failed to get content from server for NewsFeed", t);
-                BToast.makeBetsError(getActivity());
+                BToast.makeServerError(getActivity());
             }
         });
 

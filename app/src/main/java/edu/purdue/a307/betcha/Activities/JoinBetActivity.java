@@ -138,7 +138,7 @@ public class JoinBetActivity extends BetchaActivity {
 
                     @Override
                     public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                        BToast.makeError(JoinBetActivity.this, getString(R.string.reject_bet_error));
+                        BToast.makeServerError(JoinBetActivity.this);
                     }
                 });
             }
@@ -173,7 +173,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }
@@ -194,7 +194,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }
@@ -225,7 +225,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }
@@ -246,7 +246,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }

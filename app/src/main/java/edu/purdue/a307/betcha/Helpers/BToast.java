@@ -24,6 +24,8 @@ public class BToast {
     public static final int GREEN = R.color.iconColor6;
     public static final int RED = R.color.iconColor2;
     public static final int BLUE = R.color.iconColor4;
+    public static final int YELLOW = R.color.iconColor7;
+    public static final int BLACK = R.color.black;
     public static final int WHITE = R.color.colorIcon;
 
 
@@ -56,7 +58,7 @@ public class BToast {
         text.setTextSize(textSize);
 
         Toast toast = new Toast(context);
-        toast.setGravity(gravity, 0, 0);
+        toast.setGravity(gravity, 0, 50);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
@@ -78,6 +80,10 @@ public class BToast {
 
     public static void makeBetsError(Activity context) {
         makeCustom(context, "Unable to get the list of bets", RED, WHITE, TEXT_DEFAULT, BOTTOM);
+    }
+
+    public static void makeServerError(Activity context) {
+        makeCustom(context, "Unable to connect to the betcha! servers", YELLOW, BLACK, TEXT_DEFAULT, BOTTOM);
     }
 
     public static void makeInformation(Activity context, String message) {

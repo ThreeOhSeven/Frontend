@@ -61,7 +61,6 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/name"
                         android:layout_gravity="center_horizontal"
-                        android:text="$0.00"
                         android:textAlignment="center"
                         android:textSize="20sp" />
                 </RelativeLayout>

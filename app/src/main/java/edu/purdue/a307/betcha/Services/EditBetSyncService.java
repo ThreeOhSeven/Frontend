@@ -49,8 +49,7 @@ public class EditBetSyncService extends IntentService {
             }
         }
 
-//        LocalBroadcastManager localBroadcastManager = LocalBroadcastManager
-//                .getInstance(EditBetSyncService.this);
+
         Intent intent = new Intent("edu.purdue.a307.betcha.close");
         users.users = newUsers;
         intent.putExtra("users", new Gson().toJson(users));

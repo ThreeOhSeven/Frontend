@@ -101,7 +101,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<FriendItems> call, Throwable t) {
-                    BToast.makeFriendsError(InvitePeepsActivity.this);
+                    BToast.makeServerError(InvitePeepsActivity.this);
                 }
             });
         }
@@ -127,7 +127,7 @@ public class InvitePeepsActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Users> call, Throwable t) {
-                    BToast.makeFriendsError(InvitePeepsActivity.this);
+                    BToast.makeServerError(InvitePeepsActivity.this);
                 }
             });
         }
@@ -136,78 +136,17 @@ public class InvitePeepsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final ArrayList<User> selectedUsers = new ArrayList<User>();
-                if(type == 0) {
-                    ArrayList<InviteFriendsObj> currentItems = (ArrayList<InviteFriendsObj>)adapter.items;
-                    for (InviteFriendsObj obj: currentItems) {
-                        if(obj.isChecked) {
-                            selectedUsers.add(obj.friend);
-                        }
+                ArrayList<InviteFriendsObj> currentItems = (ArrayList<InviteFriendsObj>)adapter.items;
+                for (InviteFriendsObj obj: currentItems) {
+                    if(obj.isChecked) {
+                        selectedUsers.add(obj.friend);
                     }
-                    Users users = new Users(selectedUsers);
-                    Intent myIntent = getIntent();
-                    myIntent.putExtra("usersList",new Gson().toJson(users));
-                    setResult(RESULT_OK, myIntent);
-                    finish();
                 }
-                else if(type == 1) {
-
-
-                    final ArrayList<InviteFriendsObj> currentItems = (ArrayList<InviteFriendsObj>)adapter.items;
-                    for (int i = 0; i < currentItems.size(); i++) {
-                        final InviteFriendsObj obj = currentItems.get(i);
-                        if(obj.isChecked) {
-                            selectedUsers.add(obj.friend);
-                        }
-                    }
-                    if(selectedUsers.size() == 0) {
-                        Intent myIntent = getIntent();
-                        setResult(RESULT_CANCELED, myIntent);
-                        finish();
-                        return;
-                    }
-
-                    final int size = selectedUsers.size();
-                    Users users = new Users(selectedUsers);
-                    Intent intent = new Intent(InvitePeepsActivity.this, EditBetSyncService.class);
-                    intent.putExtra("users", new Gson().toJson(users));
-                    intent.putExtra("betID", betID);
-                    startService(intent);
-
-//                    for (int i = 0; i < selectedUsers.size(); i++) {
-//                        final InviteFriendsObj obj = currentItems.get(i);
-//                        final int index = i;
-//                            ApiHelper.getInstance(getApplicationContext()).sendBet(
-//                                    new SendBetRequest(obj.friend.getId(), betID, SharedPrefsHelper.getSelfToken(
-//                                            getApplicationContext()))).enqueue(new Callback<BetchaResponse>() {
-//                                @Override
-//                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-//                                    if(response.code() != 200) {
-//                                        BToast.makeShort(getApplicationContext(),"Couldn't add friend to bet (ERROR)");
-//                                        try {
-//                                            Log.d("DEBUG", response.errorBody().string());
-//                                        } catch (IOException e) {
-//                                            e.printStackTrace();
-//                                        }
-//                                        Intent myIntent = getIntent();
-//                                        setResult(RESULT_OK, myIntent);
-//                                        finish();
-//                                        return;
-//                                    }
-//                                    if(index == size - 1) {
-//                                        Users users = new Users(selectedUsers);
-//                                        Intent myIntent = getIntent();
-//                                        myIntent.putExtra("usersList",new Gson().toJson(users));
-//                                    }
-//                                }
-//
-//                                @Override
-//                                public void onFailure(Call<BetchaResponse> call, Throwable t) {
-//                                    BToast.makeShort(getApplicationContext(),"Couldn't add friend to bet (FAIL)");
-//                                }
-//                            });
-//                    }
-
-                }
+                Users users = new Users(selectedUsers);
+                Intent myIntent = getIntent();
+                myIntent.putExtra("usersList",new Gson().toJson(users));
+                setResult(RESULT_OK, myIntent);
+                finish();
             }
         });
     }

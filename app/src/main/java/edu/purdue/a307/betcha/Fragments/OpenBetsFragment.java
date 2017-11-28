@@ -87,7 +87,7 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
                 Log.d("COMPLETE FAIL", "FAiled");
-                BToast.makeBetsError(getActivity());
+                BToast.makeServerError(getActivity());
             }
         });
 

@@ -91,7 +91,7 @@ public class FriendRequestFragment extends Fragment implements OnPageSelectedLis
 
             @Override
             public void onFailure(Call<FriendItems> call, Throwable t) {
-                BToast.makeFriendsError(getActivity());
+                BToast.makeServerError(getActivity());
             }
         });
     }

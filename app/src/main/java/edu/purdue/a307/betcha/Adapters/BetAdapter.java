@@ -168,7 +168,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
                                                         @Override
                                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                            BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                                            BToast.makeServerError(activity);
                                                             dialogInterface.dismiss();
                                                         }
                                                     });
@@ -204,7 +204,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
 
                                                         @Override
                                                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                            BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                                            BToast.makeServerError(activity);
                                                             dialogInterface.dismiss();
                                                         }
                                                     });

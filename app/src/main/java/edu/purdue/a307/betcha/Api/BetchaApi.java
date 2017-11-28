@@ -15,6 +15,7 @@ import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.PaymentRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
@@ -140,6 +141,10 @@ public interface BetchaApi {
                                        @Query("authToken") String authToken);
     @POST("/comments/delete/{id}")
     Call<BetchaResponse> deleteComment(@Path("id") String betID, @Query("authToken") String authToken);
+
+
+    @POST("/transaction/payment/charge")
+    Call<BetchaResponse> chargeUser(@Body PaymentRequest request);
 
 
     // Likes

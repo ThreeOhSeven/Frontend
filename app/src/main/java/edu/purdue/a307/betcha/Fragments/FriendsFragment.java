@@ -102,7 +102,7 @@ public class FriendsFragment extends Fragment implements OnPageSelectedListener 
 
             @Override
             public void onFailure(Call<FriendItems> call, Throwable t) {
-                BToast.makeFriendsError(getActivity());
+                BToast.makeServerError(getActivity());
             }
         });
     }

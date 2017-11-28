@@ -228,7 +228,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
-                            BToast.makeShort(getApplicationContext(), "Couldn't get user info (FAILURE)");
+                            BToast.makeServerError(LoginActivity.this);
                         }
                     });
                 }
@@ -237,7 +237,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BetchaResponse> call, Throwable t) {
                 Log.d("TAG", "FAiled");
-                showErrorDialog();
+                BToast.makeServerError(LoginActivity.this);
                 signOut();
             }
         });

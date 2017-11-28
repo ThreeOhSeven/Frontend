@@ -128,7 +128,7 @@ public class BetActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<EmailResponse> call, Throwable t) {
-                BToast.makeError(BetActivity.this, getString(R.string.bet_info_error));
+                BToast.makeServerError(BetActivity.this);
             }
         });
 

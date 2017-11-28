@@ -77,7 +77,7 @@ public class InviteFriendsAdapter extends RecyclerView.Adapter<InviteFriendsAdap
                     item.isChecked = true;
                     holder.cardView.setCardBackgroundColor(Color.GRAY);
                 }
-                notifyDataSetChanged();
+//                notifyDataSetChanged();
             }
         });
     }

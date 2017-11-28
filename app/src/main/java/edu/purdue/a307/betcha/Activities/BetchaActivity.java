@@ -154,7 +154,7 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
 
                         @Override
                         public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                            BToast.makeError(BetchaActivity.this, getString(R.string.delete_account_error));
+                            BToast.makeServerError(BetchaActivity.this);
                         }
                     });
                 }

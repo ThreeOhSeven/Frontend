@@ -84,7 +84,7 @@ public class ProfileActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<TransactionBalance> call, Throwable t) {
-                BToast.makeError(ProfileActivity.this, getString(R.string.balance_error));
+                BToast.makeServerError(ProfileActivity.this);
             }
         });
         ApiHelper.getInstance(this).getProfileBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
@@ -107,7 +107,7 @@ public class ProfileActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
-                BToast.makeBetsError(ProfileActivity.this);
+                BToast.makeServerError(ProfileActivity.this);
             }
         });
     }

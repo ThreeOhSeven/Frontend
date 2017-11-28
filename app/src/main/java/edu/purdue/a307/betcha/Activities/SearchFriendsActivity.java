@@ -74,14 +74,14 @@ public class SearchFriendsActivity extends BetchaActivity {
 
                                 @Override
                                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                    BToast.makeError(SearchFriendsActivity.this, getString(R.string.send_friend_request_error));
+                                    BToast.makeServerError(SearchFriendsActivity.this);
                                 }
                             });
                         }
 
                         @Override
                         public void onFailure(Call<UserID> call, Throwable t) {
-                            BToast.makeError(SearchFriendsActivity.this, getString(R.string.find_friend_error));
+                            BToast.makeServerError(SearchFriendsActivity.this);
                         }
                     });
                 }

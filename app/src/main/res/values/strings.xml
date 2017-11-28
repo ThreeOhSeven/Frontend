@@ -45,7 +45,7 @@
     <string name="accept_bet_success">Bet has been joined</string>
     <string name="payment_reject">Payment has been rejected</string>
     <string name="payment_accept">Payment has been accepted</string>
-    <string name="balance_error">Payment has been accepted</string>
+    <string name="balance_error">Unable to get balance at this time</string>
     <string name="find_friend_error">Unable to find user with this email</string>
     <string name="send_friend_request_error">Unable to send friend request</string>
     <string name="send_friend_request_success">Friend Request has been sent</string>

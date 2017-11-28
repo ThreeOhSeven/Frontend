@@ -85,7 +85,7 @@ public class CompletedBetsFragment extends Fragment implements OnPageSelectedLis
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
                 Log.d("COMPLETE FAIL", "FAiled");
-                BToast.makeBetsError(getActivity());
+                BToast.makeServerError(getActivity());
             }
         });
     }
