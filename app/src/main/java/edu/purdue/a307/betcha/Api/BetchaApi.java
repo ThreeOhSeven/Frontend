@@ -26,6 +26,8 @@ import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
+import edu.purdue.a307.betcha.Models.UserProfileRequest;
+import edu.purdue.a307.betcha.Models.UserProfileResponse;
 import edu.purdue.a307.betcha.Models.Users;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -126,6 +128,9 @@ public interface BetchaApi {
 
     @POST("/bets/profile")
     Call<Bets> getProfileBets(@Body LoginRequest request);
+
+    @POST("/bets/userProfile")
+    Call<UserProfileResponse> getUserProfileBets(@Body UserProfileRequest request);
 
 
     // Reusing RejectBetRequest because it has same schema

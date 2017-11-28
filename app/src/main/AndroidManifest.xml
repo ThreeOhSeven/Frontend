@@ -30,6 +30,7 @@
         <activity
             android:name=".Activities.ProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".Activities.ManageActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -80,10 +81,15 @@
             android:name=".Activities.InvitePeepsActivity"
             android:label="@string/title_activity_invite_peeps"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".Activities.UserProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.FeedbackActivity"
             android:label="@string/title_activity_feedback"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+      </activity>
     </application>
 
 </manifest>
