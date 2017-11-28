@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -64,6 +65,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.purdue.a307.betcha.Activities.NewsFeedActivity" />
         </activity>
+
+        <service android:name=".Helpers.MyFirebaseInstanceIdService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".Helpers.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".Activities.InvitePeepsActivity"
             android:label="@string/title_activity_invite_peeps"
@@ -72,6 +85,11 @@
         <activity
             android:name=".Activities.UserProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.FeedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:theme="@style/AppTheme.NoActionBar">
+      </activity>
     </application>
 
 </manifest>

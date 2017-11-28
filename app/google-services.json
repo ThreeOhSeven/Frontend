@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "944441731974",
-    "project_id": "betcha-180720"
+    "firebase_url": "https://betcha-180720.firebaseio.com",
+    "project_id": "betcha-180720",
+    "storage_bucket": "betcha-180720.appspot.com"
   },
   "client": [
     {
@@ -12,6 +14,26 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "944441731974-o984j0s676n0b5uag8lojsvb0gg1i4vj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.purdue.a307.betcha",
+            "certificate_hash": "c80e0c49b93d10fcab59a03ba36e97ec6ef5ad93"
+          }
+        },
+        {
+          "client_id": "944441731974-qsngt2rfvngf70sil6otrmldb79afqad.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "944441731974-dckj28pjo8s582mf1rv5h99qnpmgnrpi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.purdue.a307.betcha",
+            "certificate_hash": "a9935000930ce79320b43353900307381fbabe3f"
+          }
+        },
         {
           "client_id": "944441731974-daftmf434i0tt4bp6fe2kfdt86elqoms.apps.googleusercontent.com",
           "client_type": 1,
@@ -43,11 +65,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944441731974-qsngt2rfvngf70sil6otrmldb79afqad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

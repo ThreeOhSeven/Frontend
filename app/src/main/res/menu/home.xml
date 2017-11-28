@@ -11,5 +11,12 @@
             android:id="@+id/nav_delete"
             android:icon="@drawable/ic_sign_out_black_24dp"
             android:title="Delete Account" />
+
+        <item
+            android:id="@+id/nav_send_feedback"
+            android:icon="@drawable/ic_sign_out_black_24dp"
+            android:title="Send Feedback" />
+
+
     </group>
 </menu>

@@ -1,25 +1,27 @@
 package edu.purdue.a307.betcha.Api;
 
-import edu.purdue.a307.betcha.Models.AcceptBetRequest;
 import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.AddFriendRequest;
+import edu.purdue.a307.betcha.Models.ApiResponse;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetUpdateRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.CompleteBetRequest;
 import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
+import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
-import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
 import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
+import edu.purdue.a307.betcha.Models.UpdateIdRequest;
 import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
@@ -29,9 +31,7 @@ import edu.purdue.a307.betcha.Models.UserProfileResponse;
 import edu.purdue.a307.betcha.Models.Users;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -65,6 +65,8 @@ public interface BetchaApi {
     @POST("/users/get/email")
     Call<EmailResponse> getUserByID(@Body UserIDRequest request);
 
+    @POST("/users/updateDevice")
+    Call<ApiResponse> postDeviceId(@Body UpdateIdRequest request);
 
 
     // Social Feed
@@ -153,6 +155,11 @@ public interface BetchaApi {
 
     @POST("/transaction/getPoints")
     Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);
+
+
+    // Feedback
+    @POST("/feedback")
+    Call<BetchaResponse> sendFeedback(@Body FeedbackRequest feedbackRequest);
 
 
 
