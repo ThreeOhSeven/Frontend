@@ -24,6 +24,8 @@ import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
+import edu.purdue.a307.betcha.Models.UserProfileRequest;
+import edu.purdue.a307.betcha.Models.UserProfileResponse;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -41,6 +43,8 @@ public class UserProfileActivity extends BetchaActivity {
     @BindView(R.id.user_name)
     TextView name;
 
+    int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +53,10 @@ public class UserProfileActivity extends BetchaActivity {
         recyclerView = (RecyclerView)findViewById(R.id.userRecyclerBets);
         balance = (TextView) findViewById(R.id.user_balance);
         imgView = (CircleImageView)findViewById(R.id.user_profile_image);
-        name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail()); // Get user email
+        //name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail()); // Get user email
         imgView.setImageResource(R.mipmap.ic_launcher_round);
+        id = getIntent().getIntExtra("id", 21);
+        Log.d("User Id", String.valueOf(id));
 
     }
 
@@ -75,9 +81,9 @@ public class UserProfileActivity extends BetchaActivity {
 
             }
         });
-        ApiHelper.getInstance(this).getProfileBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
+        ApiHelper.getInstance(this).getUserProfileBets(new UserProfileRequest(selfToken, id)).enqueue(new Callback<UserProfileResponse>() {
             @Override
-            public void onResponse(Call<Bets> call, Response<Bets> response) {
+            public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 if(response.code() != 200) {
                     Log.d("AUTH ERROR", String.valueOf(response.code()));
                     Toast.makeText(getApplicationContext(), "Unable to get bets",Toast.LENGTH_SHORT).show();
@@ -89,13 +95,13 @@ public class UserProfileActivity extends BetchaActivity {
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(UserProfileActivity.this));
-                betAdapter.notifyDataSetChanged()   ;
-
+                betAdapter.notifyDataSetChanged();
+                name.setText(response.body().getUser().getEmail());
             }
 
             @Override
-            public void onFailure(Call<Bets> call, Throwable t) {
-                Log.d("COMPLETE FAIL", "FAiled");
+            public void onFailure(Call<UserProfileResponse> call, Throwable t) {
+                Log.d("COMPLETE FAIL", "Failed");
             }
         });
     }

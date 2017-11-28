@@ -1,5 +1,7 @@
 package edu.purdue.a307.betcha.Models;
 
+import java.util.List;
+
 /**
  * Created by Peter on 11/27/17.
  */
@@ -7,9 +9,9 @@ package edu.purdue.a307.betcha.Models;
 public class UserProfileResponse {
 
     private User user;
-    private Bets bets;
+    private List<Bet> bets;
 
-    public UserProfileResponse(User user, Bets bets) {
+    public UserProfileResponse(User user, List<Bet> bets) {
         this.user = user;
         this.bets = bets;
     }
@@ -22,11 +24,11 @@ public class UserProfileResponse {
         this.user = user;
     }
 
-    public Bets getBets() {
+    public List<Bet> getBets() {
         return bets;
     }
 
-    public void setBets(Bets bets) {
+    public void setBets(List<Bet> bets) {
         this.bets = bets;
     }
 }

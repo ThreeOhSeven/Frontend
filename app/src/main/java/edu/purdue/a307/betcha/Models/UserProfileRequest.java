@@ -6,11 +6,11 @@ package edu.purdue.a307.betcha.Models;
 
 public class UserProfileRequest {
     private String authToken;
-    private int id;
+    private int userId;
 
-    public UserProfileRequest(String authToken, int id) {
+    public UserProfileRequest(String authToken, int userId) {
         this.authToken = authToken;
-        this.id = id;
+        this.userId = userId;
     }
 
     public String getAuthToken() {
@@ -22,10 +22,10 @@ public class UserProfileRequest {
     }
 
     public int getId() {
-        return id;
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int userId) {
+        this.userId = userId;
     }
 }

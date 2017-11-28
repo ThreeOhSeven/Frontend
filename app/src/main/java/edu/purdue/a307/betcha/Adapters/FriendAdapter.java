@@ -174,7 +174,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
             public void onClick(View view) {
                 Intent myIntent = new Intent(activity, UserProfileActivity.class);
                 Gson gson = new Gson();
-                myIntent.putExtra("Object",gson.toJson(info));
+                myIntent.putExtra("id", Integer.parseInt(info.getFriend().getId()));
                 activity.startActivity(myIntent);
             }
         });
