@@ -33,6 +33,7 @@ import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformations;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.RecordResponse;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -47,6 +48,7 @@ public class ProfileActivity extends BetchaActivity {
     String selfToken;
     TextView balance;
     CircleImageView imgView;
+    TextView recordView;
 
     @BindView(R.id.name)
     TextView name;
@@ -59,6 +61,7 @@ public class ProfileActivity extends BetchaActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerBets);
         balance = (TextView) findViewById(R.id.balance);
         imgView = (CircleImageView)findViewById(R.id.profile_image);
+        recordView = (TextView)findViewById(R.id.record);
         name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail());
         String str = SharedPrefsHelper.getPhotoURL(getApplicationContext());
         Picasso.with(this).load(str).fit().centerInside().into(imgView);
@@ -106,6 +109,23 @@ public class ProfileActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<Bets> call, Throwable t) {
+                Log.d("COMPLETE FAIL", "Failed");
+            }
+        });
+        ApiHelper.getInstance(this).getRecord(new LoginRequest(selfToken)).enqueue(new Callback<RecordResponse>() {
+            @Override
+            public void onResponse(Call<RecordResponse> call, Response<RecordResponse> response) {
+                if(response.code() != 200) {
+                    Log.d("AUTH ERROR", String.valueOf(response.code()));
+                    Toast.makeText(getApplicationContext(), "Unable to get records",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String record = response.body().getWins() + "-" + response.body().getLosses();
+                recordView.setText(record);
+            }
+
+            @Override
+            public void onFailure(Call<RecordResponse> call, Throwable t) {
                 Log.d("COMPLETE FAIL", "Failed");
             }
         });
