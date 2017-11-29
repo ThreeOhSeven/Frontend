@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
-import edu.purdue.a307.betcha.Models.Comment;
+import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.R;
 
@@ -22,7 +22,7 @@ import edu.purdue.a307.betcha.R;
  */
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHolder> {
-    private List<Comment> dataset;
+    private List<BetComment> dataset;
     private Activity activity;
     private String selfToken;
 
@@ -48,7 +48,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     }
 
 
-    public CommentAdapter(Activity betchaActivity, List<Comment> comments, String selfToken) {
+    public CommentAdapter(Activity betchaActivity, List<BetComment> comments, String selfToken) {
         super();
 
         this.selfToken = selfToken;
@@ -66,10 +66,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(CommentAdapter.ViewHolder holder, final int position) {
-        Comment comment = dataset.get(position);
-        holder.name.setText(comment.getUser().getEmail());
-        holder.comment.setText(comment.getComment());
-        holder.date.setText(comment.getTime());
+        BetComment comment = dataset.get(position);
+        holder.name.setText(comment.getUserId());
+        holder.comment.setText(comment.getText());
+        holder.date.setText(comment.getCreationTime());
         IconGenerator.setImage(activity, holder.icon);
     }
 

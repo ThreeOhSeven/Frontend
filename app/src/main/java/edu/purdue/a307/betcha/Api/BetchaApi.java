@@ -1,36 +1,40 @@
 package edu.purdue.a307.betcha.Api;
 
-import edu.purdue.a307.betcha.Models.AcceptBetRequest;
 import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.AddFriendRequest;
+import edu.purdue.a307.betcha.Models.ApiResponse;
 import edu.purdue.a307.betcha.Models.BetComment;
+import edu.purdue.a307.betcha.Models.BetCommentAddRequest;
+import edu.purdue.a307.betcha.Models.BetComments;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetUpdateRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.CompleteBetRequest;
 import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
+import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.PaymentRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
-import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
 import edu.purdue.a307.betcha.Models.SendBetRequest;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
+import edu.purdue.a307.betcha.Models.UpdateIdRequest;
 import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.Models.UserEmailRequest;
 import edu.purdue.a307.betcha.Models.UserID;
 import edu.purdue.a307.betcha.Models.UserIDRequest;
+import edu.purdue.a307.betcha.Models.UserProfileRequest;
+import edu.purdue.a307.betcha.Models.UserProfileResponse;
 import edu.purdue.a307.betcha.Models.Users;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -64,6 +68,8 @@ public interface BetchaApi {
     @POST("/users/get/email")
     Call<EmailResponse> getUserByID(@Body UserIDRequest request);
 
+    @POST("/users/updateDevice")
+    Call<ApiResponse> postDeviceId(@Body UpdateIdRequest request);
 
 
     // Social Feed
@@ -126,6 +132,9 @@ public interface BetchaApi {
     @POST("/bets/profile")
     Call<Bets> getProfileBets(@Body LoginRequest request);
 
+    @POST("/bets/userProfile")
+    Call<UserProfileResponse> getUserProfileBets(@Body UserProfileRequest request);
+
 
     // Reusing RejectBetRequest because it has same schema
     @POST("/bets/friendsNot")
@@ -133,14 +142,12 @@ public interface BetchaApi {
 
 
     // Comments
-    @POST("/comments/create")
-    Call<BetchaResponse> createComment(@Body BetComment betComment,
-                                       @Query("authToken") String authToken);
-    @POST("/comments/update")
-    Call<BetchaResponse> updateComment(@Body BetComment betComment,
-                                       @Query("authToken") String authToken);
-    @POST("/comments/delete/{id}")
-    Call<BetchaResponse> deleteComment(@Path("id") String betID, @Query("authToken") String authToken);
+    @POST("/comment/add")
+    Call<BetchaResponse> addComment(@Body BetCommentAddRequest request);
+    @POST("/comment/update")
+    Call<BetchaResponse> deleteComment(@Body BetComment betComment);
+    @POST("/comment/get")
+    Call<BetComments> getComments(@Path("id") String betID, @Query("authToken") String authToken);
 
 
     @POST("/transaction/payment/charge")
@@ -153,6 +160,11 @@ public interface BetchaApi {
 
     @POST("/transaction/getPoints")
     Call<TransactionBalance> getBalance(@Body LoginRequest loginRequest);
+
+
+    // Feedback
+    @POST("/feedback")
+    Call<BetchaResponse> sendFeedback(@Body FeedbackRequest feedbackRequest);
 
 
 

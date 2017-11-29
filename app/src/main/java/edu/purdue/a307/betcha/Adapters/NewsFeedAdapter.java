@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -45,9 +46,11 @@ import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
+import edu.purdue.a307.betcha.Models.BetCommentAddRequest;
+import edu.purdue.a307.betcha.Models.BetComments;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
-import edu.purdue.a307.betcha.Models.Comment;
+import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.User;
@@ -202,32 +205,73 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         holder.commentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 //Inflate the view from a predefined XML layout
-                View layout = inflater.inflate(R.layout.view_comments,null);
+                final View layout = inflater.inflate(R.layout.view_comments,null);
 
 
-                RecyclerView recyclerView = layout.findViewById(R.id.comments);
-                ArrayList<Comment> comments = new ArrayList<Comment>();
-                comments.add(new Comment(new User("","","Kyle Ohanian",""),"This is such a cool app!", "1 hr"));
-                comments.add(new Comment(new User("","","Peter Jones",""),"Whoever invented this app is a super genius", "58 min"));
-                comments.add(new Comment(new User("","","Siddharth Shah",""),"Ehhh......it's not that good", "50 min"));
-                comments.add(new Comment(new User("","","Kyle Ohanian",""),"@Siddharth Shah, what are you talking about????? This is by far " +
-                        "the greatest creation for the betting industry", "41 min"));
-                comments.add(new Comment(new User("","","Kushagra Kushagra",""),"lol", "33 min"));
-                comments.add(new Comment(new User("","","Noah Smith",""),"I'm with Kyle", "10 min"));
-                comments.add(new Comment(new User("","","Peter Jones",""),"^ Same", "Just now"));
+                final RecyclerView recyclerView = layout.findViewById(R.id.comments);
 
-                recyclerView.setAdapter(new CommentAdapter(activity, comments, ""));
-                recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                final Button button = layout.findViewById(R.id.postComment);
+                final EditText text = layout.findViewById(R.id.newComment);
+
+                ApiHelper.getInstance(activity).getComments(
+                        String.valueOf(info.getId()),selfToken).enqueue(new Callback<BetComments>() {
+                    @Override
+                    public void onResponse(Call<BetComments> call, Response<BetComments> response) {
+                        if(response.code() != 200) {
+                            return;
+                        }
+
+                        List<BetComment> BetComments = response.body().getComments();
+
+                        final CommentAdapter adapter = new CommentAdapter(activity, BetComments, "");
+
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                if(text.getText().toString().isEmpty()) {
+                                    return;
+                                }
+
+                                String comment = text.getText().toString();
+
+                                ApiHelper.getInstance(activity).addComment(
+                                        new BetCommentAddRequest(selfToken,String.valueOf(info.getId()), comment)).enqueue(new Callback<BetchaResponse>() {
+                                    @Override
+                                    public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                        if(response.code() != 200) {
+                                            return;
+                                        }
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<BetchaResponse> call, Throwable t) {
+
+                                    }
+                                });
+                            }
+                        });
+
+                        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+                        int height = 1000;
+                        final PopupWindow pw = new PopupWindow(layout, width, height, true);
+                        pw.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                        pw.showAtLocation(holder.cardView,Gravity.CENTER,0,0);
 
 
 
-                int width = LinearLayout.LayoutParams.MATCH_PARENT;
-                int height = 1000;
-                final PopupWindow pw = new PopupWindow(layout, width, height, true);
-                pw.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                pw.showAtLocation(holder.cardView,Gravity.CENTER,0,0);
+                    }
+
+                    @Override
+                    public void onFailure(Call<BetComments> call, Throwable t) {
+
+                    }
+                });
             }
         });
 

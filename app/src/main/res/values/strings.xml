@@ -28,7 +28,6 @@
     <string name="title_activity_join_bet">JoinBetActivity</string>
     <string name="title_activity_invite_peeps">InvitePeepsActivity</string>
 
-
     <!-- Messages to the user -->
     <string name="bet_info_error">Couldn\'t get details of this bet</string>
     <string name="delete_account_error">Unable to delete your account at this time.</string>
@@ -59,4 +58,9 @@
     <string name="friend_remove_success">Friend has been removed</string>
     <string name="like_bet_error">Unable to like bet at this time</string>
     <string name="like_bet_success">Bet has been liked</string>
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="title_activity_feedback">FeedbackActivity</string>
+
+    <string name="feedback_success">Feedback has been successfully sent</string>
+    <string name="feedback_error">Feedback was not able to be sent</string>
 </resources>
