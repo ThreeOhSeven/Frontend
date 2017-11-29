@@ -143,6 +143,14 @@ public class CreateBetActivity extends BetchaActivity {
         betInformationRequest.sideA = sideA.getText().toString();
         betInformationRequest.sideB = sideB.getText().toString();
         betInformationRequest.authToken = selfToken;
+        if(maxUsers.getText().toString() == null ||
+                maxUsers.getText().toString().length() <= 0) {
+            return;
+        }
+        if(friendAdapter != null && Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
+            BToast.makeError(CreateBetActivity.this, getString(R.string.too_many_users));
+            return;
+        }
         ApiHelper.getInstance(getApplicationContext()).
                 createBet(betInformationRequest).enqueue(new Callback<CreateBetResponse>() {
             @Override
@@ -150,48 +158,44 @@ public class CreateBetActivity extends BetchaActivity {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
                     Log.d("Response Message",String.valueOf(response.message()));
-                    Toast.makeText(getApplicationContext(), "Error in creating bet",
-                            Toast.LENGTH_SHORT).show();
+                    BToast.makeError(CreateBetActivity.this, getString(R.string.bet_creation_error));
                     return;
                 }
                 else {
+                    BToast.makeSuccess(CreateBetActivity.this, getString(R.string.bet_creation_success));
                     if(friendAdapter == null) {
+                        Intent intent = new Intent(CreateBetActivity.this, MyBetsActivity.class);
+                        startActivity(intent);
                         finish();
                         return;
                     }
-                    if(maxUsers.getText().toString() == null ||
-                            maxUsers.getText().toString().length() <= 0) {
-                        return;
-                    }
-                    if(Integer.parseInt(maxUsers.getText().toString()) < friendAdapter.items.size() + 1) {
-                        BToast.makeShort(getApplicationContext(), "Trying to add too many people");
-                        return;
-                    }
-                    for(FriendItem item: friendAdapter.items) {
+                    for(final FriendItem item: friendAdapter.items) {
                         ApiHelper.getInstance(getApplicationContext()).sendBet(
                                 new SendBetRequest(item.getFriend().getId(),response.body().getId(),
                                         selfToken)).enqueue(new Callback<BetchaResponse>() {
                             @Override
                             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                 if(response.code() != 200) {
-                                    BToast.makeShort(getApplicationContext(), "Adding bet user did not work");
+                                    BToast.makeError(CreateBetActivity.this, "Unable to add user: " + item.getFriend().getEmail());
+                                    return;
                                 }
                             }
                             @Override
                             public void onFailure(Call<BetchaResponse> call, Throwable t) {
-
+                                BToast.makeServerError(CreateBetActivity.this);
                             }
                         });
                     }
 
-
+                    Intent intent = new Intent(CreateBetActivity.this, MyBetsActivity.class);
+                    startActivity(intent);
                     finish();
                 }
             }
 
             @Override
             public void onFailure(Call<CreateBetResponse> call, Throwable t) {
-
+                BToast.makeServerError(CreateBetActivity.this);
             }
         });
     }

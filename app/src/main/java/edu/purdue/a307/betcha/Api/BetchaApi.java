@@ -5,6 +5,8 @@ import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.ApiResponse;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetDeleteRequest;
+import edu.purdue.a307.betcha.Models.BetCommentAddRequest;
+import edu.purdue.a307.betcha.Models.BetComments;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
@@ -18,6 +20,7 @@ import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.PaymentRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.RecordResponse;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
@@ -144,14 +147,16 @@ public interface BetchaApi {
 
 
     // Comments
-    @POST("/comments/create")
-    Call<BetchaResponse> createComment(@Body BetComment betComment,
-                                       @Query("authToken") String authToken);
-    @POST("/comments/update")
-    Call<BetchaResponse> updateComment(@Body BetComment betComment,
-                                       @Query("authToken") String authToken);
-    @POST("/comments/delete/{id}")
-    Call<BetchaResponse> deleteComment(@Path("id") String betID, @Query("authToken") String authToken);
+    @POST("/comment/add")
+    Call<BetchaResponse> addComment(@Body BetCommentAddRequest request);
+    @POST("/comment/update")
+    Call<BetchaResponse> deleteComment(@Body BetComment betComment);
+    @POST("/comment/get")
+    Call<BetComments> getComments(@Path("id") String betID, @Query("authToken") String authToken);
+
+
+    @POST("/transaction/payment/charge")
+    Call<BetchaResponse> chargeUser(@Body PaymentRequest request);
 
 
     // Likes

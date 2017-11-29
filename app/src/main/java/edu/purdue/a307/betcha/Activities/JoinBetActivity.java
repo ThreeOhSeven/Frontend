@@ -129,16 +129,16 @@ public class JoinBetActivity extends BetchaActivity {
                     @Override
                     public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                         if(response.code() != 200) {
-                            BToast.makeShort(getApplicationContext(), "Cannot reject the bet (ERROR)");
+                            BToast.makeError(JoinBetActivity.this, getString(R.string.reject_bet_error));
                             return;
                         }
-                        BToast.makeShort(getApplicationContext(), "Bet Rejected");
+                        BToast.makeSuccess(JoinBetActivity.this, getString(R.string.reject_bet_success));
                         finish();
                     }
 
                     @Override
                     public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                        BToast.makeShort(getApplicationContext(), "Cannot reject the bet (FAILURE)");
+                        BToast.makeServerError(JoinBetActivity.this);
                     }
                 });
             }
@@ -152,7 +152,7 @@ public class JoinBetActivity extends BetchaActivity {
     // Function to joinSideA
     private void joinSideA(String id) {
         String selfToken = SharedPrefsHelper.getSelfToken(this);
-        int side = 0;
+        int side =1;
 
         JoinBetRequest joinBetRequest = new JoinBetRequest(id, side, selfToken);
 
@@ -161,24 +161,11 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                     if(response.code() != 200) {
-                        Log.d("Like Response Code", Integer.toString(response.code()));
-
-                        String errorMessage = "Error";
-
-                        try {
-                            JSONObject obj = new JSONObject(response.errorBody().string());
-
-                            errorMessage = obj.getString("error");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(JoinBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-
+                        BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                        return;
                     } else {
-                        Log.d("Like Response Status", "Successful");
 
-
+                        BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -186,7 +173,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    Toast.makeText(JoinBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }
@@ -195,24 +182,11 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                     if(response.code() != 200) {
-                        Log.d("Like Response Code", Integer.toString(response.code()));
-
-                        String errorMessage = "Error";
-
-                        try {
-                            JSONObject obj = new JSONObject(response.errorBody().string());
-
-                            errorMessage = obj.getString("error");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(JoinBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-
+                        BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                        return;
                     } else {
-                        Log.d("Like Response Status", "Successful");
 
-
+                        BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -220,7 +194,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    Toast.makeText(JoinBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }
@@ -230,7 +204,7 @@ public class JoinBetActivity extends BetchaActivity {
     // Function to joinSideB
     private void joinSideB(String id) {
         String selfToken = SharedPrefsHelper.getSelfToken(this);
-        int side = 1;
+        int side = 0;
 
         JoinBetRequest joinBetRequest = new JoinBetRequest(id, side, selfToken);
 
@@ -239,24 +213,11 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                     if(response.code() != 200) {
-                        Log.d("Like Response Code", Integer.toString(response.code()));
-
-                        String errorMessage = "Error";
-
-                        try {
-                            JSONObject obj = new JSONObject(response.errorBody().string());
-
-                            errorMessage = obj.getString("error");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(JoinBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-
+                        BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                        return;
                     } else {
-                        Log.d("Like Response Status", "Successful");
 
-
+                        BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -264,7 +225,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    Toast.makeText(JoinBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }
@@ -273,24 +234,11 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                     if(response.code() != 200) {
-                        Log.d("Like Response Code", Integer.toString(response.code()));
-
-                        String errorMessage = "Error";
-
-                        try {
-                            JSONObject obj = new JSONObject(response.errorBody().string());
-
-                            errorMessage = obj.getString("error");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(JoinBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-
+                        BToast.makeError(JoinBetActivity.this, getString(R.string.accept_bet_error));
+                        return;
                     } else {
-                        Log.d("Like Response Status", "Successful");
 
-
+                        BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -298,7 +246,7 @@ public class JoinBetActivity extends BetchaActivity {
                 @Override
                 public void onFailure(Call<BetchaResponse> call, Throwable t) {
                     Log.d("Like Update: ", "Failure");
-                    Toast.makeText(JoinBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
+                    BToast.makeServerError(JoinBetActivity.this);
                 }
             });
         }

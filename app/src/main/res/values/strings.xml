@@ -9,8 +9,8 @@
 
     <!--TODO: App url when ready-->
     <string name="app_url">ec2-52-14-139-38.us-east-2.compute.amazonaws.com/</string>
-    <!--<string name="google_client_id">944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com</string>-->
     <string name="google_client_id">944441731974-n7q4fjruunktc9ebdnomksfpokkqcuqs.apps.googleusercontent.com</string>
+    <string name="stripe_token">pk_test_gycLlqiV4B6HRUIl3VhPooIa</string>
 
     <string name="title_activity_bets">Bets</string>
     <string name="bets_str">Bets Summary</string>
@@ -27,6 +27,40 @@
     <string name="addFriendBtnText">Add Friend</string>
     <string name="title_activity_join_bet">JoinBetActivity</string>
     <string name="title_activity_invite_peeps">InvitePeepsActivity</string>
+
+    <!-- Messages to the user -->
+    <string name="bet_info_error">Couldn\'t get details of this bet</string>
+    <string name="delete_account_error">Unable to delete your account at this time.</string>
+    <string name="delete_account_success">Your account has been successfully deleted</string>
+    <string name="sign_out_success">You have signed out of your account</string>
+    <string name="bet_creation_error">There was an error in creating this bet</string>
+    <string name="bet_creation_success">Bet has been successfully created</string>
+    <string name="too_many_users">Trying to add too many people to the bet</string>
+    <string name="bet_editing_error">There was an error in editing this bet</string>
+    <string name="bet_editing_success">Bet has been successfully edited</string>
+    <string name="reject_bet_error">Unable to reject the bet</string>
+    <string name="reject_bet_success">Bet has been successfully rejected</string>
+    <string name="accept_bet_error">Unable to join this bet</string>
+    <string name="accept_bet_success">Bet has been joined</string>
+    <string name="payment_reject">Payment has been rejected</string>
+    <string name="payment_accept">Payment has been accepted</string>
+    <string name="balance_error">Unable to get balance at this time</string>
+    <string name="find_friend_error">Unable to find user with this email</string>
+    <string name="send_friend_request_error">Unable to send friend request</string>
+    <string name="send_friend_request_success">Friend Request has been sent</string>
+    <string name="bet_completion_error">Unable to complete this bet</string>
+    <string name="bet_completion_success">Bet has been completed</string>
+    <string name="friend_request_reject_error">Friend Request could not be rejected</string>
+    <string name="friend_request_accept_error">Friend Request could not be accepted</string>
+    <string name="friend_request_accept_success">Friend request has been accepted</string>
+    <string name="friend_request_reject_success">Friend request has been rejected</string>
+    <string name="friend_remove_error">Unable to remove this friend</string>
+    <string name="friend_remove_success">Friend has been removed</string>
+    <string name="like_bet_error">Unable to like bet at this time</string>
+    <string name="like_bet_success">Bet has been liked</string>
     <string name="default_notification_channel_id">fcm_default_channel</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
+
+    <string name="feedback_success">Feedback has been successfully sent</string>
+    <string name="feedback_error">Feedback was not able to be sent</string>
 </resources>

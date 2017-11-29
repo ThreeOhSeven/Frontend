@@ -30,8 +30,13 @@ public class SectionsAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public int getCount() {
-        // Show 3 total pages.
+        // Show n total pages.
         return fragments.length;
     }
 }

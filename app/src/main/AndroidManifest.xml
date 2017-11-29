@@ -42,6 +42,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.NewsFeedActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activities.MyBetsActivity"
@@ -81,6 +82,14 @@
             android:name=".Activities.InvitePeepsActivity"
             android:label="@string/title_activity_invite_peeps"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.PaymentActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".Services.EditBetSyncService"
+            android:exported="false">
+        </service>
 
         <activity
             android:name=".Activities.UserProfileActivity"
