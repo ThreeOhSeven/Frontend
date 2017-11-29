@@ -45,6 +45,7 @@ import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.AlertDialogListener;
 import edu.purdue.a307.betcha.Models.Bet;
+import edu.purdue.a307.betcha.Models.BetDeleteRequest;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.CompleteBetRequest;
@@ -148,6 +149,15 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                         public void onClick(final DialogInterface dialogInterface, int i) {
                                             BDialog.confirmBet(activity, info.getSideB(), new AlertDialogListener() {
                                                 @Override
+                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                                    if (response.code() != 200) {
+                                                        BToast.makeShort(activity, "This completion failed (ERROR)");
+                                                    }
+                                                    dialogInterface.dismiss();
+                                                    if (activity instanceof ActionBarActivity) {
+                                                        ((ActionBarActivity) activity).setStuffUp();
+                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                    }
                                                 public void onPositive() {
                                                     String authToken = SharedPrefsHelper.getSelfToken(activity);
                                                     ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
@@ -184,6 +194,15 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                         public void onClick(final DialogInterface dialogInterface, int i) {
                                             BDialog.confirmBet(activity, info.getSideA(), new AlertDialogListener() {
                                                 @Override
+                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                                    if (response.code() != 200) {
+                                                        BToast.makeShort(activity, "This completion failed (ERROR)");
+                                                    }
+                                                    dialogInterface.dismiss();
+                                                    if (activity instanceof ActionBarActivity) {
+                                                        ((ActionBarActivity) activity).setStuffUp();
+                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                    }
                                                 public void onPositive() {
                                                     String authToken = SharedPrefsHelper.getSelfToken(activity);
                                                     ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
@@ -217,7 +236,37 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     });
                                     builder.show();
                                     break;
-                            }
+                                case R.id.menu_item_delete:
+                                    AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
+                                    builder1.setMessage("Which side won?");
+                                    builder1.setTitle("Completing Bet");
+                                    builder1.setNegativeButton(info.getSideA(), new DialogInterface.OnClickListener()
+                                    {
+                                        @Override
+                                        public void onClick(final DialogInterface dialogInterface, int i) {
+                                            String authToken = SharedPrefsHelper.getSelfToken(activity);
+                                            ApiHelper.getInstance(activity).deleteBet(new BetDeleteRequest(authToken, (info.getId()))).enqueue(new Callback<BetchaResponse>() {
+                                                @Override
+                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                                    if (response.code() != 200) {
+                                                        BToast.makeShort(activity, "This deletion failed (ERROR)");
+                                                    }
+                                                    dialogInterface.dismiss();
+                                                    if (activity instanceof ActionBarActivity) {
+                                                        ((ActionBarActivity) activity).setStuffUp();
+                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                    }
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                                    BToast.makeShort(activity, "This deletion failed (FAILED");
+                                                    dialogInterface.dismiss();
+                                                }
+                                                });
+                                            }
+                                        });
+                                    }
                             return false;
                         }
                     });
