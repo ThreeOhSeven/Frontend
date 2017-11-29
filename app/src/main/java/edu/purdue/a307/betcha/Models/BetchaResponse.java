@@ -1,10 +1,13 @@
 package edu.purdue.a307.betcha.Models;
 
+import com.google.android.gms.common.api.Result;
+import com.google.android.gms.common.api.Status;
+
 /**
  * Created by kyleohanian on 9/20/17.
  */
 
-public class BetchaResponse {
+public class BetchaResponse implements Result {
 
     public boolean result;
     public String selfToken;
@@ -54,4 +57,8 @@ public class BetchaResponse {
     }
 
 
+    @Override
+    public Status getStatus() {
+        return null;
+    }
 }

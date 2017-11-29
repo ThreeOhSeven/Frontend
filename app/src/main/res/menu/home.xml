@@ -2,21 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_create_bet"
+            android:icon="@drawable/ic_add_white"
+            android:title="Create Bet"
+            app:showAsAction="always" />
         <item
             android:id="@+id/nav_sign_out"
             android:icon="@drawable/ic_sign_out_black_24dp"
-            android:title="Sign Out" />
+            android:title="Sign Out"
+            app:showAsAction="never"/>
 
         <item
             android:id="@+id/nav_delete"
             android:icon="@drawable/ic_sign_out_black_24dp"
-            android:title="Delete Account" />
+            android:title="Delete Account"
+            app:showAsAction="never"/>
 
         <item
             android:id="@+id/nav_send_feedback"
             android:icon="@drawable/ic_sign_out_black_24dp"
             android:title="Send Feedback" />
-
-
     </group>
 </menu>

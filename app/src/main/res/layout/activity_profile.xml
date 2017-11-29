@@ -8,45 +8,35 @@
     android:padding="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.purdue.a307.betcha.Activities.ProfileActivity" >
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:id="@+id/lin">
+        android:weightSum="2">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:orientation="vertical">
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:id="@+id/lin"
+            android:layout_weight="1">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/layout_horizontal_margin"
-                android:layout_marginTop="@dimen/layout_horizontal_margin">
+                android:orientation="vertical">
 
-                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/splash" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@color/colorAccent"/>
 
-                <TextView
-                    android:id="@+id/name"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/profile_image"
-                    android:layout_gravity="center_horizontal"
-                    android:text="John Smith"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/balance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/layout_horizontal_margin"
+                    android:layout_marginTop="@dimen/layout_horizontal_margin">
                     android:layout_below="@id/name"
                     android:layout_gravity="center_horizontal"
                     android:text="$0.00"
@@ -62,17 +52,45 @@
                     android:textAlignment="center"
                     android:textSize="20sp" />
             </RelativeLayout>
+                    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/profile_image"
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/splash" />
 
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/profile_image"
+                        android:layout_gravity="center_horizontal"
+                        android:text="N/A"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/balance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/name"
+                        android:layout_gravity="center_horizontal"
+                        android:textAlignment="center"
+                        android:textSize="20sp" />
+                </RelativeLayout>
 
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/lin"
+            android:layout_weight="1"
+            android:id="@+id/recyclerBets">
+
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/lin"
-        android:id="@+id/recyclerBets">
-
-    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

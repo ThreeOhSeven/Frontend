@@ -16,6 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import edu.purdue.a307.betcha.Adapters.BetUserAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.EmailResponse;
@@ -119,8 +120,7 @@ public class BetActivity extends BetchaActivity {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
                     Log.d("Response Message",String.valueOf(response.message()));
-                    Toast.makeText(getApplicationContext(), "Couldn't get information",
-                            Toast.LENGTH_SHORT).show();
+                    BToast.makeError(BetActivity.this, getString(R.string.bet_info_error));
                     return;
                 }
                 creator.setText(response.body().getEmail());
@@ -128,7 +128,7 @@ public class BetActivity extends BetchaActivity {
 
             @Override
             public void onFailure(Call<EmailResponse> call, Throwable t) {
-
+                BToast.makeServerError(BetActivity.this);
             }
         });
 

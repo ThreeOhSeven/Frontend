@@ -8,6 +8,7 @@ public class TransactionBalance {
     String result;
     int current_balance;
 
+
     public TransactionBalance() {};
 
     public TransactionBalance(String result, int current_balance) {

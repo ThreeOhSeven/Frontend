@@ -39,9 +39,11 @@ import edu.purdue.a307.betcha.Enums.AdapterType;
 import edu.purdue.a307.betcha.Enums.BetAdapterType;
 import edu.purdue.a307.betcha.Enums.JoinBetType;
 import edu.purdue.a307.betcha.Fragments.BetInvitesFragment;
+import edu.purdue.a307.betcha.Helpers.BDialog;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Listeners.AlertDialogListener;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
@@ -100,6 +102,11 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         this.type = type;
     }
 
+    public void setItems(List<Bet> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     @Override
     public BetAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -139,52 +146,72 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     builder.setPositiveButton(info.getSideB(), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
-                                            String authToken = SharedPrefsHelper.getSelfToken(activity);
-                                            ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
-                                                    String.valueOf(info.getId()), "1")).enqueue(new Callback<BetchaResponse>() {
+                                            BDialog.confirmBet(activity, info.getSideB(), new AlertDialogListener() {
                                                 @Override
-                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                                    if (response.code() != 200) {
-                                                        BToast.makeShort(activity, "This completion failed (ERROR)");
-                                                    }
-                                                    dialogInterface.dismiss();
-                                                    if(activity instanceof ActionBarActivity) {
-                                                        ((ActionBarActivity)activity).setStuffUp();
-                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
-                                                    }
+                                                public void onPositive() {
+                                                    String authToken = SharedPrefsHelper.getSelfToken(activity);
+                                                    ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
+                                                            String.valueOf(info.getId()), "1")).enqueue(new Callback<BetchaResponse>() {
+                                                        @Override
+                                                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                                            if (response.code() != 200) {
+                                                                BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                                                return;
+                                                            }
+                                                            BToast.makeSuccess(activity, activity.getString(R.string.bet_completion_success));
+                                                            dialogInterface.dismiss();
+                                                            if(activity instanceof ActionBarActivity) {
+                                                                ((ActionBarActivity)activity).setStuffUp();
+                                                                Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                                            BToast.makeServerError(activity);
+                                                            dialogInterface.dismiss();
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                    BToast.makeShort(activity, "This completion failed (FAILED");
-                                                    dialogInterface.dismiss();
-                                                }
+                                                public void onNegative() {}
                                             });
                                         }
                                     });
                                     builder.setNegativeButton(info.getSideA(), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
-                                            String authToken = SharedPrefsHelper.getSelfToken(activity);
-                                            ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
-                                                    String.valueOf(info.getId()), "0")).enqueue(new Callback<BetchaResponse>() {
+                                            BDialog.confirmBet(activity, info.getSideA(), new AlertDialogListener() {
                                                 @Override
-                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                                    if (response.code() != 200) {
-                                                        BToast.makeShort(activity, "This completion failed (ERROR)");
-                                                    }
-                                                    dialogInterface.dismiss();
-                                                    if(activity instanceof ActionBarActivity) {
-                                                        ((ActionBarActivity)activity).setStuffUp();
-                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
-                                                    }
+                                                public void onPositive() {
+                                                    String authToken = SharedPrefsHelper.getSelfToken(activity);
+                                                    ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
+                                                            String.valueOf(info.getId()), "0")).enqueue(new Callback<BetchaResponse>() {
+                                                        @Override
+                                                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                                            if (response.code() != 200) {
+                                                                BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                                                return;
+                                                            }
+                                                            BToast.makeSuccess(activity, activity.getString(R.string.bet_completion_success));
+                                                            dialogInterface.dismiss();
+                                                            if(activity instanceof ActionBarActivity) {
+                                                                ((ActionBarActivity)activity).setStuffUp();
+                                                                Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                                            BToast.makeServerError(activity);
+                                                            dialogInterface.dismiss();
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                    BToast.makeShort(activity, "This completion failed (FAILED");
-                                                    dialogInterface.dismiss();
-                                                }
+                                                public void onNegative() {}
                                             });
                                         }
                                     });
@@ -203,19 +230,6 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
             holder.buttonMenu.setVisibility(View.INVISIBLE);
         }
         IconGenerator.setImage(activity,holder.icon);
-//        holder.likeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(holder.isLiked) {
-//                    holder.likeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
-//                    holder.isLiked = false;
-//                }
-//                else {
-//                    holder.likeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
-//                    holder.isLiked = true;
-//                }
-//            }
-//        });
         holder.likeButton.setVisibility(View.INVISIBLE);
         holder.commentButton.setVisibility(View.INVISIBLE);
 

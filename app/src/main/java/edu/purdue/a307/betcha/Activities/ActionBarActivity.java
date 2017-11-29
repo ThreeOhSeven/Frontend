@@ -31,6 +31,8 @@ public abstract class ActionBarActivity extends BetchaActivity {
     @BindView(R.id.container)
     public ViewPager mViewPager;
 
+    int currentItem = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public abstract class ActionBarActivity extends BetchaActivity {
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setupWithViewPager(mViewPager);
 
+        mViewPager.setCurrentItem(currentItem);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int i, float v, int i1) {}
@@ -54,6 +57,7 @@ public abstract class ActionBarActivity extends BetchaActivity {
             @Override
             public void onPageSelected(int i) {
                 OnPageSelectedListener frag = (OnPageSelectedListener)mSectionsPagerAdapter.getItem(i);
+                currentItem = i;
                 frag.onPageSelected();
             }
 

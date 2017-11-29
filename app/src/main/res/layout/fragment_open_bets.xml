@@ -11,18 +11,4 @@
         android:id="@+id/recyclerBets">
     </android.support.v7.widget.RecyclerView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:paddingEnd="20dp"
-        android:clickable="true"
-        android:visibility="visible"
-        app:fabSize="normal"
-        android:src="@drawable/ic_add_24dp"
-        app:useCompatPadding="true"
-        app:paddingEnd="20dp"/>
-
 </RelativeLayout>
