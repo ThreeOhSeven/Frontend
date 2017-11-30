@@ -73,31 +73,33 @@ public class PaymentActivity extends BetchaActivity {
                 card,
                 new TokenCallback() {
                     public void onSuccess(Token token) {
+                        Log.d("Stripe Token", token.getId());
                         // Send token to your server
                         ApiHelper.getInstance(PaymentActivity.this).chargeUser(new PaymentRequest(
-                                SharedPrefsHelper.getSelfToken(PaymentActivity.this), stripetok,
-                                        charge.getText().toString())).enqueue(new Callback<BetchaResponse>() {
+                                SharedPrefsHelper.getSelfToken(PaymentActivity.this), "tok_visa_debit",
+                                charge.getText().toString())).enqueue(new Callback<BetchaResponse>() {
                             @Override
                             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                if(response.code() != 200) {
-                                    BToast.makeError(PaymentActivity.this, getString(R.string.payment_reject));
+                                if (response.code() != 200) {
+                                    BToast.makeShort(PaymentActivity.this, "Not 200");
+//                                                          BToast.makeError(PaymentActivity.this, getString(R.string.payment_reject));
                                     return;
                                 }
                                 BToast.makeSuccess(PaymentActivity.this, getString(R.string.payment_accept));
-
                             }
 
                             @Override
                             public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                BToast.makeServerError(PaymentActivity.this);
+                                BToast.makeShort(PaymentActivity.this, "Failed");
+//                                                      BToast.makeServerError(PaymentActivity.this);
                             }
                         });
                     }
+
                     public void onError(Exception error) {
                         BToast.makeError(PaymentActivity.this, getString(R.string.payment_reject));
                     }
-                }
-        );
+                });
     }
 
     @Override
