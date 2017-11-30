@@ -218,16 +218,17 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     });
                                     builder.show();
                                     break;
+
                                 case R.id.menu_item_delete:
                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
                                     builder1.setMessage("Are you sure you would like to delete this bet?");
                                     builder1.setTitle("Delete bet");
                                     builder1.setNegativeButton("Yes", new DialogInterface.OnClickListener()
                                     {
+
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
-                                            String authToken = SharedPrefsHelper.getSelfToken(activity);
-                                            ApiHelper.getInstance(activity).deleteBet(new BetDeleteRequest(authToken, (info.getId()))).enqueue(new Callback<BetchaResponse>() {
+                                            BDialog.deleteBet(activity, new AlertDialogListener() {
                                                 @Override
                                                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                                     if (response.code() != 200) {
@@ -252,6 +253,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     builder1.show();
                                     break;
                                     }
+
                             return false;
                         }
                     });
