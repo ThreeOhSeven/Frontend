@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.Image;
 import android.support.v7.app.AlertDialog;
@@ -283,6 +285,13 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         IconGenerator.setImage(activity,holder.icon);
         holder.likeButton.setVisibility(View.INVISIBLE);
         holder.commentButton.setVisibility(View.INVISIBLE);
+
+        if(type == BetAdapterType.USERPROFILE) {
+            if(items.get(position).isComplete()) {
+                holder.cardView.setCardBackgroundColor(Color.LTGRAY);
+                holder.buttonMenu.setBackgroundColor(Color.LTGRAY);
+            }
+        }
 
 
         if(type == BetAdapterType.PENDING) {

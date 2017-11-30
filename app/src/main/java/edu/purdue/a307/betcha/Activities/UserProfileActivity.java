@@ -91,7 +91,7 @@ public class UserProfileActivity extends BetchaActivity {
                 }
                 Log.d("Bets size", String.valueOf(response.body().getBets().size()));
                 bets = response.body().getBets();
-                betAdapter = new BetAdapter(UserProfileActivity.this, bets, selfToken, BetAdapterType.PROFILE);
+                betAdapter = new BetAdapter(UserProfileActivity.this, bets, selfToken, BetAdapterType.USERPROFILE);
                 recyclerView.setAdapter(betAdapter);
                 recyclerView.invalidate();
                 recyclerView.setLayoutManager(new LinearLayoutManager(UserProfileActivity.this));
