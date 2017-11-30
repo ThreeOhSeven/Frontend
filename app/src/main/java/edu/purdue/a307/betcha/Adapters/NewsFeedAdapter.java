@@ -48,6 +48,7 @@ import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetCommentAddRequest;
 import edu.purdue.a307.betcha.Models.BetComments;
+import edu.purdue.a307.betcha.Models.BetCommentsGetRequest;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.BetComment;
@@ -216,7 +217,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                 final EditText text = layout.findViewById(R.id.newComment);
 
                 ApiHelper.getInstance(activity).getComments(
-                        String.valueOf(info.getId()),selfToken).enqueue(new Callback<BetComments>() {
+                        new BetCommentsGetRequest(selfToken, String.valueOf(info.getId()))).enqueue(new Callback<BetComments>() {
                     @Override
                     public void onResponse(Call<BetComments> call, Response<BetComments> response) {
                         if(response.code() != 200) {
@@ -244,14 +245,32 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                                     @Override
                                     public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                         if(response.code() != 200) {
+                                            BToast.makeShort(activity,"Error");
                                             return;
                                         }
-                                        adapter.notifyDataSetChanged();
+                                        ApiHelper.getInstance(activity).getComments(
+                                                new BetCommentsGetRequest(selfToken,
+                                                        String.valueOf(info.getId()))).enqueue(new Callback<edu.purdue.a307.betcha.Models.BetComments>() {
+                                            @Override
+                                            public void onResponse(Call<BetComments> call, Response<BetComments> response) {
+                                                if(response.code() != 200) {
+                                                    return;
+                                                }
+                                                adapter.addAll(response.body().getComments());
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<BetComments> call, Throwable t) {
+
+                                            }
+                                        });
+
+                                        BToast.makeShort(activity,"Success");
                                     }
 
                                     @Override
                                     public void onFailure(Call<BetchaResponse> call, Throwable t) {
-
+                                        BToast.makeShort(activity,"Failure");
                                     }
                                 });
                             }

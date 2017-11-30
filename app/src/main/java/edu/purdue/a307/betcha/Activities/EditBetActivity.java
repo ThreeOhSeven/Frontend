@@ -211,11 +211,11 @@ public class EditBetActivity extends BetchaActivity {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
                     Log.d("Response Message",String.valueOf(response.message()));
-                    BToast.makeError(EditBetActivity.this, getString(R.string.bet_creation_error));
+                    BToast.makeError(EditBetActivity.this, getString(R.string.bet_editing_error));
                     return;
                 }
                 else {
-                    BToast.makeSuccess(EditBetActivity.this, getString(R.string.bet_creation_success));
+                    BToast.makeSuccess(EditBetActivity.this, getString(R.string.bet_editing_success));
                     if(friendAdapter == null) {
                         Intent intent = new Intent(EditBetActivity.this, MyBetsActivity.class);
                         startActivity(intent);
