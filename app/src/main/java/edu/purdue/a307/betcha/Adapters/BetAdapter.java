@@ -220,40 +220,55 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     break;
 
                                 case R.id.menu_item_delete:
-                                    AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
-                                    builder1.setMessage("Are you sure you would like to delete this bet?");
-                                    builder1.setTitle("Delete bet");
-                                    builder1.setNegativeButton("Yes", new DialogInterface.OnClickListener()
-                                    {
-
+                                    AlertDialog.Builder builderNew = new AlertDialog.Builder(activity);
+                                    builderNew.setMessage("Are you sure you want to delete the bet?");
+                                    builderNew.setTitle("Delete Bet");
+                                    builderNew.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
                                             BDialog.deleteBet(activity, new AlertDialogListener() {
                                                 @Override
-                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                                    if (response.code() != 200) {
-                                                        BToast.makeShort(activity, "This deletion failed (ERROR)");
-                                                        return;
-                                                    }
-                                                    dialogInterface.dismiss();
-                                                    if (activity instanceof ActionBarActivity) {
-                                                        ((ActionBarActivity) activity).setStuffUp();
-                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
-                                                    }
+                                                public void onPositive() {
+                                                    String authToken = SharedPrefsHelper.getSelfToken(activity);
+                                                    ApiHelper.getInstance(activity).deleteBet(new BetDeleteRequest(authToken,
+                                                            info.getId())).enqueue(new Callback<BetchaResponse>() {
+                                                        @Override
+                                                        public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                                                            if (response.code() != 200) {
+                                                                BToast.makeError(activity, activity.getString(R.string.delete_bet_error));
+                                                                return;
+                                                            }
+                                                            BToast.makeSuccess(activity, activity.getString(R.string.delete_bet_success));
+                                                            dialogInterface.dismiss();
+                                                            if(activity instanceof ActionBarActivity) {
+                                                                ((ActionBarActivity)activity).setStuffUp();
+                                                                Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
+                                                            }
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                                                            BToast.makeServerError(activity);
+                                                            dialogInterface.dismiss();
+                                                        }
+                                                    });
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                                    BToast.makeShort(activity, "This deletion failed (FAILED");
-                                                    dialogInterface.dismiss();
-                                                }
-                                                });
-                                            }
-                                        });
-                                    builder1.show();
+                                                public void onNegative() {}
+                                            });
+                                        }
+                                    });
+                                    builderNew.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(final DialogInterface dialogInterface, int i) {
+                                            dialogInterface.dismiss();
+                                        }
+                                    });
+                                    builderNew.show();
                                     break;
-                                    }
 
+                            }
                             return false;
                         }
                     });
