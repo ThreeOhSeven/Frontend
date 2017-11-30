@@ -149,15 +149,6 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                         public void onClick(final DialogInterface dialogInterface, int i) {
                                             BDialog.confirmBet(activity, info.getSideB(), new AlertDialogListener() {
                                                 @Override
-                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                                    if (response.code() != 200) {
-                                                        BToast.makeShort(activity, "This completion failed (ERROR)");
-                                                    }
-                                                    dialogInterface.dismiss();
-                                                    if (activity instanceof ActionBarActivity) {
-                                                        ((ActionBarActivity) activity).setStuffUp();
-                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
-                                                    }
                                                 public void onPositive() {
                                                     String authToken = SharedPrefsHelper.getSelfToken(activity);
                                                     ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
@@ -194,15 +185,6 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                         public void onClick(final DialogInterface dialogInterface, int i) {
                                             BDialog.confirmBet(activity, info.getSideA(), new AlertDialogListener() {
                                                 @Override
-                                                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                                                    if (response.code() != 200) {
-                                                        BToast.makeShort(activity, "This completion failed (ERROR)");
-                                                    }
-                                                    dialogInterface.dismiss();
-                                                    if (activity instanceof ActionBarActivity) {
-                                                        ((ActionBarActivity) activity).setStuffUp();
-                                                        Log.d("ACTIONBARACTIVITY", "Action Bar Activity Set Up");
-                                                    }
                                                 public void onPositive() {
                                                     String authToken = SharedPrefsHelper.getSelfToken(activity);
                                                     ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
@@ -238,9 +220,9 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     break;
                                 case R.id.menu_item_delete:
                                     AlertDialog.Builder builder1 = new AlertDialog.Builder(activity);
-                                    builder1.setMessage("Which side won?");
-                                    builder1.setTitle("Completing Bet");
-                                    builder1.setNegativeButton(info.getSideA(), new DialogInterface.OnClickListener()
+                                    builder1.setMessage("Are you sure you would like to delete this bet?");
+                                    builder1.setTitle("Delete bet");
+                                    builder1.setNegativeButton("Yes", new DialogInterface.OnClickListener()
                                     {
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
@@ -250,6 +232,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                                     if (response.code() != 200) {
                                                         BToast.makeShort(activity, "This deletion failed (ERROR)");
+                                                        return;
                                                     }
                                                     dialogInterface.dismiss();
                                                     if (activity instanceof ActionBarActivity) {
@@ -266,6 +249,8 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                                 });
                                             }
                                         });
+                                    builder1.show();
+                                    break;
                                     }
                             return false;
                         }

@@ -2,6 +2,7 @@ package edu.purdue.a307.betcha.Adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
+import edu.purdue.a307.betcha.Helpers.Time;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.User;
 import edu.purdue.a307.betcha.R;
@@ -69,12 +71,18 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         BetComment comment = dataset.get(position);
         holder.name.setText(comment.getUserId());
         holder.comment.setText(comment.getText());
-        holder.date.setText(comment.getCreationTime());
+        Log.d("Date", comment.getCreationTime());
+        holder.date.setText(Time.getTimeDifference(comment.getCreationTime()));
         IconGenerator.setImage(activity, holder.icon);
     }
 
     @Override
     public int getItemCount() {
         return dataset.size();
+    }
+
+    public void addAll(List<BetComment> comments) {
+        this.dataset = comments;
+        notifyDataSetChanged();
     }
 }
