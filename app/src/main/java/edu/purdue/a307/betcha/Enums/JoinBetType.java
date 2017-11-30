@@ -6,6 +6,7 @@ package edu.purdue.a307.betcha.Enums;
 
 public enum  JoinBetType {
     JOIN, // 0
-    ACCEPT // 1
+    ACCEPT, // 1
+    CONFIRM
 
 }
