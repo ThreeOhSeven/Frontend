@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.internal.Excluder;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -157,7 +158,11 @@ public class CreateBetActivity extends BetchaActivity {
             public void onResponse(Call<CreateBetResponse> call, Response<CreateBetResponse> response) {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
-                    Log.d("Response Message",String.valueOf(response.message()));
+                    try {
+                        Log.d("Response Message",String.valueOf(response.errorBody().string()));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     BToast.makeError(CreateBetActivity.this, getString(R.string.bet_creation_error));
                     return;
                 }
