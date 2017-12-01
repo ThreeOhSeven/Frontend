@@ -80,19 +80,19 @@ public class FeedbackActivity extends BetchaActivity {
                 if (response.code() != 200) {
                     Log.d("Response Code",String.valueOf(response.code()));
                     Log.d("Response Message",String.valueOf(response.message()));
-                    Toast.makeText(getApplicationContext(), "Error in creating bet",
-                            Toast.LENGTH_SHORT).show();
+                    BToast.makeError(FeedbackActivity.this, getString(R.string.feedback_error));
                     return;
                 }
                 else {
                     Log.d("Feedback Sending", String.valueOf(response.message()));
-                    finish();
+                    BToast.makeSuccess(FeedbackActivity.this, getString(R.string.feedback_success));
+//                    finish();
                 }
             }
 
             @Override
             public void onFailure(Call<BetchaResponse> call, Throwable t) {
-
+                BToast.makeServerError(FeedbackActivity.this);
             }
         });
     }

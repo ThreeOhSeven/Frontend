@@ -220,6 +220,7 @@ public class LoginActivity extends AppCompatActivity {
                             User information = response.body();
                             SharedPrefsHelper.setAccountInformation(getApplicationContext(),information);
                             Intent myIntent = new Intent(LoginActivity.this, HomeActivity.class);
+//                            Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
 
                             myIntent.putExtra("authToken", authToken);
 
@@ -231,7 +232,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
-                            BToast.makeShort(getApplicationContext(), "Couldn't get user info (FAILURE)");
+                            BToast.makeServerError(LoginActivity.this);
                         }
                     });
                 }
@@ -240,7 +241,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BetchaResponse> call, Throwable t) {
                 Log.d("TAG", "FAiled");
-                showErrorDialog();
+                BToast.makeServerError(LoginActivity.this);
                 signOut();
             }
         });

@@ -60,4 +60,50 @@ public class BDialog {
         });
         builder.show();
     }
+
+
+    public static void confirmBet(Context context, String side, final AlertDialogListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Completion");
+        builder.setMessage("Are you sure you would like to complete this bet? Please confirm that the " +
+                "winning side is \"" + side + "\"");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                listener.onPositive();
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                listener.onNegative();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    public static void deleteBet(Context context, final AlertDialogListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you would like to delete this bet? Please confirm deletion");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                listener.onPositive();
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                listener.onNegative();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
 }

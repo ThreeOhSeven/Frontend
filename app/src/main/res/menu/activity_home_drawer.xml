@@ -19,21 +19,23 @@
             android:title="Friends" />
     </group>
 
-    <!--<item android:title="Settings">-->
-        <!--<menu>-->
-            <!--<item-->
-                <!--android:id="@+id/nav_gen_settings"-->
-                <!--android:icon="@drawable/ic_settings_black_24dp"-->
-                <!--android:title="General" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_acct_mgmt"-->
-                <!--android:icon="@drawable/ic_account_mgmt_black_24dp"-->
-                <!--android:title="Account Management" />-->
-            <!--<item-->
-                <!--android:id="@+id/nav_bug_report"-->
-                <!--android:icon="@drawable/ic_bug_report_black_24dp"-->
-                <!--android:title="Report Bugs" />-->
-        <!--</menu>-->
-    <!--</item>-->
+    <item android:title="Settings">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_acct_mgmt"
+                    android:icon="@drawable/ic_settings_black_24dp"
+                    android:title="Account Management" />
+                <item
+                    android:id="@+id/nav_payments"
+                    android:icon="@drawable/ic_payment_black_24dp"
+                    android:title="Payments" />
+                <item
+                    android:id="@+id/nav_bug_report"
+                    android:icon="@drawable/ic_bug_report_black_24dp"
+                    android:title="Report Bugs" />
+            </group>
+        </menu>
+    </item>
 
 </menu>
