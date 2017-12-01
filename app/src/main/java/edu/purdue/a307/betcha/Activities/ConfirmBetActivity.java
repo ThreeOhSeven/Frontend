@@ -121,10 +121,10 @@ public class ConfirmBetActivity extends BetchaActivity {
         String selfToken = SharedPrefsHelper.getSelfToken(this);
         int side = 0;
 
-        CompleteBetRequest CompleteBetRequest = new CompleteBetRequest(id, side, selfToken);
+        CompleteBetRequest ConfirmBetRequest = new CompleteBetRequest(id, String.valueOf(side), selfToken);
 
 
-        ApiHelper.getInstance(this).completeBet(CompleteBetRequest).enqueue(new Callback<BetchaResponse>() {
+        ApiHelper.getInstance(this).completeBet(ConfirmBetRequest).enqueue(new Callback<BetchaResponse>() {
             @Override
             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                 if(response.code() != 200) {
@@ -166,7 +166,7 @@ public class ConfirmBetActivity extends BetchaActivity {
         String selfToken = SharedPrefsHelper.getSelfToken(this);
         int side = 1;
 
-        CompleteBetRequest completeBetRequest = new completeBetRequest(id, side, selfToken);
+        CompleteBetRequest completeBetRequest = new CompleteBetRequest(id, String.valueOf(side), selfToken);
 
         if(joinBetType == 0) {
             ApiHelper.getInstance(this).completeBet(completeBetRequest).enqueue(new Callback<BetchaResponse>() {
@@ -203,7 +203,7 @@ public class ConfirmBetActivity extends BetchaActivity {
             });
         }
         else if(joinBetType == 1) {
-            ApiHelper.getInstance(this).acceptBet(completeBetRequest).enqueue(new Callback<BetchaResponse>() {
+            ApiHelper.getInstance(this).completeBet(new CompleteBetRequest(selfToken, id, "")).enqueue(new Callback<BetchaResponse>() {
                 @Override
                 public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                     if(response.code() != 200) {
