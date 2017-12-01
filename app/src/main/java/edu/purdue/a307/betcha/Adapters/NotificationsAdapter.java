@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import edu.purdue.a307.betcha.Activities.ConfirmBetActivity;
 import edu.purdue.a307.betcha.Activities.FriendsActivity;
 import edu.purdue.a307.betcha.Activities.JoinBetActivity;
+import edu.purdue.a307.betcha.Activities.MyBetsActivity;
 import edu.purdue.a307.betcha.Models.Notif;
 import edu.purdue.a307.betcha.R;
 
@@ -76,10 +77,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                 holder.notifCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
-                        Gson gson = new Gson();
-                        myIntent.putExtra("Obj", gson.toJson(info));
-                        myIntent.putExtra("selfToken", selfToken);
+                        Intent myIntent = new Intent(activity, MyBetsActivity.class);
                         activity.startActivity(myIntent);
                     }
                 });
@@ -89,10 +87,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                 holder.notifCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
-                        Gson gson = new Gson();
-                        myIntent.putExtra("Obj", gson.toJson(info));
-                        myIntent.putExtra("selfToken", selfToken);
+                        Intent myIntent = new Intent(activity, MyBetsActivity.class);
                         activity.startActivity(myIntent);
                     }
                 });
@@ -102,11 +97,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                 holder.notifCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(activity, JoinBetActivity.class);
-                        Gson gson = new Gson();
-                        myIntent.putExtra("Obj", gson.toJson(info));
-                        myIntent.putExtra("selfToken", selfToken);
-                        myIntent.putExtra("type", 1);
+                        Intent myIntent = new Intent(activity, MyBetsActivity.class);
                         activity.startActivity(myIntent);
                     }
                 });
