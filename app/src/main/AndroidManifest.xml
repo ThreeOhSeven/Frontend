@@ -81,15 +81,13 @@
             android:name=".Activities.InvitePeepsActivity"
             android:label="@string/title_activity_invite_peeps"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".Activities.PaymentActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
             android:name=".Services.EditBetSyncService"
-            android:exported="false">
-        </service>
+            android:exported="false"></service>
 
         <activity
             android:name=".Activities.UserProfileActivity"
@@ -104,6 +102,7 @@
         <activity
             android:name=".Activities.NotificationsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.ConfirmationBetsListActivity"></activity>
     </application>
 
 </manifest>

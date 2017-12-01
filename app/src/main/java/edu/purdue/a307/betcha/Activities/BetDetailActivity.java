@@ -30,6 +30,7 @@ public class BetDetailActivity extends AppCompatActivity {
         TextView text = (TextView) findViewById(R.id.Text);
         TextView completed = (TextView) findViewById(R.id.Completed);
 
+
         try {
             id.setText("Bet ID: " + obj.getString("id"));
         } catch (JSONException e) {
