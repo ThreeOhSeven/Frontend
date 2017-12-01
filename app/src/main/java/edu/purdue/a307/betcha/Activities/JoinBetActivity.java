@@ -152,7 +152,7 @@ public class JoinBetActivity extends BetchaActivity {
     // Function to joinSideA
     private void joinSideA(String id) {
         String selfToken = SharedPrefsHelper.getSelfToken(this);
-        int side =1;
+        int side = 0;
 
         JoinBetRequest joinBetRequest = new JoinBetRequest(id, side, selfToken);
 
@@ -204,7 +204,7 @@ public class JoinBetActivity extends BetchaActivity {
     // Function to joinSideB
     private void joinSideB(String id) {
         String selfToken = SharedPrefsHelper.getSelfToken(this);
-        int side = 0;
+        int side = 1;
 
         JoinBetRequest joinBetRequest = new JoinBetRequest(id, side, selfToken);
 
