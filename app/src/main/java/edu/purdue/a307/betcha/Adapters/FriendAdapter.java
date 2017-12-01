@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -124,11 +125,11 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                                             if (response.code() != 200) {
                                                 Log.d("Response Code", String.valueOf(response.code()));
                                                 Log.d("Response Message", String.valueOf(response.message()));
-                                                BToast.makeError(activity, activity.getString(R.string.friend_request_reject_error));
+                                                BToast.makeError(activity, activity.getString(R.string.friend_remove_error));
                                                 return;
                                             } else {
                                                 Log.d("IN OK", "IT IS OK");
-                                                BToast.makeInformation(activity, activity.getString(R.string.friend_request_reject_success));
+                                                BToast.makeInformation(activity, activity.getString(R.string.friend_remove_success));
                                                 items.remove(position);
                                                 notifyDataSetChanged();
                                             }
@@ -173,7 +174,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                 }
             }
         });
-        IconGenerator.setImage(activity,holder.icon);
+        Picasso.with(activity).load(info.getFriend().getPhotoUrl()).fit().centerInside().into(holder.icon);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

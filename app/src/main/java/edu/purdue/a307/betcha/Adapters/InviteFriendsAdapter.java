@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -65,7 +67,7 @@ public class InviteFriendsAdapter extends RecyclerView.Adapter<InviteFriendsAdap
         final InviteFriendsObj item = items.get(position);
         holder.buttonMenu.setVisibility(View.INVISIBLE);
         holder.friendName.setText(item.friend.getEmail());
-        IconGenerator.setImage(context, holder.icon);
+        Picasso.with(context).load(item.friend.getPhotoUrl()).fit().centerInside().into(holder.icon);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

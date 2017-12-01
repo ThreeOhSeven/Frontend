@@ -97,6 +97,7 @@ public class UserProfileActivity extends BetchaActivity {
                 recyclerView.setLayoutManager(new LinearLayoutManager(UserProfileActivity.this));
                 betAdapter.notifyDataSetChanged();
                 name.setText(response.body().getUser().getEmail());
+                Picasso.with(UserProfileActivity.this).load(response.body().getUser().getPhotoUrl()).fit().centerInside().into(imgView);
             }
 
             @Override

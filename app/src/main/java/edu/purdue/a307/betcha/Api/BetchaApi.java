@@ -160,6 +160,9 @@ public interface BetchaApi {
     @POST("/transaction/payment/charge")
     Call<BetchaResponse> chargeUser(@Body PaymentRequest request);
 
+    @POST("/transaction/payment/payout")
+    Call<BetchaResponse> payoutUser(@Body PaymentRequest request);
+
 
     // Likes
     @POST("like/update")

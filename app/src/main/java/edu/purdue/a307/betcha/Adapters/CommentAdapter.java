@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -69,11 +71,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(CommentAdapter.ViewHolder holder, final int position) {
         BetComment comment = dataset.get(position);
-        holder.name.setText(comment.getUserId());
+        String email = comment.getEmail();
+        int index = email.indexOf('@');
+        String subEmail = email.substring(0, index);
+        holder.name.setText(subEmail);
         holder.comment.setText(comment.getText());
         Log.d("Date", comment.getCreationTime());
         holder.date.setText(Time.getTimeDifference(comment.getCreationTime()));
-        IconGenerator.setImage(activity, holder.icon);
+        Picasso.with(activity).load(comment.getPhotoUrl()).fit().centerInside().into(holder.icon);
     }
 
     @Override

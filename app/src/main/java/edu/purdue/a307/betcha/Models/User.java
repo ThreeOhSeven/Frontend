@@ -9,12 +9,21 @@ public class User {
     String username;
     String email;
     String birthday;
+    String photoUrl;
 
     public User(String id, String username, String email, String birthday) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.birthday = birthday;
+    }
+
+    public User(String id, String username, String email, String birthday, String photoUrl) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.birthday = birthday;
+        this.photoUrl = photoUrl;
     }
 
     public String getId() {
@@ -47,5 +56,13 @@ public class User {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

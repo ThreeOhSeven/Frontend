@@ -8,11 +8,19 @@ public class PaymentRequest {
     String authToken;
     String stripeToken;
     String chargeAmount;
+    String name;
 
     public PaymentRequest(String authToken, String stripeToken, String chargeAmount) {
         this.authToken = authToken;
         this.stripeToken = stripeToken;
         this.chargeAmount = chargeAmount;
+    }
+
+    public PaymentRequest(String authToken, String stripeToken, String chargeAmount, String name) {
+        this.authToken = authToken;
+        this.stripeToken = stripeToken;
+        this.chargeAmount = chargeAmount;
+        this.name = name;
     }
 
     public String getAuthToken() {
@@ -37,5 +45,13 @@ public class PaymentRequest {
 
     public void setChargeAmount(String chargeAmount) {
         this.chargeAmount = chargeAmount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

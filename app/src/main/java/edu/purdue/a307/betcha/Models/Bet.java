@@ -24,6 +24,9 @@ public class Bet implements Serializable {
     public List<User> users;
     private String sideA;
     private String sideB;
+    private String creationTime;
+    private String color;
+    private String icon;
 
     public Bet(int creatorId, String maxUsers, String title, String description, double amount, boolean winner, boolean locked, boolean complete, int numLikes, boolean liked, String sideA, String sideB) {
         this.creatorId = creatorId;
@@ -140,6 +143,38 @@ public class Bet implements Serializable {
 
     public void setSideB(String sideB) {
         this.sideB = sideB;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public String getCreationTime() {
+        return creationTime;
+    }
+
+    public void setCreationTime(String creationTime) {
+        this.creationTime = creationTime;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     @Override
