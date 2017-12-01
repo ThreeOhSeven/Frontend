@@ -116,10 +116,10 @@ public class ConfirmBetActivity extends BetchaActivity {
 
     // Function to joinSideA
     private void confirmSideA(String id) {
-        String selfToken = SharedPrefsHelper.getSelfToken(this);
+        String selfToken = SharedPrefsHelper.getSelfToken(ConfirmBetActivity.this);
         int side = 0;
 
-        CompleteBetRequest ConfirmBetRequest = new CompleteBetRequest(id, String.valueOf(side), selfToken);
+        CompleteBetRequest ConfirmBetRequest = new CompleteBetRequest(selfToken, id, String.valueOf(side));
 
 
         ApiHelper.getInstance(this).completeBet(ConfirmBetRequest).enqueue(new Callback<BetchaResponse>() {
@@ -161,10 +161,10 @@ public class ConfirmBetActivity extends BetchaActivity {
 
     // Function to joinSideB
     private void confirmSideB(String id) {
-        String selfToken = SharedPrefsHelper.getSelfToken(this);
+        String selfToken = SharedPrefsHelper.getSelfToken(ConfirmBetActivity.this);
         int side = 1;
 
-        CompleteBetRequest completeBetRequest = new CompleteBetRequest(id, String.valueOf(side), selfToken);
+        CompleteBetRequest completeBetRequest = new CompleteBetRequest(selfToken, id, String.valueOf(side));
 
 
         ApiHelper.getInstance(this).completeBet(completeBetRequest).enqueue(new Callback<BetchaResponse>() {
