@@ -37,8 +37,6 @@ public class ConfirmBetActivity extends BetchaActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        joinBetType = getIntent().getIntExtra("type", 2);
-
 
         // Initialize Views
         TextView mTitle = (TextView) findViewById(R.id.joinTitle);

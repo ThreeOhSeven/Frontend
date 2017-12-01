@@ -7,18 +7,30 @@ import java.util.Date;
  */
 
 public class Notif {
+    private int id;
     private int userId;
     private String title;
     private String message;
     private boolean viewed;
-    private Date creationTime;
+    private String creationTime;
+    private int type;
 
-    public Notif(int userId, String title, String message, boolean viewed, Date creationTime) {
+    public Notif(int id, int userId, String title, String message, boolean viewed, String creationTime, int type) {
+        this.id = id;
         this.userId = userId;
         this.title = title;
         this.message = message;
         this.viewed = viewed;
         this.creationTime = creationTime;
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getUserId() {
@@ -53,11 +65,19 @@ public class Notif {
         this.viewed = viewed;
     }
 
-    public Date getCreationTime() {
+    public String getCreationTime() {
         return creationTime;
     }
 
-    public void setCreationTime(Date creationTime) {
+    public void setCreationTime(String creationTime) {
         this.creationTime = creationTime;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

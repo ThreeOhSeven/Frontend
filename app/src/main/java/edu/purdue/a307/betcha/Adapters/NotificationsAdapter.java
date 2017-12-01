@@ -1,6 +1,7 @@
 package edu.purdue.a307.betcha.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.purdue.a307.betcha.Activities.ConfirmBetActivity;
+import edu.purdue.a307.betcha.Activities.FriendsActivity;
+import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Models.Notif;
 import edu.purdue.a307.betcha.R;
 
@@ -59,22 +65,65 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
     public void onBindViewHolder(final edu.purdue.a307.betcha.Adapters.NotificationsAdapter.MyViewHolder holder, final int position) {
         final Notif info = items.get(position);
         holder.notifTitle.setText(info.getTitle());
-        holder.notifMessage.setText(info.getTitle());
+        holder.notifMessage.setText(info.getMessage());
 
         if(info.isViewed()) {
             holder.notifCardView.setCardBackgroundColor(Color.LTGRAY);
         }
 
-//        holder.notifCardView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent myIntent = new Intent(activity, BetActivity.class);
-//                Gson gson = new Gson();
-//                myIntent.putExtra("Object", gson.toJson(info));
-//                myIntent.putExtra("selfToken", selfToken);
-//                activity.startActivity(myIntent);
-//            }
-//        });
+        switch (info.getType()) {
+            case 0:
+                holder.notifCardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
+                        Gson gson = new Gson();
+                        myIntent.putExtra("Object", gson.toJson(info));
+                        myIntent.putExtra("selfToken", selfToken);
+                        activity.startActivity(myIntent);
+                    }
+                });
+                break;
+
+            case 1:
+                holder.notifCardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
+                        Gson gson = new Gson();
+                        myIntent.putExtra("Obj", gson.toJson(info));
+                        myIntent.putExtra("selfToken", selfToken);
+                        activity.startActivity(myIntent);
+                    }
+                });
+                break;
+
+            case 2:
+                holder.notifCardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(activity, JoinBetActivity.class);
+                        Gson gson = new Gson();
+                        myIntent.putExtra("Object", gson.toJson(info));
+                        myIntent.putExtra("selfToken", selfToken);
+                        myIntent.putExtra("type", 1);
+                        activity.startActivity(myIntent);
+                    }
+                });
+                break;
+
+            case 3:
+                holder.notifCardView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(activity, FriendsActivity.class);
+                        activity.startActivity(myIntent);
+                    }
+                });
+        }
+
+
+
 
 
     }

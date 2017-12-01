@@ -65,6 +65,7 @@ public class NotificationsActivity extends BetchaActivity {
             @Override
             public void onResponse(Call<NotificationsResponse> call, Response<NotificationsResponse> response) {
                 if(response.code() != 200) {
+                    Log.d("Server Response", String.valueOf(response.code()));
                     BToast.makeShort(getApplicationContext(), "Unable to get notifications");
                     return;
                 }
