@@ -24,6 +24,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Api.BetchaApi;
 import edu.purdue.a307.betcha.Enums.BetAdapterType;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
@@ -73,7 +74,28 @@ public class ProfileActivity extends BetchaActivity {
     @Override
     public void onResume() {
         super.onResume();
-        ApiHelper.getInstance(this).getBalance(new LoginRequest(selfToken)).enqueue(new Callback<TransactionBalance>() {
+        BetchaApi api = ApiHelper.getInstance(this);
+        api.getRecord(new LoginRequest(selfToken)).enqueue(new Callback<RecordResponse>() {
+            @Override
+            public void onResponse(Call<RecordResponse> call, Response<RecordResponse> response) {
+                if(response.code() != 200) {
+                    Log.d("AUTH ERROR", String.valueOf(response.code()));
+                    Toast.makeText(getApplicationContext(), "Unable to get records",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                String record = response.body().getWins() + "-" + response.body().getLosses();
+
+                Log.d("RECORD", record);
+                recordView.setText(record);
+            }
+
+            @Override
+            public void onFailure(Call<RecordResponse> call, Throwable t) {
+                Log.d("COMPLETE FAIL", "Failed");
+            }
+        });
+
+        api.getBalance(new LoginRequest(selfToken)).enqueue(new Callback<TransactionBalance>() {
             @Override
             public void onResponse(Call<TransactionBalance> call, Response<TransactionBalance> response) {
                 if(response.code() != 200) {
@@ -89,7 +111,11 @@ public class ProfileActivity extends BetchaActivity {
                 BToast.makeServerError(ProfileActivity.this);
             }
         });
-        ApiHelper.getInstance(this).getProfileBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
+
+
+
+
+        api.getProfileBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
             @Override
             public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {
@@ -113,22 +139,6 @@ public class ProfileActivity extends BetchaActivity {
                 Log.d("COMPLETE FAIL", "Failed");
             }
         });
-        ApiHelper.getInstance(this).getRecord(new LoginRequest(selfToken)).enqueue(new Callback<RecordResponse>() {
-            @Override
-            public void onResponse(Call<RecordResponse> call, Response<RecordResponse> response) {
-                if(response.code() != 200) {
-                    Log.d("AUTH ERROR", String.valueOf(response.code()));
-                    Toast.makeText(getApplicationContext(), "Unable to get records",Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String record = response.body().getWins() + "-" + response.body().getLosses();
-                recordView.setText(record);
-            }
 
-            @Override
-            public void onFailure(Call<RecordResponse> call, Throwable t) {
-                Log.d("COMPLETE FAIL", "Failed");
-            }
-        });
     }
 }
