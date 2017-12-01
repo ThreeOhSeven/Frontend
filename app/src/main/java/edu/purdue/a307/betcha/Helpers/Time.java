@@ -28,17 +28,19 @@ public class Time {
                 return String.valueOf(min) + " min";
             }
             if(newDiff < 86400) {
-                long hr = newDiff / 24;
+                long hr = newDiff / 60 / 60;
+                if((int)hr == 1) {
+                    return String.valueOf(hr) + " hr";
+                }
                 return String.valueOf(hr) + " hrs";
             }
             if(newDiff < 604800) {
-                long days = newDiff / 7;
-                return String.valueOf(days) + " days";
+                long days = newDiff / 60 / 60 / 24;
+                return String.valueOf(days) + " d";
             }
             else {
-                long days = newDiff / 7;
-                long weeks = days / 7;
-                return String.valueOf(weeks) + " weeks";
+                long weeks = newDiff / 60 / 60 / 24 / 7;
+                return String.valueOf(weeks) + " w";
             }
 
         } catch (ParseException e) {

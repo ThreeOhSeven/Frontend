@@ -189,7 +189,7 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("TOK MASTER", TOKEN);
         Log.d("PHOTO_URL", photoUrl);
 
-        ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN, photoUrl)).enqueue(new Callback<BetchaResponse>() {
+        ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN)).enqueue(new Callback<BetchaResponse>() {
             @Override
             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response){
                 if (response.code() != 200) {

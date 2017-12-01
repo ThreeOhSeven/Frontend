@@ -1,6 +1,5 @@
 package edu.purdue.a307.betcha.Activities;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,7 +29,6 @@ import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Listeners.AlertDialogListener;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
-import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
 import retrofit2.Call;
@@ -129,7 +126,7 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
             BDialog.showDeleteAccount(this, new AlertDialogListener() {
                 @Override
                 public void onPositive() {
-                    ApiHelper.getInstance(getApplicationContext()).deleteAccount(
+                    ApiHelper.getInstance(getApplicationContext()).deleteUser(
                             new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
                         @Override
                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {

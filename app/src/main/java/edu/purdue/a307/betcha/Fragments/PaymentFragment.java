@@ -94,7 +94,7 @@ public class PaymentFragment extends Fragment implements OnPageSelectedListener 
                         Log.d("Stripe Token", token.getId());
                         // Send token to your server
                         ApiHelper.getInstance(getActivity()).chargeUser(new PaymentRequest(
-                                SharedPrefsHelper.getSelfToken(getActivity()), "tok_visa_debit",
+                                SharedPrefsHelper.getSelfToken(getActivity()), token.getId(),
                                 charge.getText().toString())).enqueue(new Callback<BetchaResponse>() {
                             @Override
                             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {

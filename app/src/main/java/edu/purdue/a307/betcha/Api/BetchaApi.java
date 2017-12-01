@@ -18,11 +18,15 @@ import edu.purdue.a307.betcha.Models.CompleteBetRequest;
 import edu.purdue.a307.betcha.Models.CreateBetResponse;
 import edu.purdue.a307.betcha.Models.EmailResponse;
 import edu.purdue.a307.betcha.Models.FeedbackRequest;
+import edu.purdue.a307.betcha.Models.FriendDeleteRequest;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.Models.NotificationsResponse;
 import edu.purdue.a307.betcha.Models.PaymentRequest;
+import edu.purdue.a307.betcha.Models.ConnectAccountRequest;
+import edu.purdue.a307.betcha.Models.PayoutRequest;
+import edu.purdue.a307.betcha.Models.PhotoUrlRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.RecordResponse;
 import edu.purdue.a307.betcha.Models.RejectBetRequest;
@@ -58,8 +62,6 @@ public interface BetchaApi {
     Call<AccountInformation> getAccountInfo(@Query("authToken") String authToken);
     @POST("/account/edit")
     Call<BetchaResponse> editAccountInfo(@Body AccountInformation accountInformation, @Query("authToken") String authToken);
-    @POST("/account/delete")
-    Call<BetchaResponse> deleteAccount(@Body LoginRequest authToken);
 
     @POST("/info")
     Call<User> getUserInfo(@Body LoginRequest loginRequest);
@@ -77,6 +79,12 @@ public interface BetchaApi {
 
     @POST("/users/get/record")
     Call<RecordResponse> getRecord(@Body LoginRequest request);
+
+    @POST("/users/update/photo")
+    Call<BetchaResponse> updatePhotoUrl(@Body PhotoUrlRequest photoUrlRequest);
+
+    @POST("/users/delete")
+    Call<BetchaResponse> deleteUser(@Body LoginRequest authToken);
 
 
     // Social Feed
@@ -105,8 +113,8 @@ public interface BetchaApi {
     Call<FriendItems> getFriendRequests(@Body LoginRequest authToken);
     @POST("/friends/add/")
     Call<BetchaResponse> addFriend(@Body AddFriendRequest addFriendRequest);
-    @POST("/friends/delete/{id}")
-    Call<BetchaResponse> deleteFriend(@Path("id") String friendID, @Body LoginRequest authToken);
+    @POST("/friends/delete")
+    Call<BetchaResponse> deleteFriend(@Body FriendDeleteRequest request);
     @POST("/friends/info/{id}")
     Call<ProfileInformation> getFriendInfo(@Path("id") String friendID, @Query("authToken") String authToken);
 
@@ -161,7 +169,10 @@ public interface BetchaApi {
     Call<BetchaResponse> chargeUser(@Body PaymentRequest request);
 
     @POST("/transaction/payment/payout")
-    Call<BetchaResponse> payoutUser(@Body PaymentRequest request);
+    Call<BetchaResponse> payoutUser(@Body PayoutRequest request);
+
+    @POST("/transaction/payment/connectAccount")
+    Call<BetchaResponse> connectAccount(@Body ConnectAccountRequest request);
 
 
     // Likes

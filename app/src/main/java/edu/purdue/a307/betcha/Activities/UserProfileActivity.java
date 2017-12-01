@@ -54,7 +54,6 @@ public class UserProfileActivity extends BetchaActivity {
         balance = (TextView) findViewById(R.id.user_balance);
         imgView = (CircleImageView)findViewById(R.id.user_profile_image);
         //name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail()); // Get user email
-        imgView.setImageResource(R.mipmap.ic_launcher_round);
         id = getIntent().getIntExtra("id", 21);
         Log.d("User Id", String.valueOf(id));
 

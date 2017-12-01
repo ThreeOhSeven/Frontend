@@ -1,0 +1,86 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="edu.purdue.a307.betcha.Fragments.ConnectAccountFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/account_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Account Number"
+            android:inputType="numberPassword" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/routing_number"
+            android:hint="Routing Number"
+            android:inputType="numberPassword" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/firstName"
+            android:hint="First Name" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lastName"
+            android:hint="Last Name" />
+
+        <Button
+            android:id="@+id/dateOfBirth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Pick Date of Birth" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ssn"
+            android:hint="Last 4 Digits of SSN"
+            android:inputType="numberPassword"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/address"
+            android:hint="Address" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/city"
+            android:hint="City" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/state"
+            android:hint="State" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/postalCode"
+            android:hint="Postal Code" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendButton"
+            android:text="Send Money"/>
+
+
+    </LinearLayout>
+
+
+</ScrollView>
