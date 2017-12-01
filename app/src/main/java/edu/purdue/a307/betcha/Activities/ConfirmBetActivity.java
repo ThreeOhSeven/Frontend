@@ -111,7 +111,7 @@ public class ConfirmBetActivity extends BetchaActivity {
 
     }
 
-    protected int getLayoutResource() { return R.layout.activity_join_bet; }
+    protected int getLayoutResource() { return R.layout.activity_confirm_bet; }
 
 
     // Function to joinSideA
@@ -166,73 +166,38 @@ public class ConfirmBetActivity extends BetchaActivity {
 
         CompleteBetRequest completeBetRequest = new CompleteBetRequest(id, String.valueOf(side), selfToken);
 
-        if(joinBetType == 0) {
-            ApiHelper.getInstance(this).completeBet(completeBetRequest).enqueue(new Callback<BetchaResponse>() {
-                @Override
-                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                    if(response.code() != 200) {
-                        Log.d("Like Response Code", Integer.toString(response.code()));
 
-                        String errorMessage = "Error";
+        ApiHelper.getInstance(this).completeBet(completeBetRequest).enqueue(new Callback<BetchaResponse>() {
+            @Override
+            public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
+                if(response.code() != 200) {
+                    Log.d("Like Response Code", Integer.toString(response.code()));
 
-                        try {
-                            JSONObject obj = new JSONObject(response.errorBody().string());
+                    String errorMessage = "Error";
 
-                            errorMessage = obj.getString("error");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    try {
+                        JSONObject obj = new JSONObject(response.errorBody().string());
 
-                        Toast.makeText(ConfirmBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Log.d("Like Response Status", "Successful");
-
-
-                        ConfirmBetActivity.this.finish();
+                        errorMessage = obj.getString("error");
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
+
+                    Toast.makeText(ConfirmBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Log.d("Like Response Status", "Successful");
+
+
+                    ConfirmBetActivity.this.finish();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                    Log.d("Like Update: ", "Failure");
-                    Toast.makeText(ConfirmBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        else if(joinBetType == 1) {
-            ApiHelper.getInstance(this).completeBet(new CompleteBetRequest(selfToken, id, "")).enqueue(new Callback<BetchaResponse>() {
-                @Override
-                public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
-                    if(response.code() != 200) {
-                        Log.d("Like Response Code", Integer.toString(response.code()));
-
-                        String errorMessage = "Error";
-
-                        try {
-                            JSONObject obj = new JSONObject(response.errorBody().string());
-
-                            errorMessage = obj.getString("error");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        Toast.makeText(ConfirmBetActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-
-                    } else {
-                        Log.d("Like Response Status", "Successful");
-
-
-                        ConfirmBetActivity.this.finish();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                    Log.d("Like Update: ", "Failure");
-                    Toast.makeText(ConfirmBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onFailure(Call<BetchaResponse> call, Throwable t) {
+                Log.d("Like Update: ", "Failure");
+                Toast.makeText(ConfirmBetActivity.this, "Failed to POST like", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

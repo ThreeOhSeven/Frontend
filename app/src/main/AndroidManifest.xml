@@ -98,8 +98,11 @@
             android:name=".Activities.FeedbackActivity"
             android:label="@string/title_activity_feedback"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.ConfirmBetActivity" />
-        <activity android:name=".Activities.NotificationsActivity"
+        <activity
+            android:name=".Activities.ConfirmBetActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.NotificationsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
