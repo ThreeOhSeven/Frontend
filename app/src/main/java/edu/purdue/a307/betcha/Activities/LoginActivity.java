@@ -225,7 +225,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             myIntent.putExtra("authToken", authToken);
 
-                            Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getApplicationContext(), SharedPrefsHelper.getSelfToken(getApplicationContext()), Toast.LENGTH_LONG).show();
                             startActivity(myIntent);
                             finish();
 

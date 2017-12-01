@@ -60,6 +60,8 @@
     <string name="friend_remove_success">Friend has been removed</string>
     <string name="like_bet_error">Unable to like bet at this time</string>
     <string name="like_bet_success">Bet has been liked</string>
+    <string name="comment_bet_error">Unable to comment on this bet</string>
+    <string name="comment_bet_remove_error">Unable to remove this comment</string>
     <string name="default_notification_channel_id">fcm_default_channel</string>
     <string name="title_activity_feedback">FeedbackActivity</string>
 

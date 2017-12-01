@@ -43,16 +43,8 @@
                     android:layout_gravity="center_horizontal"
                     android:text="John Smith"
                     android:textAlignment="center"
-                    android:textSize="20sp" />
-                <TextView
-                    android:id="@+id/user_balance"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/user_name"
-                    android:layout_gravity="center_horizontal"
-                    android:text="$0.00"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:textColor="@color/black"/>
             </RelativeLayout>
 
         </RelativeLayout>

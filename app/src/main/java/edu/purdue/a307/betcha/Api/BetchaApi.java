@@ -5,6 +5,7 @@ import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.ApiResponse;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetComment;
+import edu.purdue.a307.betcha.Models.BetCommentDeleteRequest;
 import edu.purdue.a307.betcha.Models.BetCommentsGetRequest;
 import edu.purdue.a307.betcha.Models.BetDeleteRequest;
 import edu.purdue.a307.betcha.Models.BetCommentAddRequest;
@@ -164,8 +165,8 @@ public interface BetchaApi {
     // Comments
     @POST("/comment/add")
     Call<BetchaResponse> addComment(@Body BetCommentAddRequest request);
-    @POST("/comment/update")
-    Call<BetchaResponse> deleteComment(@Body BetComment betComment);
+    @POST("/comment/delete")
+    Call<BetchaResponse> deleteComment(@Body BetCommentDeleteRequest betComment);
     @POST("/comment/get")
     Call<BetComments> getComments(@Body BetCommentsGetRequest request);
 

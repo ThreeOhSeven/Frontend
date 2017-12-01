@@ -4,25 +4,42 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true">
 
-        <EditText
-            android:id="@+id/feedback"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textLongMessage"
-            android:hint="Description"/>
+            android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sendFeedbackBtn"
-            android:layout_gravity="end"
-            android:text="Send Feedback"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please give us Feedback!!!"
+                android:textSize="40sp"
+                android:textColor="@color/colorPrimary"
+                android:textAlignment="center"
+                android:id="@+id/feedbackTextView"/>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textLongMessage"
+                android:hint="Feedback"
+                android:layout_below="@+id/feedbackTextView"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sendFeedbackBtn"
+                android:layout_gravity="end"
+                android:text="Send Feedback"
+                android:layout_below="@+id/feedback"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </RelativeLayout>

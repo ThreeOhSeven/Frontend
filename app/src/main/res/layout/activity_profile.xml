@@ -20,12 +20,12 @@
             android:layout_height="0dp"
             android:orientation="vertical"
             android:id="@+id/lin"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="@color/colorSecondary">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@color/colorAccent"
                 android:orientation="vertical">
 
                 <RelativeLayout
@@ -50,7 +50,9 @@
                         android:layout_gravity="center_horizontal"
                         android:text="N/A"
                         android:textAlignment="center"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
+
                     <TextView
                         android:id="@+id/balance"
                         android:layout_width="match_parent"
@@ -58,7 +60,9 @@
                         android:layout_below="@id/name"
                         android:layout_gravity="center_horizontal"
                         android:textAlignment="center"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
+
                     <TextView
                         android:id="@+id/record"
                         android:layout_width="match_parent"
@@ -67,7 +71,8 @@
                         android:layout_gravity="center_horizontal"
                         android:text="0-0"
                         android:textAlignment="center"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        android:textColor="@color/black"/>
                 </RelativeLayout>
 
             </RelativeLayout>

@@ -66,7 +66,8 @@ public class OpenBetsFragment extends Fragment implements OnPageSelectedListener
 
     @Override
     public void onPageSelected() {
-        ApiHelper.getInstance(getContext()).getMyOpenBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
+        ApiHelper.getInstance(getContext()).getMyOpenBets(new LoginRequest(
+                SharedPrefsHelper.getSelfToken(getActivity()))).enqueue(new Callback<Bets>() {
             @Override
             public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {

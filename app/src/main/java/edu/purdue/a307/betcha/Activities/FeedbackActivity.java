@@ -60,7 +60,6 @@ public class FeedbackActivity extends BetchaActivity {
         ButterKnife.bind(this);
 
         // TODO - Change to be the bet passed through the intent
-        feedback.setText("Feedback Text");
 
     }
 
