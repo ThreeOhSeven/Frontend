@@ -44,6 +44,7 @@ import edu.purdue.a307.betcha.Enums.JoinBetType;
 import edu.purdue.a307.betcha.Helpers.BToast;
 import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Helpers.Time;
 import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetCommentAddRequest;
@@ -78,8 +79,8 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         public CardView cardView;
         @BindView(R.id.textTitle)
         public TextView mBetTitle;
-        @BindView(R.id.textAmount)
-        public TextView mAmount;
+        @BindView(R.id.textCreationTime)
+        public TextView mCreationTime;
         @BindView(R.id.likeButton)
         public ImageButton mLikeButton;
         @BindView(R.id.numLikes)
@@ -90,7 +91,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         @BindView(R.id.commentButton)
         public ImageButton commentButton;
 
-        public boolean isAlreadyLiked;
 
         CircleImageView icon;
 
@@ -98,7 +98,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             super(v);
             ButterKnife.bind(this,v);
             icon = (CircleImageView)v.findViewById(R.id.iconImage);
-            isAlreadyLiked = false;
 
         }
 
@@ -125,19 +124,19 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mBetTitle.setText(dataset.get(position).getTitle()); // Title
+        final Bet info = dataset.get(position);
+        holder.mBetTitle.setText(info.getTitle()); // Title
         holder.mNumLikes.setText(String.valueOf(dataset.get(position).getNumLikes())); // Number of Likes
-        holder.mAmount.setText("$"+ String.valueOf(dataset.get(position).getAmount())); // Amount
-
+        if(info.getCreationTime() != null) {
+            holder.mCreationTime.setText(Time.getTimeDifference(info.getCreationTime())); // Amount
+        }
         if(type == 0) {
             holder.mJoinButton.setVisibility(View.INVISIBLE);
         }
 
-        final Bet info = dataset.get(position);
         Log.d("Show Stuff:", String.valueOf(position) + ": " + String.valueOf(info.isLiked()));
         if(info.isLiked()) {
             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
-            holder.isAlreadyLiked = true;
         }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +154,16 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BetLikeRequest betLikeRequest = new BetLikeRequest(1, dataset.get(position).getId(), selfToken);
+                BetLikeRequest betLikeRequest;
+                final int liked;
+                if(!info.isLiked()) {
+                    liked = 1;
+                }
+                else {
+                    liked = 0;
+                }
+                Log.d("If the thing is liked", String.valueOf(liked));
+                betLikeRequest = new BetLikeRequest(liked, dataset.get(position).getId(), selfToken);
 
                 ApiHelper.getInstance(activity).postLike(betLikeRequest).enqueue(new Callback<BetchaResponse>() {
                     @Override
@@ -167,16 +175,22 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                             return;
                         } else {
                             BToast.makeSuccess(activity, activity.getString(R.string.like_bet_success));
-                            if(holder.isAlreadyLiked) {
-                                return;
+                            if(liked == 0) {
+                                int numLikes = Integer.parseInt(holder.mNumLikes.getText().toString());
+                                numLikes--;
+                                info.setLiked(false);
+                                holder.mNumLikes.setText(String.valueOf(numLikes));
+                                holder.mLikeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                                info.setNumLikes(numLikes);
                             }
-                            int numLikes = Integer.parseInt(holder.mNumLikes.getText().toString());
-                            numLikes++;
-                            holder.isAlreadyLiked = true;
-                            info.setLiked(true);
-                            holder.mNumLikes.setText(String.valueOf(numLikes));
-                            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
-//                            notifyDataSetChanged();
+                            else {
+                                int numLikes = Integer.parseInt(holder.mNumLikes.getText().toString());
+                                numLikes++;
+                                info.setLiked(true);
+                                holder.mNumLikes.setText(String.valueOf(numLikes));
+                                holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+                                info.setNumLikes(numLikes);
+                            }
                         }
                     }
 
@@ -294,7 +308,11 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
             }
         });
 
-        IconGenerator.setImage(activity,holder.icon);
+        if(info.getColor() == null || info.getIcon() == null) {
+            return;
+        }
+        IconGenerator.setImageWithPredefinedNums(activity,holder.icon,
+                Integer.parseInt(info.getColor()), Integer.parseInt(info.getIcon()));
     }
 
     @Override

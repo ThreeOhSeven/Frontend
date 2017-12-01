@@ -171,11 +171,6 @@ public abstract class BetchaActivity extends AppCompatActivity implements Naviga
             myIntent.putExtra("selfToken", selfToken);
             startActivity(myIntent);
         }
-        else if (id == R.id.nav_send_feedback) {
-            Intent feedbackIntent = new Intent(BetchaActivity.this, FeedbackActivity.class);
-            startActivity(feedbackIntent);
-            finish();
-        }
         return true;
     }
 

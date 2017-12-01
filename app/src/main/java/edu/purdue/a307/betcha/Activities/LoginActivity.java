@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d("Family Name",account.getFamilyName());
             Log.d("Given Name",account.getGivenName());
             Log.d("Account",account.getAccount().toString());
-            authWithServer(token);
+            authWithServer(token, account.getPhotoUrl().toString());
         }
         else
             mAccount = null;
@@ -181,14 +181,15 @@ public class LoginActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    private void authWithServer(String TOKEN) {
+    private void authWithServer(String TOKEN, String photoUrl) {
         if(TOKEN == null) {
             return;
         }
 
         Log.d("TOK MASTER", TOKEN);
+        Log.d("PHOTO_URL", photoUrl);
 
-        ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN)).enqueue(new Callback<BetchaResponse>() {
+        ApiHelper.getInstance(getApplicationContext()).login(new LoginRequest(TOKEN, photoUrl)).enqueue(new Callback<BetchaResponse>() {
             @Override
             public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response){
                 if (response.code() != 200) {

@@ -41,4 +41,14 @@ public class IconGenerator {
 
         view.setImageDrawable(ld);
     }
+
+    public static void setImageWithPredefinedNums(Context context, CircleImageView view, int col,
+                                                  int icon) {
+        ColorDrawable color = new ColorDrawable(ContextCompat.getColor(context, colors[col]));
+        Drawable image = ContextCompat.getDrawable(context, icons[icon]);
+
+        LayerDrawable ld = new LayerDrawable(new Drawable[]{color, image});
+
+        view.setImageDrawable(ld);
+    }
 }
