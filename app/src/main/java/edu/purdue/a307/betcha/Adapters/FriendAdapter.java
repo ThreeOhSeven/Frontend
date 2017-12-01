@@ -38,6 +38,7 @@ import edu.purdue.a307.betcha.Helpers.IconGenerator;
 import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.FriendDeleteRequest;
 import edu.purdue.a307.betcha.Models.FriendItem;
 import edu.purdue.a307.betcha.Models.LoginRequest;
 import edu.purdue.a307.betcha.R;
@@ -118,8 +119,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.MyViewHold
                             switch (item.getItemId()) {
                                 case R.id.menu_item_delete:
                                     Log.d("ITEM ID", String.valueOf(item.getItemId()));
-                                    ApiHelper.getInstance(activity).deleteFriend(info.getFriend().getId(),
-                                            new LoginRequest(selfToken)).enqueue(new Callback<BetchaResponse>() {
+                                    ApiHelper.getInstance(activity).deleteFriend(
+                                            new FriendDeleteRequest(selfToken, info.getFriend().getId())).enqueue(new Callback<BetchaResponse>() {
                                         @Override
                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                             if (response.code() != 200) {

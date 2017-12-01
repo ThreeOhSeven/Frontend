@@ -282,7 +282,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
         else {
             holder.buttonMenu.setVisibility(View.INVISIBLE);
         }
-        IconGenerator.setImage(activity,holder.icon);
+        IconGenerator.setImageWithPredefinedNums(activity,holder.icon, Integer.parseInt(info.getColor()), Integer.parseInt(info.getIcon()));
         holder.likeButton.setVisibility(View.INVISIBLE);
         holder.commentButton.setVisibility(View.INVISIBLE);
 

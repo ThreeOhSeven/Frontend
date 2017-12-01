@@ -138,6 +138,9 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         if(info.isLiked()) {
             holder.mLikeButton.setImageResource(R.drawable.ic_favorite_black_24dp);
         }
+        else {
+            holder.mLikeButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+        }
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
