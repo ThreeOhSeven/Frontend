@@ -166,6 +166,8 @@ public class JoinBetActivity extends BetchaActivity {
                     } else {
 
                         BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
+                        Intent myIntent = new Intent(JoinBetActivity.this, MyBetsActivity.class);
+                        startActivity(myIntent);
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -187,6 +189,8 @@ public class JoinBetActivity extends BetchaActivity {
                     } else {
 
                         BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
+                        Intent myIntent = new Intent(JoinBetActivity.this, MyBetsActivity.class);
+                        startActivity(myIntent);
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -218,6 +222,8 @@ public class JoinBetActivity extends BetchaActivity {
                     } else {
 
                         BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
+                        Intent myIntent = new Intent(JoinBetActivity.this, MyBetsActivity.class);
+                        startActivity(myIntent);
                         JoinBetActivity.this.finish();
                     }
                 }
@@ -239,6 +245,8 @@ public class JoinBetActivity extends BetchaActivity {
                     } else {
 
                         BToast.makeSuccess(JoinBetActivity.this, getString(R.string.accept_bet_success));
+                        Intent myIntent = new Intent(JoinBetActivity.this, MyBetsActivity.class);
+                        startActivity(myIntent);
                         JoinBetActivity.this.finish();
                     }
                 }

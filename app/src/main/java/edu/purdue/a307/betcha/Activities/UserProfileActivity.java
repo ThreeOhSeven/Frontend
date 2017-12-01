@@ -51,7 +51,6 @@ public class UserProfileActivity extends BetchaActivity {
         ButterKnife.bind(this);
         selfToken = SharedPrefsHelper.getSelfToken(this);
         recyclerView = (RecyclerView)findViewById(R.id.userRecyclerBets);
-        balance = (TextView) findViewById(R.id.user_balance);
         imgView = (CircleImageView)findViewById(R.id.user_profile_image);
         //name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail()); // Get user email
         id = getIntent().getIntExtra("id", 21);
@@ -72,7 +71,6 @@ public class UserProfileActivity extends BetchaActivity {
                     return;
                 }
 
-                balance.setText("Balance: " + String.valueOf(response.body().getCurrent_balance()));
             }
 
             @Override

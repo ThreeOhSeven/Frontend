@@ -83,7 +83,7 @@ public class ProfileActivity extends BetchaActivity {
                     Toast.makeText(getApplicationContext(), "Unable to get records",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                String record = response.body().getWins() + "-" + response.body().getLosses();
+                String record = "Betting Record: " + response.body().getWins() + " W - " + response.body().getLosses() + " L";
 
                 Log.d("RECORD", record);
                 recordView.setText(record);

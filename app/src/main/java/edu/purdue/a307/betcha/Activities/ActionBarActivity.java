@@ -75,8 +75,8 @@ public abstract class ActionBarActivity extends BetchaActivity {
     protected abstract String[] getStringsList();
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         setStuffUp();
     }
 }

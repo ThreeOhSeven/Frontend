@@ -55,7 +55,7 @@ public class BetInvitesFragment extends Fragment implements OnPageSelectedListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_bet_invites, container, false);
         bets = new ArrayList<Bet>();
-        selfToken = SharedPrefsHelper.getSelfToken(getContext());
+        selfToken = SharedPrefsHelper.getSelfToken(getActivity());
         recyclerView = (RecyclerView)view.findViewById(R.id.recyclerBetInvites);
         Log.d("Self Token", selfToken);
         onPageSelected();
@@ -64,7 +64,8 @@ public class BetInvitesFragment extends Fragment implements OnPageSelectedListen
 
     @Override
     public void onPageSelected() {
-        ApiHelper.getInstance(getContext()).getMyPendingBets(new LoginRequest(selfToken)).enqueue(new Callback<Bets>() {
+        ApiHelper.getInstance(getContext()).getMyPendingBets(new LoginRequest(
+                selfToken)).enqueue(new Callback<Bets>() {
             @Override
             public void onResponse(Call<Bets> call, Response<Bets> response) {
                 if(response.code() != 200) {

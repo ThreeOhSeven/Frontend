@@ -132,6 +132,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
         }
         if(type == 0) {
             holder.mJoinButton.setVisibility(View.INVISIBLE);
+            holder.commentButton.setVisibility(View.INVISIBLE);
         }
 
         Log.d("Show Stuff:", String.valueOf(position) + ": " + String.valueOf(info.isLiked()));
@@ -177,7 +178,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                             BToast.makeError(activity, activity.getString(R.string.like_bet_error));
                             return;
                         } else {
-                            BToast.makeSuccess(activity, activity.getString(R.string.like_bet_success));
+//                            BToast.makeSuccess(activity, activity.getString(R.string.like_bet_success));
                             if(liked == 0) {
                                 int numLikes = Integer.parseInt(holder.mNumLikes.getText().toString());
                                 numLikes--;
@@ -243,7 +244,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
 
                         List<BetComment> BetComments = response.body().getComments();
 
-                        final CommentAdapter adapter = new CommentAdapter(activity, BetComments, "");
+                        final CommentAdapter adapter = new CommentAdapter(activity, BetComments, selfToken);
 
                         recyclerView.setAdapter(adapter);
                         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
@@ -262,7 +263,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                                     @Override
                                     public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                         if(response.code() != 200) {
-                                            BToast.makeShort(activity,"Error");
+                                            BToast.makeShort(activity,"Couldn't post comment");
                                             return;
                                         }
                                         ApiHelper.getInstance(activity).getComments(
@@ -282,12 +283,12 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<NewsFeedAdapter.ViewHo
                                             }
                                         });
 
-                                        BToast.makeShort(activity,"Success");
+//                                        BToast.makeShort(activity,"Success");
                                     }
 
                                     @Override
                                     public void onFailure(Call<BetchaResponse> call, Throwable t) {
-                                        BToast.makeShort(activity,"Failure");
+                                        BToast.makeServerError(activity);
                                     }
                                 });
                             }

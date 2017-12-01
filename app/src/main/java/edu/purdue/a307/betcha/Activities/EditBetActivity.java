@@ -75,6 +75,7 @@ public class EditBetActivity extends BetchaActivity {
     Bet bet;
 
     String selfToken;
+    int tempSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -135,6 +136,7 @@ public class EditBetActivity extends BetchaActivity {
         } catch (Exception e) {
             //Do nothing
         }
+        tempSize = friends.size();
 
 
 
@@ -222,7 +224,8 @@ public class EditBetActivity extends BetchaActivity {
                         finish();
                         return;
                     }
-                    for(final FriendItem item: friendAdapter.items) {
+                    for(int i = tempSize; i < friendAdapter.items.size(); i++) {
+                        final FriendItem item = friendAdapter.items.get(i);
                         ApiHelper.getInstance(getApplicationContext()).sendBet(
                                 new SendBetRequest(item.getFriend().getId(),Integer.toString(bet.getId()),
                                         selfToken)).enqueue(new Callback<BetchaResponse>() {

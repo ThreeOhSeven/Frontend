@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Friends"
         android:id="@+id/lblFriends"
+        android:theme="@style/BlackTextTheme"
         android:textSize="30sp"/>
 
     <android.support.v7.widget.RecyclerView

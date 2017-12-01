@@ -303,6 +303,7 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                     myIntent.putExtra("type", 1);
                     Gson gson = new Gson();
                     myIntent.putExtra("Obj",gson.toJson(info));
+                    myIntent.putExtra("selfToken",selfToken);
                     activity.startActivity(myIntent);
                 }
             });
