@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,23 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import edu.purdue.a307.betcha.Activities.ActionBarActivity;
 import edu.purdue.a307.betcha.Activities.ConfirmBetActivity;
 import edu.purdue.a307.betcha.Activities.FriendsActivity;
 import edu.purdue.a307.betcha.Activities.JoinBetActivity;
 import edu.purdue.a307.betcha.Activities.MyBetsActivity;
+import edu.purdue.a307.betcha.Api.ApiHelper;
+import edu.purdue.a307.betcha.Helpers.BToast;
+import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
+import edu.purdue.a307.betcha.Models.Bet;
+import edu.purdue.a307.betcha.Models.BetRequest;
+import edu.purdue.a307.betcha.Models.BetchaResponse;
+import edu.purdue.a307.betcha.Models.CompleteBetRequest;
 import edu.purdue.a307.betcha.Models.Notif;
 import edu.purdue.a307.betcha.R;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by kyleohanian on 10/3/17.
@@ -77,8 +89,29 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                 holder.notifCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(activity, MyBetsActivity.class);
-                        activity.startActivity(myIntent);
+                        String authToken = SharedPrefsHelper.getSelfToken(activity);
+                        ApiHelper.getInstance(activity).getBet(new BetRequest(authToken,
+                                info.getBetId())).enqueue(new Callback<Bet>() {
+                            @Override
+                            public void onResponse(Call<Bet> call, Response<Bet> response) {
+                                if (response.code() != 200) {
+                                    BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                    return;
+                                }
+                                Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
+                                myIntent.putExtra("type", 1);
+                                Gson gson = new Gson();
+                                myIntent.putExtra("Obj",gson.toJson(response.body()));
+                                activity.startActivity(myIntent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<Bet> call, Throwable t) {
+                                BToast.makeServerError(activity);
+                            }
+                        });
+
+
                     }
                 });
                 break;
@@ -87,8 +120,29 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                 holder.notifCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(activity, MyBetsActivity.class);
-                        activity.startActivity(myIntent);
+                        String authToken = SharedPrefsHelper.getSelfToken(activity);
+                        ApiHelper.getInstance(activity).getBet(new BetRequest(authToken,
+                                info.getBetId())).enqueue(new Callback<Bet>() {
+                            @Override
+                            public void onResponse(Call<Bet> call, Response<Bet> response) {
+                                if (response.code() != 200) {
+                                    BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                    return;
+                                }
+                                Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
+                                myIntent.putExtra("type", 1);
+                                Gson gson = new Gson();
+                                myIntent.putExtra("Obj",gson.toJson(response.body()));
+                                activity.startActivity(myIntent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<Bet> call, Throwable t) {
+                                BToast.makeServerError(activity);
+                            }
+                        });
+
+
                     }
                 });
                 break;
@@ -97,8 +151,29 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                 holder.notifCardView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent myIntent = new Intent(activity, MyBetsActivity.class);
-                        activity.startActivity(myIntent);
+                        String authToken = SharedPrefsHelper.getSelfToken(activity);
+                        ApiHelper.getInstance(activity).getBet(new BetRequest(authToken,
+                                info.getBetId())).enqueue(new Callback<Bet>() {
+                            @Override
+                            public void onResponse(Call<Bet> call, Response<Bet> response) {
+                                if (response.code() != 200) {
+                                    BToast.makeError(activity, activity.getString(R.string.bet_completion_error));
+                                    return;
+                                }
+                                Intent myIntent = new Intent(activity, JoinBetActivity.class);
+                                myIntent.putExtra("type", 1);
+                                Gson gson = new Gson();
+                                myIntent.putExtra("Obj",gson.toJson(response.body()));
+                                activity.startActivity(myIntent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<Bet> call, Throwable t) {
+                                BToast.makeServerError(activity);
+                            }
+                        });
+
+
                     }
                 });
                 break;

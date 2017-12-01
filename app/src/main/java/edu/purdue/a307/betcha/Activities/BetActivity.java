@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class BetActivity extends BetchaActivity {
 
     Bet betInformation;
-    TextView title, amount, description, maxUsers, creator;
+    TextView title, amount, description, maxUsers, creator, time;
     Button createButton;
     String selfToken;
     RecyclerView betters;
@@ -42,6 +42,7 @@ public class BetActivity extends BetchaActivity {
     TextView status;
     @BindView(R.id.txtWinner)
     TextView winner;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class BetActivity extends BetchaActivity {
         description = (TextView) findViewById(R.id.txtDescription);
         maxUsers = (TextView)findViewById(R.id.txtMaxUsers);
         creator = (TextView)findViewById(R.id.txtCreator);
+        time = (TextView)findViewById(R.id.txtTime);
         betters = (RecyclerView)findViewById(R.id.bettersList);
 
         betters.setHasFixedSize(true);
@@ -88,6 +90,11 @@ public class BetActivity extends BetchaActivity {
         } catch (Exception e) {
             // Do nothing
         }
+        try{
+            time.setText(betInformation.getCreationTime());
+        } catch (Exception e) {
+            // Do nothing
+        }
         try {
             sideA.setText(betInformation.getSideA());
             sideB.setText(betInformation.getSideB());
@@ -105,7 +112,6 @@ public class BetActivity extends BetchaActivity {
         } catch (Exception e) {
             // Do nothing
         }
-
 
 
 
