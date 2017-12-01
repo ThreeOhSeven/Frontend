@@ -32,6 +32,8 @@
     <string name="bet_info_error">Couldn\'t get details of this bet</string>
     <string name="delete_account_error">Unable to delete your account at this time.</string>
     <string name="delete_account_success">Your account has been successfully deleted</string>
+    <string name="delete_bet_error">Unable to delete your bet at this time.</string>
+    <string name="delete_bet_success">Your bet has been successfully deleted</string>
     <string name="sign_out_success">You have signed out of your account</string>
     <string name="bet_creation_error">There was an error in creating this bet</string>
     <string name="bet_creation_success">Bet has been successfully created</string>

@@ -21,6 +21,7 @@ import edu.purdue.a307.betcha.Models.FeedbackRequest;
 import edu.purdue.a307.betcha.Models.FriendItems;
 import edu.purdue.a307.betcha.Models.JoinBetRequest;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.NotificationsResponse;
 import edu.purdue.a307.betcha.Models.PaymentRequest;
 import edu.purdue.a307.betcha.Models.ProfileInformation;
 import edu.purdue.a307.betcha.Models.RecordResponse;
@@ -175,6 +176,9 @@ public interface BetchaApi {
     @POST("/feedback")
     Call<BetchaResponse> sendFeedback(@Body FeedbackRequest feedbackRequest);
 
+    // Notifications
+    @POST("/notifications/get")
+    Call<NotificationsResponse> getNotifications(@Body LoginRequest loginRequest);
 
 
 

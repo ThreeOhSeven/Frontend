@@ -8,6 +8,6 @@ public enum BetAdapterType {
     OPEN,
     COMPLETED,
     PENDING,
-    PROFILE
-
+    PROFILE,
+    USERPROFILE
 }
