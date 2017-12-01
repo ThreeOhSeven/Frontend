@@ -91,7 +91,7 @@ public class ConfirmBetActivity extends BetchaActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                confirmSideA(id);
+                confirmSideB(id);
             }
         });
 
@@ -105,7 +105,7 @@ public class ConfirmBetActivity extends BetchaActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                confirmSideB(id);
+                confirmSideA(id);
             }
         });
 
