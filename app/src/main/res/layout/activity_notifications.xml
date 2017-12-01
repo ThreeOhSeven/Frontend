@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="edu.purdue.a307.betcha.Activities.NotificationsActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/notifRecycler">
+
+    </android.support.v7.widget.RecyclerView>
+
 </android.support.constraint.ConstraintLayout>

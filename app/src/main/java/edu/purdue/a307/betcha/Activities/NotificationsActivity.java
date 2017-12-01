@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import edu.purdue.a307.betcha.Adapters.BetAdapter;
+import edu.purdue.a307.betcha.Adapters.NotificationsAdapter;
 import edu.purdue.a307.betcha.Api.ApiHelper;
 import edu.purdue.a307.betcha.Enums.BetAdapterType;
 import edu.purdue.a307.betcha.Helpers.BToast;
@@ -29,6 +30,8 @@ import edu.purdue.a307.betcha.Helpers.SharedPrefsHelper;
 import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.Bets;
 import edu.purdue.a307.betcha.Models.LoginRequest;
+import edu.purdue.a307.betcha.Models.Notif;
+import edu.purdue.a307.betcha.Models.NotificationsResponse;
 import edu.purdue.a307.betcha.Models.RecordResponse;
 import edu.purdue.a307.betcha.Models.TransactionBalance;
 import edu.purdue.a307.betcha.R;
@@ -39,50 +42,44 @@ import retrofit2.Response;
 public class NotificationsActivity extends BetchaActivity {
 
     RecyclerView recyclerView;
-    List<Bet> bets;
-    BetAdapter betAdapter;
+    List<Notif> notifications;
+    NotificationsAdapter adapter;
     String selfToken;
-    TextView balance;
-    CircleImageView imgView;
-    TextView recordView;
-
-    @BindView(R.id.name)
-    TextView name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         selfToken = SharedPrefsHelper.getSelfToken(this);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerBets);
-        balance = (TextView) findViewById(R.id.balance);
-        imgView = (CircleImageView)findViewById(R.id.profile_image);
-        recordView = (TextView)findViewById(R.id.record);
-        name.setText(SharedPrefsHelper.getAccountInformation(getApplicationContext()).getEmail());
-        String str = SharedPrefsHelper.getPhotoURL(getApplicationContext());
-        Picasso.with(this).load(str).fit().centerInside().into(imgView);
+        recyclerView = (RecyclerView)findViewById(R.id.notifRecycler);
+
 
     }
 
-    protected int getLayoutResource() { return R.layout.activity_profile; }
+    protected int getLayoutResource() { return R.layout.activity_notifications; }
 
     @Override
     public void onResume() {
         super.onResume();
-        ApiHelper.getInstance(this).getBalance(new LoginRequest(selfToken)).enqueue(new Callback<TransactionBalance>() {
+        ApiHelper.getInstance(this).getNotifications(new LoginRequest(selfToken)).enqueue(new Callback<NotificationsResponse>() {
             @Override
-            public void onResponse(Call<TransactionBalance> call, Response<TransactionBalance> response) {
+            public void onResponse(Call<NotificationsResponse> call, Response<NotificationsResponse> response) {
                 if(response.code() != 200) {
-                    BToast.makeShort(getApplicationContext(), "Unable to get balance");
+                    BToast.makeShort(getApplicationContext(), "Unable to get notifications");
                     return;
                 }
 
-                balance.setText("Balance: " + String.valueOf(response.body().getCurrent_balance()));
+                notifications = response.body().getNotifications();
+                adapter = new NotificationsAdapter(NotificationsActivity.this, notifications, selfToken);
+                recyclerView.setAdapter(adapter);
+                recyclerView.invalidate();
+                recyclerView.setLayoutManager(new LinearLayoutManager(NotificationsActivity.this));
+                adapter.notifyDataSetChanged();
             }
 
             @Override
-            public void onFailure(Call<TransactionBalance> call, Throwable t) {
-
+            public void onFailure(Call<NotificationsResponse> call, Throwable t) {
+                Log.d("Post Fail", "WE SUCK AT API STUFF");
             }
         });
 
