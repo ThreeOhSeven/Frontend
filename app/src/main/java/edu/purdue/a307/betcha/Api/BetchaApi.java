@@ -3,6 +3,7 @@ package edu.purdue.a307.betcha.Api;
 import edu.purdue.a307.betcha.Models.AccountInformation;
 import edu.purdue.a307.betcha.Models.AddFriendRequest;
 import edu.purdue.a307.betcha.Models.ApiResponse;
+import edu.purdue.a307.betcha.Models.Bet;
 import edu.purdue.a307.betcha.Models.BetComment;
 import edu.purdue.a307.betcha.Models.BetCommentsGetRequest;
 import edu.purdue.a307.betcha.Models.BetDeleteRequest;
@@ -11,6 +12,7 @@ import edu.purdue.a307.betcha.Models.BetComments;
 import edu.purdue.a307.betcha.Models.BetInformation;
 import edu.purdue.a307.betcha.Models.BetInformationRequest;
 import edu.purdue.a307.betcha.Models.BetLikeRequest;
+import edu.purdue.a307.betcha.Models.BetRequest;
 import edu.purdue.a307.betcha.Models.BetUpdateRequest;
 import edu.purdue.a307.betcha.Models.BetchaResponse;
 import edu.purdue.a307.betcha.Models.Bets;
@@ -146,6 +148,9 @@ public interface BetchaApi {
     // Reusing RejectBetRequest because it has same schema
     @POST("/bets/friendsNot")
     Call<Users> getFriendsNotInBet(@Body RejectBetRequest request);
+
+    @POST("/bets/get")
+    Call<Bet> getBet(@Body BetRequest request);
 
 
     // Comments

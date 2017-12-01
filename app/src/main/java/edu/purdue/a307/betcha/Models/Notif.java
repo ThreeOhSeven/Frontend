@@ -14,8 +14,9 @@ public class Notif {
     private boolean viewed;
     private String creationTime;
     private int type;
+    private int betId;
 
-    public Notif(int id, int userId, String title, String message, boolean viewed, String creationTime, int type) {
+    public Notif(int id, int userId, String title, String message, boolean viewed, String creationTime, int type, int betId) {
         this.id = id;
         this.userId = userId;
         this.title = title;
@@ -23,6 +24,7 @@ public class Notif {
         this.viewed = viewed;
         this.creationTime = creationTime;
         this.type = type;
+        this.betId = betId;
     }
 
     public int getId() {
@@ -79,5 +81,13 @@ public class Notif {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getBetId() {
+        return betId;
+    }
+
+    public void setBetId(int betId) {
+        this.betId = betId;
     }
 }
