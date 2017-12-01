@@ -78,7 +78,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                     public void onClick(View view) {
                         Intent myIntent = new Intent(activity, ConfirmBetActivity.class);
                         Gson gson = new Gson();
-                        myIntent.putExtra("Object", gson.toJson(info));
+                        myIntent.putExtra("Obj", gson.toJson(info));
                         myIntent.putExtra("selfToken", selfToken);
                         activity.startActivity(myIntent);
                     }
@@ -104,7 +104,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                     public void onClick(View view) {
                         Intent myIntent = new Intent(activity, JoinBetActivity.class);
                         Gson gson = new Gson();
-                        myIntent.putExtra("Object", gson.toJson(info));
+                        myIntent.putExtra("Obj", gson.toJson(info));
                         myIntent.putExtra("selfToken", selfToken);
                         myIntent.putExtra("type", 1);
                         activity.startActivity(myIntent);
@@ -120,6 +120,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<edu.purdue.a307.b
                         activity.startActivity(myIntent);
                     }
                 });
+                break;
         }
 
 
