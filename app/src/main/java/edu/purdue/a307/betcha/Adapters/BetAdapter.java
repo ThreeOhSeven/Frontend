@@ -146,15 +146,15 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                                     builder.setMessage("Which side won?");
                                     builder.setTitle("Completing Bet");
-                                    builder.setPositiveButton(info.getSideB(), new DialogInterface.OnClickListener() {
+                                    builder.setPositiveButton(info.getSideA(), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
-                                            BDialog.confirmBet(activity, info.getSideB(), new AlertDialogListener() {
+                                            BDialog.confirmBet(activity, info.getSideA(), new AlertDialogListener() {
                                                 @Override
                                                 public void onPositive() {
                                                     String authToken = SharedPrefsHelper.getSelfToken(activity);
                                                     ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
-                                                            String.valueOf(info.getId()), "1")).enqueue(new Callback<BetchaResponse>() {
+                                                            String.valueOf(info.getId()), "0")).enqueue(new Callback<BetchaResponse>() {
                                                         @Override
                                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                                             if (response.code() != 200) {
@@ -182,15 +182,15 @@ public class BetAdapter extends RecyclerView.Adapter<BetAdapter.MyViewHolder> {
                                             });
                                         }
                                     });
-                                    builder.setNegativeButton(info.getSideA(), new DialogInterface.OnClickListener() {
+                                    builder.setNegativeButton(info.getSideB(), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(final DialogInterface dialogInterface, int i) {
-                                            BDialog.confirmBet(activity, info.getSideA(), new AlertDialogListener() {
+                                            BDialog.confirmBet(activity, info.getSideB(), new AlertDialogListener() {
                                                 @Override
                                                 public void onPositive() {
                                                     String authToken = SharedPrefsHelper.getSelfToken(activity);
                                                     ApiHelper.getInstance(activity).completeBet(new CompleteBetRequest(authToken,
-                                                            String.valueOf(info.getId()), "0")).enqueue(new Callback<BetchaResponse>() {
+                                                            String.valueOf(info.getId()), "1")).enqueue(new Callback<BetchaResponse>() {
                                                         @Override
                                                         public void onResponse(Call<BetchaResponse> call, Response<BetchaResponse> response) {
                                                             if (response.code() != 200) {
