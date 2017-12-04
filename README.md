@@ -1,6 +1,6 @@
 # Betcha - Frontend
 
-This applications was built by Team 19 for CS 307 - Software Engineering at Purdue University.
+Betcha is a custom, social betting application that was built by Team 19 for CS 307 - Software Engineering at Purdue University. The corresponding backend can be found in this [repository](https://github.com/ThreeOhSeven/Backend). Please run the Backend for full functionality. Additional documentation can be found [here](https://github.com/ThreeOhSeven/Documents)
 
 ## Getting Started
 
@@ -9,7 +9,7 @@ To get project locally:
 git clone https://github.com/ThreeOhSeven/Frontend.git
 ```
 
-And open in Android Studio
+Open in Android Studio, build the project, and run it to install on device.
 
 ## Authors
 
